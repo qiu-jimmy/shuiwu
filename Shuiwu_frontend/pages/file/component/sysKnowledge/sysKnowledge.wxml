@@ -1,0 +1,65 @@
+<!--pages/file/component/sysKnowledge/sysKnowledge.wxml-->
+<view class="sys-knowledge-container">
+  <!-- 筛选区域 -->
+  <view class="filter-container">
+    <!-- 分类选择 -->
+    <view class="filter-section">
+      <category-selector 
+        class="category-selector"
+        label="分类："
+        placeholder="请选择分类"
+        value="{{selectedCategory}}"
+        bind:change="onCategoryChange">
+      </category-selector>
+    </view>
+    
+    <!-- 知识库数量 -->
+    <view class="filter-count-section">
+      <text class="filter-label">知识库数：</text>
+      <text class="filter-count">{{categoryCount}}</text>
+    </view>
+  </view>
+
+  <!-- 文件列表 -->
+  <view class="file-list">
+  <view class="file-card" wx:for="{{sysKnowledgeList}}" wx:key="id" bindtap="onKnowledgeCardTap" data-kbName="{{item.kb_name}}" data-index="{{index}}">
+    <image class="file-icon" 
+           src="{{ossUrl}}/images/filetype/FileType.png" 
+           mode="aspectFit"></image>
+    <view class="file-info">
+      <!-- 第一层：知识库名 -->
+      <text class="file-name">{{item.kb_name}}</text>
+      <!-- 第二层：知识库解释  -->
+      <view class="file-desc">{{item.description}}</view>
+      <!-- 第三层：文档数和类型  -->
+      <view style="display:flex">
+      <text class="file-doc-count" style="margin-right:15rpx">类型：{{item.type_name || item.type_id}}</text>
+      <text class="file-doc-count">文档数：{{item.document_count}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+  <!-- 文档列表弹窗 -->
+<view class="doc-modal" wx:if="{{showDocModal}}" bindtap="onCloseDocModal">
+  <view class="doc-modal-content" catchtap="stopPropagation">
+    <view class="doc-modal-header">
+      <text class="doc-modal-title">{{currentKbName}}</text>
+      <view class="doc-modal-close" bindtap="onCloseDocModal">
+        <text class="close-icon">×</text>
+      </view>
+    </view>
+    <view class="doc-modal-body">
+      <view class="doc-count-info">
+        <text class="doc-count-text">共 {{totalDocuments}} 个文档</text>
+      </view>
+      <!-- 只展示前 5 条文档 -->
+      <file-list fileList="{{visibleDocumentList}}" allowSwipeDelete="{{false}}" bind:filetap="onDocumentTap" bind:listchange="onDocumentListChange"></file-list>
+      <!-- 提示还有更多文档被隐藏 -->
+      <view class="doc-more-tip" wx:if="{{hasMoreDocuments}}">
+        <text class="doc-more-text">仅展示前 5 个文档，更多内容已为你隐藏</text>
+      </view>
+    </view>
+  </view>
+</view>
+</view>

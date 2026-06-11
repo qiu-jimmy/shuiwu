@@ -1,0 +1,150 @@
+/* pages/file/component/fileList/fileList.wxss */
+
+/* ==================== 文件列表 ==================== */
+.file-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.file-item-wrapper {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+}
+
+.file-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 30rpx 0 30rpx 20rpx;
+  background-color: #fff;
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  gap: 20rpx;
+  box-sizing: border-box;
+  position: relative;
+  overflow: visible;
+  transition: transform 0.3s ease;
+  z-index: 1;
+}
+
+.delete-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 160rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: #FF4444;
+  font-size: 28rpx;
+  font-weight: 500;
+  z-index: 0;
+}
+
+.file-icon {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 8rpx;
+  flex-shrink: 0;
+}
+
+.file-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  padding-right: 120rpx;
+  box-sizing: border-box;
+}
+
+.file-name {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #333;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  width: 400rpx;
+}
+
+.file-meta {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.file-category {
+  font-size: 24rpx;
+  color: #999;
+  line-height: 1.4;
+}
+
+.file-separator {
+  font-size: 24rpx;
+  color: #999;
+  line-height: 1.4;
+}
+
+.file-size {
+  font-size: 24rpx;
+  color: #999;
+  line-height: 1.4;
+}
+
+.file-time {
+  font-size: 24rpx;
+  color: #999;
+  line-height: 1.4;
+}
+
+.file-type {
+  font-size: 24rpx;
+  padding: 8rpx 10rpx 8rpx 20rpx;
+  flex-shrink: 0;
+  position: absolute;
+  right: 0;
+  top: calc(25%);
+  transform: translateY(-50%);
+  margin-right: 0;
+  width: 100rpx;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* PDF 类型样式 - 红色文字，浅红色背景，左边圆形，右边贴在容器边框 */
+.file-type-pdf {
+  color: #FF4444;
+  background-color: #FFE5E5;
+  border-top-left-radius: 20rpx;
+  border-bottom-left-radius: 20rpx;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* DOCX 类型样式 - 蓝色文字，浅蓝色背景，左边圆形，右边贴在容器边框 */
+.file-type-docx {
+  color: #3B55F3;
+  background-color: #E5EBFF;
+  border-top-left-radius: 20rpx;
+  border-bottom-left-radius: 20rpx;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* 其他类型样式 - 灰色文字，浅灰色背景，左边圆形，右边贴在容器边框 */
+.file-type-other {
+  color: #999;
+  background-color: #F5F5F5;
+  border-top-left-radius: 20rpx;
+  border-bottom-left-radius: 20rpx;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}

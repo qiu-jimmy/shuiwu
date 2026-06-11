@@ -1,0 +1,171 @@
+<!-- invoicePenetration.wxml — 发票穿透报告页面模板
+     流程：输入企业信息 → 获取授权链接 → 前往H5授权 → 轮询状态 → 预览报告
+-->
+<view class="page">
+  <view class="ai-notice">内容由AI生成，仅供参考</view>
+
+  <!-- Card 1：授权流程 -->
+  <view class="card">
+    <view class="section-title">发票穿透报告</view>
+
+    <!-- 企业名称输入 -->
+    <view class="form-row">
+      <text class="form-label">企业名称 <text class="form-label-required">*</text></text>
+      <t-input
+        class="form-input"
+        placeholder="请输入企业名称"
+        value="{{taxpayerName}}"
+        bindchange="onTaxpayerNameInput"
+        clearable
+      />
+    </view>
+
+    <!-- 纳税人识别号输入 -->
+    <view class="form-row">
+      <text class="form-label">纳税人识别号 <text class="form-label-required">*</text></text>
+      <t-input
+        class="form-input"
+        placeholder="请输入纳税人识别号（税号）"
+        value="{{taxpayerNo}}"
+        bindchange="onTaxpayerNoInput"
+        clearable
+      />
+    </view>
+
+    <!-- Step 1：获取授权链接按钮（未获取时显示） -->
+    <t-button
+      wx:if="{{!authFetched}}"
+      size="large"
+      theme="primary"
+      block
+      loading="{{fetchingAuth}}"
+      disabled="{{fetchingAuth || !taxpayerName || !taxpayerNo}}"
+      bindtap="onGetAuthUrl"
+    >
+      获取授权链接
+    </t-button>
+
+    <!-- Step 2：已获取授权链接，展示"前往授权"按钮 -->
+    <view wx:if="{{authFetched && initialUrl}}" class="auth-ready-block">
+      <view class="order-tip-row">
+        <text class="order-tip-label">订单号：</text>
+        <text class="order-tip-value">{{orderNo}}</text>
+      </view>
+      <t-button size="large" theme="primary" block bindtap="onGoAuthorize">
+        前往税局授权 →
+      </t-button>
+      <view class="auth-hint-row">
+        <text class="auth-hint">请在授权页完成税局账号授权，授权后系统将自动生成发票穿透报告</text>
+      </view>
+      <!-- 重新获取入口 -->
+      <text class="re-fetch-btn" bindtap="onResetAuth">重新获取授权链接</text>
+    </view>
+
+    <!-- 当前状态行 -->
+    <view class="status-line">
+      <text class="status-label">当前状态：</text>
+      <text class="status-pill status-pill--{{currentStatus || 'idle'}}">
+        {{polling ? '生成中...' : currentStatusText}}
+      </text>
+      <text
+        class="link-btn {{orderNo ? '' : 'link-btn--disabled'}}"
+        bindtap="onRefreshStatus"
+      >刷新状态</text>
+    </view>
+  </view>
+
+  <!-- Card 2：当前报告详情（有数据后显示） -->
+  <view class="card" wx:if="{{currentStatusInfo}}">
+    <view class="section-head">
+      <text class="section-title">当前报告</text>
+      <text class="section-subtitle">{{currentStatusInfo.company_name || taxpayerName || '--'}}</text>
+    </view>
+
+    <view class="kv-grid">
+      <view class="kv-item">
+        <text class="kv-label">订单号</text>
+        <text class="kv-value">{{currentStatusInfo.order_no || orderNo || '--'}}</text>
+      </view>
+      <view class="kv-item">
+        <text class="kv-label">税号</text>
+        <text class="kv-value">{{currentStatusInfo.taxpayer_no || taxpayerNo || '--'}}</text>
+      </view>
+      <view class="kv-item">
+        <text class="kv-label">状态</text>
+        <text class="kv-value">{{currentStatusText}}</text>
+      </view>
+      <view class="kv-item">
+        <text class="kv-label">创建时间</text>
+        <text class="kv-value">{{currentStatusInfo.created_at || '--'}}</text>
+      </view>
+      <view class="kv-item">
+        <text class="kv-label">完成时间</text>
+        <text class="kv-value">{{currentStatusInfo.completed_at || '--'}}</text>
+      </view>
+    </view>
+
+    <view class="action-row" wx:if="{{reportUrl}}">
+      <t-button size="small" theme="primary" variant="outline" bindtap="onOpenReportUrl">
+        预览报告
+      </t-button>
+      <t-button size="small" theme="default" variant="outline" bindtap="onCopyReportUrl">
+        复制链接
+      </t-button>
+    </view>
+  </view>
+
+  <!-- Card 3：历史报告列表 -->
+  <view class="card">
+    <view class="section-head">
+      <text class="section-title">历史报告</text>
+      <text class="link-btn" bindtap="onRefreshList">刷新列表</text>
+    </view>
+
+    <view class="filter-row">
+      <view
+        wx:for="{{statusTabs}}"
+        wx:key="value"
+        class="filter-chip {{statusFilter === item.value ? 'filter-chip--active' : ''}}"
+        data-status="{{item.value}}"
+        bindtap="onStatusFilterTap"
+      >
+        {{item.label}}
+      </view>
+    </view>
+
+    <view class="loading-tip" wx:if="{{listLoading}}">列表加载中...</view>
+
+    <view class="list-wrap" wx:if="{{!listLoading && reports.length}}">
+      <view
+        class="report-item"
+        wx:for="{{reports}}"
+        wx:key="id"
+        data-order-no="{{item.order_no}}"
+        data-status="{{item.status}}"
+        bindtap="onSelectReport"
+      >
+        <view class="item-head">
+          <text class="item-name">{{item.company_name || '--'}}</text>
+          <text class="item-status item-status--{{item.statusClass}}">{{item.statusText}}</text>
+        </view>
+        <text class="item-line">税号：{{item.taxpayer_no || '--'}}</text>
+        <text class="item-line">订单号：{{item.order_no || '--'}}</text>
+        <text class="item-line">创建时间：{{item.created_at || '--'}}</text>
+      </view>
+    </view>
+
+    <view class="empty-tip" wx:if="{{!listLoading && !reports.length}}">暂无报告记录</view>
+
+    <t-button
+      wx:if="{{hasMore && !listLoading}}"
+      size="small"
+      theme="primary"
+      variant="outline"
+      block
+      loading="{{loadingMore}}"
+      bindtap="onLoadMore"
+    >
+      加载更多
+    </t-button>
+  </view>
+</view>

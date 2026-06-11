@@ -1,0 +1,254 @@
+<!--pages/index/detailsPage/detailsPage.wxml-->
+<!-- 案例详情展示 -->
+<view class="container" wx:if="{{detail && dataType === 'cases'}}">
+  <!-- 案例标题和类型 -->
+  <view class="case-header">
+    <view class="case-type-tag">{{detail.caseType}}</view>
+    <text class="case-title">{{detail.caseTitle}}</text>
+  </view>
+
+  <!-- 案例摘要 -->
+  <view class="section">
+    <view class="section-title">案例摘要</view>
+    <text class="section-content">{{detail.caseSummary}}</text>
+  </view>
+
+  <!-- 案例详情 -->
+  <view class="section">
+    <view class="section-title">案例详情</view>
+    <text class="section-content">{{detail.caseDetails}}</text>
+  </view>
+
+  <!-- 案例结果 -->
+  <view class="section">
+    <view class="section-title">案例结果</view>
+    <text class="section-content">{{detail.caseResult}}</text>
+  </view>
+
+  <!-- 案例启示 -->
+  <view class="section" wx:if="{{detail.caseLessons && detail.caseLessons.length > 0}}">
+    <view class="section-title">案例启示</view>
+    <view class="lessons-list">
+      <view class="lesson-item" wx:for="{{detail.caseLessons}}" wx:key="index">
+        <text class="lesson-text">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 相关法律 -->
+  <view class="section" wx:if="{{detail.relatedLaws && detail.relatedLaws.length > 0}}">
+    <view class="section-title">相关法律</view>
+    <view class="laws-list">
+      <view class="law-item" wx:for="{{detail.relatedLaws}}" wx:key="lawName">
+        <text class="law-name">{{item.lawName}}</text>
+        <view class="law-articles">
+          <view class="article-item" wx:for="{{item.keyArticles}}" wx:key="index" wx:for-item="article">
+            <text class="article-text">{{article}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 法律知识详情展示 -->
+<view class="container" wx:if="{{detail && (dataType === 'laws' || dataType === 'knowledge')}}">
+  <!-- 法律标题和类型 -->
+  <view class="case-header">
+    <view class="case-type-tag">{{detail.docType || detail.caseType}}</view>
+    <text class="case-title">{{detail.lawName || detail.noticeName || detail.caseTitle}}</text>
+  </view>
+
+  <!-- 案例摘要/详情（接口返回案例型知识时展示） -->
+  <view class="section" wx:if="{{detail.caseSummary}}">
+    <view class="section-title">案例摘要</view>
+    <text class="section-content">{{detail.caseSummary}}</text>
+  </view>
+  <view class="section" wx:if="{{detail.caseDetails}}">
+    <view class="section-title">案例详情</view>
+    <text class="section-content">{{detail.caseDetails}}</text>
+  </view>
+  <view class="section" wx:if="{{detail.caseResult}}">
+    <view class="section-title">案例结果</view>
+    <text class="section-content">{{detail.caseResult}}</text>
+  </view>
+
+  <!-- 发布信息 -->
+  <view class="section" wx:if="{{detail.promulgationAnnouncement}}">
+    <view class="section-title">发布公告</view>
+    <view class="law-info-item">
+      <text class="info-label">公告号：</text>
+      <text class="info-content">{{detail.promulgationAnnouncement.announcementNo}}</text>
+    </view>
+    <view class="law-info-item">
+      <text class="info-label">发布单位：</text>
+      <text class="info-content">{{detail.promulgationAnnouncement.announcementIssuer}}</text>
+    </view>
+    <view class="law-info-item">
+      <text class="info-label">发布日期：</text>
+      <text class="info-content">{{detail.promulgationAnnouncement.announcementDate}}</text>
+    </view>
+    <text class="section-content" style="margin-top: 20rpx;">{{detail.promulgationAnnouncement.announcementContent}}</text>
+  </view>
+
+  <!-- 通知信息 -->
+  <view class="section" wx:if="{{detail.promulgationInfo}}">
+    <view class="section-title">通知信息</view>
+    <view class="law-info-item">
+      <text class="info-label">通知号：</text>
+      <text class="info-content">{{detail.promulgationInfo.noticeNo}}</text>
+    </view>
+    <view class="law-info-item">
+      <text class="info-label">发布单位：</text>
+      <text class="info-content">{{detail.promulgationInfo.promulgationUnit}}</text>
+    </view>
+    <view class="law-info-item">
+      <text class="info-label">发布日期：</text>
+      <text class="info-content">{{detail.promulgationInfo.promulgationDate}}</text>
+    </view>
+    <text class="section-content" style="margin-top: 20rpx;">{{detail.promulgationInfo.noticePreface}}</text>
+  </view>
+
+  <!-- 时间信息 -->
+  <view class="section" wx:if="{{detail.timeInfo}}">
+    <view class="section-title">时间信息</view>
+    <view class="law-info-item" wx:if="{{detail.timeInfo.approvalDate}}">
+      <text class="info-label">批准日期：</text>
+      <text class="info-content">{{detail.timeInfo.approvalDate}}</text>
+    </view>
+    <view class="law-info-item" wx:if="{{detail.timeInfo.promulgationDate}}">
+      <text class="info-label">公布日期：</text>
+      <text class="info-content">{{detail.timeInfo.promulgationDate}}</text>
+    </view>
+    <view class="law-info-item" wx:if="{{detail.timeInfo.effectiveDate}}">
+      <text class="info-label">生效日期：</text>
+      <text class="info-content">{{detail.timeInfo.effectiveDate}}</text>
+    </view>
+    <view class="law-info-item" wx:if="{{detail.timeInfo.activityEndDate}}">
+      <text class="info-label">活动结束日期：</text>
+      <text class="info-content">{{detail.timeInfo.activityEndDate}}</text>
+    </view>
+  </view>
+
+  <!-- 状态信息 -->
+  <view class="section" wx:if="{{detail.lawStatus || detail.noticeStatus}}">
+    <view class="section-title">状态</view>
+    <text class="section-content">{{detail.lawStatus || detail.noticeStatus}}</text>
+  </view>
+
+  <!-- 章节内容（法律法规） -->
+  <view class="section" wx:if="{{detail.chapters && detail.chapters.length > 0}}">
+    <view class="section-title">全文内容</view>
+    <view class="chapters-list">
+      <view class="chapter-item" wx:for="{{detail.chapters}}" wx:key="chapterName">
+        <text class="chapter-name">{{item.chapterName}}</text>
+        <view class="articles-list">
+          <view class="article-item" wx:for="{{item.articles}}" wx:key="articleNo">
+            <text class="article-no">{{item.articleNo}}</text>
+            <text class="article-content">{{item.articleContent}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 内容章节（通知通报） -->
+  <view class="section" wx:if="{{detail.contentSections && detail.contentSections.length > 0}}">
+    <view class="section-title">内容详情</view>
+    <view class="content-sections-list">
+      <view class="content-section-item" wx:for="{{detail.contentSections}}" wx:key="sectionTitle">
+        <text class="content-section-title">{{item.sectionTitle}}</text>
+        <view class="subsections-list">
+          <view class="subsection-item" wx:for="{{item.subsections}}" wx:key="index">
+            <text class="subsection-title" wx:if="{{item.subsectionTitle}}">{{item.subsectionTitle}}</text>
+            <text class="subsection-content">{{item.subsectionContent}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 备注 -->
+  <view class="section" wx:if="{{detail.remark}}">
+    <view class="section-title">备注</view>
+    <text class="section-content">{{detail.remark}}</text>
+  </view>
+
+  <!-- 补充信息 -->
+  <view class="section" wx:if="{{detail.supplementaryInfo}}">
+    <view class="section-title">补充信息</view>
+    <view class="supplementary-info">
+      <view class="law-info-item" wx:if="{{detail.supplementaryInfo.relevantAnniversary}}">
+        <text class="info-label">相关纪念日：</text>
+        <text class="info-content">{{detail.supplementaryInfo.relevantAnniversary}}</text>
+      </view>
+      <view class="law-info-item" wx:if="{{detail.supplementaryInfo.longMarchPassedAreas}}">
+        <text class="info-label">长征途经地区：</text>
+        <text class="info-content">{{detail.supplementaryInfo.longMarchPassedAreas}}</text>
+      </view>
+      <text class="section-content" wx:if="{{detail.supplementaryInfo.longMarchSpiritConnotation}}" style="margin-top: 20rpx;">
+        <text class="info-label">长征精神内涵：</text>
+        {{detail.supplementaryInfo.longMarchSpiritConnotation}}
+      </text>
+    </view>
+  </view>
+</view>
+
+<!-- 票务知识详情展示 -->
+<view class="container" wx:if="{{detail && dataType === 'ticket'}}">
+  <!-- 票务知识标题和类型 -->
+  <view class="case-header">
+    <view class="case-type-tag">{{detail.docType}}</view>
+    <text class="case-title">{{detail.interpretName}}</text>
+  </view>
+
+  <!-- 发布信息 -->
+  <view class="section" wx:if="{{detail.promulgationInfo}}">
+    <view class="section-title">发布信息</view>
+    <view class="law-info-item" wx:if="{{detail.promulgationInfo.issuer}}">
+      <text class="info-label">发布单位：</text>
+      <text class="info-content">{{detail.promulgationInfo.issuer}}</text>
+    </view>
+    <view class="law-info-item" wx:if="{{detail.promulgationInfo.publishDate}}">
+      <text class="info-label">发布日期：</text>
+      <text class="info-content">{{detail.promulgationInfo.publishDate}}</text>
+    </view>
+    <view class="law-info-item" wx:if="{{detail.promulgationInfo.sourceUrl}}">
+      <text class="info-label">来源链接：</text>
+      <text class="info-content">{{detail.promulgationInfo.sourceUrl}}</text>
+    </view>
+    <text class="section-content" wx:if="{{detail.promulgationInfo.preface}}" style="margin-top: 20rpx;">{{detail.promulgationInfo.preface}}</text>
+  </view>
+
+  <!-- 状态信息 -->
+  <view class="section" wx:if="{{detail.interpretStatus}}">
+    <view class="section-title">状态</view>
+    <text class="section-content">{{detail.interpretStatus}}</text>
+  </view>
+
+  <!-- 内容章节 -->
+  <view class="section" wx:if="{{detail.contentSections && detail.contentSections.length > 0}}">
+    <view class="section-title">内容详情</view>
+    <view class="content-sections-list">
+      <view class="content-section-item" wx:for="{{detail.contentSections}}" wx:key="sectionTitle">
+        <text class="content-section-title">{{item.sectionTitle}}</text>
+        <view class="subsections-list">
+          <view class="subsection-item" wx:for="{{item.subsections}}" wx:key="index">
+            <text class="subsection-title" wx:if="{{item.subsectionTitle}}">{{item.subsectionTitle}}</text>
+            <text class="subsection-content">{{item.subsectionContent}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 备注 -->
+  <view class="section" wx:if="{{detail.remark}}">
+    <view class="section-title">备注</view>
+    <text class="section-content">{{detail.remark}}</text>
+  </view>
+</view>
+
+<view class="empty-state" wx:if="{{!detail}}">
+  <text>加载中...</text>
+</view>

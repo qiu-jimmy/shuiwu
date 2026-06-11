@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "category-selector": "/pages/file/component/categorySelector/categorySelector",
+    "add-knowledge": "/pages/file/component/addKnowledge/addKnowledge",
+    "sys-knowledge": "/pages/file/component/sysKnowledge/sysKnowledge",
+    "my-knowledge": "/pages/file/component/myKnowledge/myKnowledge",
+    "file-list": "/pages/file/component/fileList/fileList",
+    "t-icon": "tdesign-miniprogram/icon/icon"
+  }
+}

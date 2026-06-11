@@ -1,0 +1,19 @@
+<!--pages/file/component/categorySelector/categorySelector.wxml-->
+<view class="category-selector">
+  <view class="selector-trigger" bindtap="onTriggerTap">
+    <text class="selector-label">{{label}}</text>
+    <text class="selector-value {{!selectedValue || selectedValue === placeholder ? 'placeholder' : ''}}">
+      {{selectedValue || placeholder}}
+    </text>
+    <text class="selector-arrow"></text>
+  </view>
+  
+  <!-- 分类选择器 -->
+  <category-picker 
+    show="{{showPicker}}"
+    options="{{categoryList}}"
+    selectedValue="{{selectedValue}}"
+    bind:close="onPickerClose"
+    bind:select="onPickerSelect">
+  </category-picker>
+</view>

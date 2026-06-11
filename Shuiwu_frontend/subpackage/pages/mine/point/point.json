@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "t-loading": "tdesign-miniprogram/loading/loading",
+    "t-empty": "tdesign-miniprogram/empty/empty",
+    "t-tag": "tdesign-miniprogram/tag/tag"
+  },
+  "navigationBarTitleText": "积分"
+}

@@ -1,0 +1,36 @@
+<!--pages/file/add/add.wxml-->
+<view class="container">
+  <!-- 文件上传区域 -->
+  <view class="form-section">
+    <view class="form-label">上传文件</view>
+    <view class="upload-container">
+      <!-- 已上传的文件列表 -->
+      <view class="file-list" wx:if="{{fileList.length > 0}}">
+        <view class="file-item" wx:for="{{fileList}}" wx:key="index">
+          <view class="file-info">
+            <image class="file-icon" src="{{ossUrl}}/images/filetype/FileType{{item.type === 'DOCX' ? '1' : (item.type === 'PDF' ? '2' : '3')}}.png" mode="aspectFit"></image>
+            <view class="file-details">
+              <text class="file-name">{{item.displayName || item.name}}</text>
+              <text class="file-size">{{item.size}}</text>
+            </view>
+          </view>
+          <view class="file-delete" catchtap="onDeleteFile" data-index="{{index}}">
+            <text class="delete-icon">×</text>
+          </view>
+        </view>
+      </view>
+      
+      <!-- 上传按钮 -->
+      <view class="upload-area" bindtap="onChooseFile">
+        <image class="upload-icon" src="{{ossUrl}}/images/add.png" mode="aspectFit"></image>
+        <text class="upload-text">点击上传文件</text>
+        <text class="upload-hint">支持 PDF、DOCX 等格式</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-section">
+    <button class="submit-btn" bindtap="onSubmit" disabled="{{!canSubmit}}">提交</button>
+  </view>
+</view>

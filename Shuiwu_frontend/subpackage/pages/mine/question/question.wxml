@@ -1,0 +1,100 @@
+<!-- pages/mine/question/question.wxml -->
+<view class="page">
+  <view class="section">
+    <view class="section-title">问题反馈</view>
+    <view class="card form-card">
+      <t-cell-group class="form-group">
+        <t-cell
+          title="问题类型"
+          note="{{selectedTypeLabel}}"
+          arrow
+          bind:click="onTypePickerOpen"
+        />
+      </t-cell-group>
+
+      <view class="form-field">
+        <t-textarea
+          label="问题说明"
+          value="{{description}}"
+          placeholder="请描述具体问题，便于我们更快处理"
+          maxlength="200"
+          indicator
+          bordered
+          autosize
+          bind:change="onDescriptionChange"
+        />
+      </view>
+
+      <t-button
+        theme="primary"
+        block
+        loading="{{submitting}}"
+        disabled="{{submitDisabled}}"
+        bind:tap="onSubmit"
+      >
+        提交问题
+      </t-button>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title">已提交的问题</view>
+    <view class="card list-card">
+      <view class="filter-tabs">
+        <t-tabs value="{{activeStatus}}" theme="line" bind:change="onStatusChange">
+          <t-tab-panel value="all" label="全部" />
+          <t-tab-panel value="pending" label="待处理" />
+          <t-tab-panel value="processing" label="处理中" />
+          <t-tab-panel value="resolved" label="已解决" />
+          <t-tab-panel value="closed" label="已关闭" />
+        </t-tabs>
+      </view>
+      <view wx:if="{{listLoading && !questions.length}}" class="loading-block">
+        <t-loading size="36rpx" />
+        <text class="loading-text">加载中...</text>
+      </view>
+      <view wx:elif="{{questions.length}}">
+        <block wx:for="{{questions}}" wx:key="feedback_id">
+          <view class="question-item">
+            <view class="question-header">
+              <text class="question-type">{{item.typeLabel}}</text>
+              <t-tag size="small" variant="light" theme="{{item.statusTheme}}">
+                {{item.statusLabel}}
+              </t-tag>
+            </view>
+            <view class="question-desc">{{item.content || '暂无描述'}}</view>
+            <view wx:if="{{item.adminReply}}" class="reply-block">
+              <text class="reply-title">管理员回复</text>
+              <text class="reply-content">{{item.adminReply}}</text>
+              <text wx:if="{{item.repliedLabel}}" class="reply-time">回复时间：{{item.repliedLabel}}</text>
+            </view>
+            <view class="question-meta">
+              <text class="question-time">{{item.createdLabel}}</text>
+            </view>
+          </view>
+        </block>
+        <view wx:if="{{listLoading && questions.length}}" class="loading-more">
+          <t-loading size="32rpx" />
+          <text class="loading-text">加载更多</text>
+        </view>
+        <view wx:elif="{{!hasMore}}" class="no-more">没有更多记录了</view>
+      </view>
+      <view wx:else class="empty-block">
+        <t-empty description="暂无问题反馈" />
+      </view>
+    </view>
+  </view>
+</view>
+
+<t-picker
+  visible="{{typePickerVisible}}"
+  value="{{typePickerValue}}"
+  title="选择问题类型"
+  confirm-btn="确定"
+  cancel-btn="取消"
+  bind:confirm="onTypePickerConfirm"
+  bind:cancel="onTypePickerCancel"
+  bind:close="onTypePickerClose"
+>
+  <t-picker-item options="{{questionTypes}}" />
+</t-picker>

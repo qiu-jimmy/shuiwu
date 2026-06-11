@@ -1,0 +1,64 @@
+.ai-notice {
+  text-align: center;
+  font-size: 20rpx;
+  color: #999;
+  padding: 16rpx 0;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 32rpx 24rpx;
+  box-sizing: border-box;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  box-shadow: 0 16rpx 32rpx rgba(20, 30, 50, 0.08);
+}
+
+.file-name {
+  display: block;
+  margin-top: 16rpx;
+  font-size: 24rpx;
+  color: #5c6371;
+  word-break: break-all;
+}
+
+.output-card {
+  margin-top: 24rpx;
+}
+
+.output-title {
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.output-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+
+.copy-action {
+  font-size: 28rpx;
+  color: #2f6fff;
+}
+
+.output-box {
+  height: 60vh;
+  padding: 16rpx;
+  background: #f8fafc;
+  border-radius: 8rpx;
+  border: 2rpx solid rgba(26, 31, 43, 0.08);
+  box-sizing: border-box;
+}
+
+.output-text {
+  font-size: 26rpx;
+  line-height: 1.6;
+  color: #1f2a3a;
+  white-space: pre-wrap;
+}

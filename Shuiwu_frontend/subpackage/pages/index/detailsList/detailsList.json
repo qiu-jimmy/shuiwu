@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "知识科普",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 100,
+  "usingComponents": {}
+}

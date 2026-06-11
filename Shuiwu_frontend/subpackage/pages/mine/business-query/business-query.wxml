@@ -1,0 +1,184 @@
+<!--pages/mine/business-query/business-query.wxml-->
+<view class="container">
+  <!-- 列表 -->
+  <view class="declaration-list" wx:if="{{!isEmpty}}">
+    <view class="declaration-item" wx:for="{{declarations}}" wx:key="id" bindtap="onDeclarationTap" data-index="{{index}}">
+      <view class="item-header">
+        <view class="item-title-row">
+          <text class="declaration-no">申报编号：{{item.declaration_no}}</text>
+          <text class="status-tag {{item.statusClass}}">{{item.statusText}}</text>
+        </view>
+        <text class="declaration-date">{{item.formattedDate}}</text>
+      </view>
+      
+      <view class="item-body">
+        <view class="info-row">
+          <text class="info-label">商户名称：</text>
+          <text class="info-value">{{item.business_name}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">申报类型：</text>
+          <text class="info-value">{{item.declarationTypeText}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">经营者：</text>
+          <text class="info-value">{{item.operator_name}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">联系电话：</text>
+          <text class="info-value">{{item.operator_phone}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{isEmpty && !loading}}">
+    <image class="empty-icon" src="{{ossUrl}}/images/nothing.png" mode="aspectFit"></image>
+    <text class="empty-text">暂无申报记录</text>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading-state" wx:if="{{loading && declarations.length === 0}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- 加载更多提示 -->
+  <view class="load-more" wx:if="{{!hasMore && declarations.length > 0}}">
+    <text class="load-more-text">没有更多数据了</text>
+  </view>
+
+  <!-- 详情弹窗 -->
+  <view class="detail-modal" wx:if="{{showDetailModal}}" bindtap="closeDetailModal">
+    <view class="detail-modal-content" catchtap="stopPropagation">
+      <view class="detail-modal-header">
+        <text class="detail-modal-title">申报详情</text>
+        <view class="detail-modal-close" bindtap="closeDetailModal">
+          <text class="close-icon">×</text>
+        </view>
+      </view>
+      
+      <scroll-view class="detail-modal-body" scroll-y="true" wx:if="{{!detailLoading && declarationDetail}}">
+        <!-- 基本信息 -->
+        <view class="detail-section">
+          <view class="detail-section-title">基本信息</view>
+          <view class="detail-info-item">
+            <text class="detail-info-label">申报编号：</text>
+            <text class="detail-info-value">{{declarationDetail.declaration_no}}</text>
+          </view>
+          <view class="detail-info-item">
+            <text class="detail-info-label">商户名称：</text>
+            <text class="detail-info-value">{{declarationDetail.business_name}}</text>
+          </view>
+          <view class="detail-info-item" wx:if="{{declarationDetail.business_license_no}}">
+            <text class="detail-info-label">营业执照号：</text>
+            <text class="detail-info-value">{{declarationDetail.business_license_no}}</text>
+          </view>
+          <view class="detail-info-item" wx:if="{{declarationDetail.business_address}}">
+            <text class="detail-info-label">经营地址：</text>
+            <text class="detail-info-value">{{declarationDetail.business_address}}</text>
+          </view>
+          <view class="detail-info-item" wx:if="{{declarationDetail.business_type}}">
+            <text class="detail-info-label">商户类型：</text>
+            <text class="detail-info-value">{{declarationDetail.business_type}}</text>
+          </view>
+          <view class="detail-info-item" wx:if="{{declarationDetail.business_scope}}">
+            <text class="detail-info-label">经营范围：</text>
+            <text class="detail-info-value">{{declarationDetail.business_scope}}</text>
+          </view>
+          <view class="detail-info-item">
+            <text class="detail-info-label">经营者：</text>
+            <text class="detail-info-value">{{declarationDetail.operator_name}}</text>
+          </view>
+          <view class="detail-info-item" wx:if="{{declarationDetail.operator_id_card}}">
+            <text class="detail-info-label">身份证号：</text>
+            <text class="detail-info-value">{{declarationDetail.operator_id_card}}</text>
+          </view>
+          <view class="detail-info-item">
+            <text class="detail-info-label">联系电话：</text>
+            <text class="detail-info-value">{{declarationDetail.operator_phone}}</text>
+          </view>
+          <view class="detail-info-item">
+            <text class="detail-info-label">申报类型：</text>
+            <text class="detail-info-value">{{declarationDetail.declarationTypeText}}</text>
+          </view>
+        </view>
+
+        <!-- 申报信息 -->
+        <view class="detail-section" wx:if="{{declarationDetail.declarationInfoList && declarationDetail.declarationInfoList.length > 0}}">
+          <view class="detail-section-title">申报信息</view>
+          <view class="detail-info-item" wx:for="{{declarationDetail.declarationInfoList}}" wx:key="label">
+            <text class="detail-info-label">{{item.label}}：</text>
+            <text class="detail-info-value">{{item.value}}</text>
+          </view>
+        </view>
+
+        <!-- 处理信息 -->
+        <view class="detail-section">
+          <view class="detail-section-title">处理信息</view>
+          <view class="detail-info-item">
+            <text class="detail-info-label">状态：</text>
+            <text class="status-tag {{declarationDetail.statusClass}}">{{declarationDetail.statusText}}</text>
+          </view>
+          <view class="detail-info-item" wx:if="{{declarationDetail.approval_no}}">
+            <text class="detail-info-label">受理号：</text>
+            <text class="detail-info-value">{{declarationDetail.approval_no}}</text>
+          </view>
+          <view class="detail-info-item" wx:if="{{declarationDetail.approval_date}}">
+            <text class="detail-info-label">审批日期：</text>
+            <text class="detail-info-value">{{declarationDetail.formattedApprovalDate}}</text>
+          </view>
+          <view class="detail-info-item" wx:if="{{declarationDetail.approval_proof_url}}">
+            <text class="detail-info-label">批准凭证：</text>
+            <t-button
+              size="small"
+              theme="primary"
+              variant="outline"
+              bind:tap="onPreviewProof"
+              data-url="{{declarationDetail.approval_proof_url}}"
+            >
+              查看凭证
+            </t-button>
+          </view>
+          <view class="detail-info-item" wx:if="{{declarationDetail.process_result}}">
+            <text class="detail-info-label">处理结果：</text>
+            <text class="detail-info-value">{{declarationDetail.process_result}}</text>
+          </view>
+          <view class="detail-info-item" wx:if="{{declarationDetail.processed_by}}">
+            <text class="detail-info-label">处理人：</text>
+            <text class="detail-info-value">管理员</text>
+          </view>
+          <view class="detail-info-item" wx:if="{{declarationDetail.processed_at}}">
+            <text class="detail-info-label">处理时间：</text>
+            <text class="detail-info-value">{{declarationDetail.formattedProcessedAt}}</text>
+          </view>
+          <view class="detail-info-item" wx:if="{{declarationDetail.process_notes}}">
+            <text class="detail-info-label">处理备注：</text>
+            <text class="detail-info-value">{{declarationDetail.process_notes}}</text>
+          </view>
+        </view>
+
+        <!-- 附件信息 -->
+        <view class="detail-section" wx:if="{{declarationDetail.attachments && declarationDetail.attachments.length > 0}}">
+          <view class="detail-section-title">附件</view>
+          <view class="detail-info-item">
+            <text class="detail-info-value">共{{declarationDetail.attachments.length}}个附件</text>
+          </view>
+        </view>
+
+        <!-- 用户备注 -->
+        <view class="detail-section" wx:if="{{declarationDetail.user_remarks}}">
+          <view class="detail-section-title">用户备注</view>
+          <view class="detail-info-item">
+            <text class="detail-info-value">{{declarationDetail.user_remarks}}</text>
+          </view>
+        </view>
+      </scroll-view>
+
+      <!-- 加载中 -->
+      <view class="detail-loading" wx:if="{{detailLoading}}">
+        <text class="loading-text">加载中...</text>
+      </view>
+    </view>
+  </view>
+</view>

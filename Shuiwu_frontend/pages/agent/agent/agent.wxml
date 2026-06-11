@@ -1,0 +1,69 @@
+<!--pages/agent/agent/agent.wxml-->
+<view class="item-bar">
+  <view class="tab">
+    <view class="chat">对话</view>
+  </view>
+  <view class="tabs-action">
+    <block wx:if="{{editMode}}">
+      <t-button theme="default" variant="text" size="small" bind:tap="onClearTap">清空</t-button>
+      <t-button theme="primary" variant="text" size="small" bind:tap="onDoneTap">完成</t-button>
+    </block>
+    <t-button wx:else theme="primary" variant="text" size="small" bind:tap="onEditTap">编辑</t-button>
+  </view>
+</view>
+
+<view class="ai-notice">内容由AI生成，仅供参考</view>
+
+<view class="page">
+  <view class="tab-pane">
+    <view wx:if="{{!chatSections.length}}" class="empty-state">
+      <image class="empty-image" src="{{ossUrl}}/images/AI.png"></image>
+      <view class="empty-desc">快去开启对话吧~</view>
+    </view>
+    <block wx:else>
+      <block wx:for="{{chatSections}}" wx:for-item="section" wx:for-index="sectionIndex" wx:key="title">
+        <text class="section-title">{{section.title}}</text>
+        <view class="section-group">
+        <view
+          class="list-item {{itemIndex === section.items.length - 1 ? 'list-item-last' : ''}}"
+          wx:for="{{section.items}}"
+          wx:for-item="entry"
+          wx:for-index="itemIndex"
+          wx:key="id"
+          data-section="{{sectionIndex}}"
+          data-index="{{itemIndex}}"
+          bind:tap="onSessionTap"
+        >
+            <view class="list-main">
+              <view class="list-row">
+                <text class="list-title">{{entry.title}}</text>
+                <text wx:if="{{!editMode}}" class="list-time">{{entry.time}}</text>
+              </view>
+              <text class="list-subtitle">{{entry.subtitle}}</text>
+            </view>
+            <view wx:if="{{editMode}}" class="list-actions">
+              <view
+                data-section="{{sectionIndex}}"
+                data-index="{{itemIndex}}"
+                bind:tap="onEditItemTap"
+              >
+                <t-icon name="edit-2" size="20" color="#3b55f3" />
+              </view>
+              <view
+                data-section="{{sectionIndex}}"
+                data-index="{{itemIndex}}"
+                bind:tap="onDeleteItemTap"
+              >
+                <t-icon name="delete" size="20" color="#ef4444" />
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </block>
+  </view>
+</view>
+
+<view class="fab" bind:tap="onCreateTap">
+  <image class="fab-icon" src="{{ossUrl}}/images/agent_add.png" mode="aspectFit" />
+</view>

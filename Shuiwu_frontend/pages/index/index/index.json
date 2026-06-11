@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "home-nav": "/pages/index/compent/home_nav/home_nav"
+  }
+}

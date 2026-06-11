@@ -1,0 +1,107 @@
+<!--pages/index/TaxConsultantList/TaxConsultantList.wxml-->
+<view class="container">
+
+  <!-- 顶部操作栏 -->
+  <view class="header-section">
+    <view class="header-content">
+      <view class="header-title">税务师列表</view>
+      <view class="header-subtitle">专业税务服务团队</view>
+    </view>
+    <view class="header-action">
+      <!-- 已是税务师：显示标识 -->
+      <view class="status-badge" wx:if="{{isTaxAccountant}}">
+        <text class="badge-icon">✓</text>
+        <text class="badge-text">已是税务师</text>
+      </view>
+      <!-- 申请中：显示状态 -->
+      <view class="status-badge status-pending" wx:elif="{{applicationStatus === 'pending'}}">
+        <text class="badge-text">审核中</text>
+      </view>
+      <!-- 不是税务师：显示申请按钮 -->
+      <button class="apply-btn" wx:else bindtap="onApplyTap">申请入驻</button>
+    </view>
+  </view>
+
+  <!-- 列表区域 -->
+  <view class="list-section" wx:if="{{accountants.length > 0}}">
+    <view class="accountant-card" wx:for="{{accountants}}" wx:key="accountant_id">
+      <!-- 卡片装饰线 -->
+      <view class="card-accent"></view>
+      
+      <view class="card-content">
+        <!-- 姓名区域 -->
+        <view class="name-section">
+          <view class="name-wrapper">
+            <text class="accountant-name">{{item.real_name || '未设置'}}</text>
+            <view class="name-badge" wx:if="{{item.certificate_number}}">认证</view>
+          </view>
+        </view>
+
+        <!-- 联系方式 -->
+        <view class="contact-section" wx:if="{{item.phone}}">
+          <view class="section-label">
+            <text class="label-icon">📞</text>
+            <text class="label-text">联系方式</text>
+          </view>
+          <view class="phone-group">
+            <text class="phone-number">{{showPhoneMap[item.accountant_id] ? item.phone : item.maskedPhone}}</text>
+            <view class="phone-actions">
+              <view class="action-btn" bindtap="onTogglePhone" data-id="{{item.accountant_id}}">
+                {{showPhoneMap[item.accountant_id] ? '隐藏' : '查看'}}
+              </view>
+              <view class="action-btn" bindtap="onCopyPhone" data-phone="{{item.phone}}">复制</view>
+            </view>
+          </view>
+        </view>
+
+        <!-- 专长领域 -->
+        <view class="specialty-section" wx:if="{{item.specialtyAreaText}}">
+          <view class="section-label">
+            <text class="label-icon">🎯</text>
+            <text class="label-text">专长领域</text>
+          </view>
+          <view class="specialty-tags">
+            <text class="specialty-tag" wx:for="{{item.specialty_area}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+          </view>
+        </view>
+
+        <!-- 证书编号 -->
+        <view class="cert-section" wx:if="{{item.certificate_number}}">
+          <view class="section-label">
+            <text class="label-icon">🏆</text>
+            <text class="label-text">证书编号</text>
+          </view>
+          <text class="cert-number">{{item.certificate_number}}</text>
+        </view>
+
+        <!-- 个人简介 -->
+        <view class="intro-section" wx:if="{{item.introduction}}">
+          <view class="section-label">
+            <text class="label-icon">📝</text>
+            <text class="label-text">个人简介</text>
+          </view>
+          <text class="intro-text">{{item.introduction}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && accountants.length === 0}}">
+    <view class="empty-icon">📋</view>
+    <text class="empty-text">暂无税务师</text>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading-state" wx:if="{{loading && accountants.length === 0}}">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- 加载更多提示 -->
+  <view class="load-more" wx:if="{{!hasMore && accountants.length > 0}}">
+    <view class="load-more-line"></view>
+    <text class="load-more-text">没有更多数据了</text>
+    <view class="load-more-line"></view>
+  </view>
+</view>

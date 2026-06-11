@@ -1,0 +1,288 @@
+/* pages/agent/corporateHealth/corporateHealth.wxss */
+.ai-notice {
+  text-align: center;
+  font-size: 20rpx;
+  color: #999;
+  padding: 16rpx 0;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 24rpx;
+  box-sizing: border-box;
+  background: #f4f6fb;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 10rpx 24rpx rgba(20, 30, 50, 0.08);
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #182132;
+}
+
+.section-title--small {
+  font-size: 26rpx;
+}
+
+.section-subtitle {
+  max-width: 420rpx;
+  text-align: right;
+  font-size: 24rpx;
+  color: #5c6371;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.form-row {
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.form-label {
+  display: block;
+  font-size: 24rpx;
+  color: #5c6371;
+  margin-bottom: 12rpx;
+}
+
+.form-label-optional {
+  color: #a6adb8;
+  font-weight: 400;
+}
+
+.status-line {
+  margin-top: 20rpx;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.status-label {
+  font-size: 24rpx;
+  color: #5c6371;
+}
+
+.status-pill {
+  font-size: 22rpx;
+  line-height: 1;
+  padding: 8rpx 14rpx;
+  border-radius: 999rpx;
+}
+
+.status-pill--idle {
+  color: #6f7786;
+  background: #eef2f9;
+}
+
+.status-pill--pending {
+  color: #9a6a00;
+  background: #fff4db;
+}
+
+.status-pill--success {
+  color: #0f7c46;
+  background: #e7f8ef;
+}
+
+.status-pill--failed {
+  color: #b42318;
+  background: #ffe9e8;
+}
+
+.status-pill--unknown {
+  color: #5c6371;
+  background: #eef2f9;
+}
+
+.link-btn {
+  margin-left: auto;
+  font-size: 24rpx;
+  color: #2f6fff;
+}
+
+.link-btn--disabled {
+  color: #a6adb8;
+}
+
+.kv-grid {
+  margin-top: 16rpx;
+  padding: 16rpx;
+  background: #f8fafc;
+  border: 2rpx solid rgba(26, 31, 43, 0.08);
+  border-radius: 10rpx;
+}
+
+.kv-item {
+  margin-bottom: 12rpx;
+}
+
+.kv-item:last-child {
+  margin-bottom: 0;
+}
+
+.kv-label {
+  display: block;
+  font-size: 22rpx;
+  color: #8b93a5;
+  margin-bottom: 6rpx;
+}
+
+.kv-value {
+  display: block;
+  font-size: 24rpx;
+  color: #1f2a3a;
+  line-height: 1.6;
+  word-break: break-all;
+}
+
+.action-row {
+  margin-top: 16rpx;
+  display: flex;
+  gap: 16rpx;
+}
+
+.action-row t-button {
+  flex: 1;
+}
+
+.detail-block {
+  margin-top: 20rpx;
+}
+
+.json-block {
+  margin-top: 16rpx;
+  padding: 16rpx;
+  border-radius: 10rpx;
+  background: #0f172a;
+}
+
+.json-title {
+  display: block;
+  font-size: 22rpx;
+  color: #cbd5e1;
+  margin-bottom: 10rpx;
+}
+
+.json-text {
+  display: block;
+  max-height: 460rpx;
+  overflow-y: auto;
+  font-size: 22rpx;
+  line-height: 1.5;
+  color: #e2e8f0;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.filter-row {
+  margin-top: 16rpx;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.filter-chip {
+  font-size: 22rpx;
+  color: #5c6371;
+  border: 2rpx solid #d8deea;
+  border-radius: 999rpx;
+  padding: 8rpx 20rpx;
+  background: #ffffff;
+}
+
+.filter-chip--active {
+  color: #165dff;
+  border-color: #9dbbff;
+  background: #edf4ff;
+}
+
+.list-wrap {
+  margin-top: 16rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 14rpx;
+}
+
+.report-item {
+  border: 2rpx solid #e3e8f2;
+  border-radius: 10rpx;
+  padding: 18rpx;
+  background: #ffffff;
+}
+
+.item-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12rpx;
+  margin-bottom: 8rpx;
+}
+
+.item-name {
+  flex: 1;
+  font-size: 28rpx;
+  color: #1f2a3a;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item-status {
+  font-size: 20rpx;
+  line-height: 1;
+  padding: 8rpx 12rpx;
+  border-radius: 999rpx;
+}
+
+.item-status--pending {
+  color: #9a6a00;
+  background: #fff4db;
+}
+
+.item-status--success {
+  color: #0f7c46;
+  background: #e7f8ef;
+}
+
+.item-status--failed {
+  color: #b42318;
+  background: #ffe9e8;
+}
+
+.item-status--idle,
+.item-status--unknown {
+  color: #5c6371;
+  background: #eef2f9;
+}
+
+.item-line {
+  display: block;
+  font-size: 22rpx;
+  color: #5c6371;
+  line-height: 1.6;
+  word-break: break-all;
+}
+
+.loading-tip,
+.empty-tip {
+  margin-top: 18rpx;
+  font-size: 24rpx;
+  color: #8b93a5;
+}

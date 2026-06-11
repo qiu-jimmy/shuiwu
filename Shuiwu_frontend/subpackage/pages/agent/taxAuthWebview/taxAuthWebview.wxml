@@ -1,0 +1,29 @@
+<!-- taxAuthWebview.wxml — 税局授权 H5 跳板页
+     web-view 填满整屏；底部固定一个"已授权完成"按钮作为手动返回兜底
+-->
+<view class="container">
+  <!-- 授权提示条 -->
+  <view class="top-hint">
+    <text class="top-hint-text">请在下方完成税局账号授权</text>
+  </view>
+
+  <!-- H5 授权页面 -->
+  <web-view
+    wx:if="{{authUrl}}"
+    src="{{authUrl}}"
+    bindmessage="onWebViewMessage"
+    binderror="onWebViewError"
+  ></web-view>
+
+  <!-- 空状态（url 无效时） -->
+  <view class="empty-wrap" wx:if="{{!authUrl}}">
+    <text class="empty-text">授权链接无效，请返回重试</text>
+  </view>
+
+  <!-- 底部手动返回按钮（兜底：若 H5 自动跳回失败时使用） -->
+  <view class="bottom-bar" wx:if="{{authUrl}}">
+    <view class="back-btn" bindtap="onAuthComplete">
+      <text class="back-btn-text">授权完成，返回查看报告</text>
+    </view>
+  </view>
+</view>

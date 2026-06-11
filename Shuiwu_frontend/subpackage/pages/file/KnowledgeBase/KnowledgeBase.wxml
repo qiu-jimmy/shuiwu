@@ -1,0 +1,63 @@
+<!--pages/file/KnowledgeBase/KnowledgeBase.wxml-->
+<view class="container">
+  <view class="page-bg">
+    <view class="bg-orb bg-orb-1"></view>
+    <view class="bg-orb bg-orb-2"></view>
+    <view class="bg-orb bg-orb-3"></view>
+  </view>
+  <view class="page-content">
+    <view class="page-shell">
+      <view class="card-container">
+        <!-- 系统知识库卡片 -->
+        <view class="knowledge-card system-card" bindtap="onSystemCardTap">
+          <view class="card-sheen"></view>
+          <view class="card-content">
+            <text class="card-title">系统知识库</text>
+            <text class="card-subtitle">内置权威数据・赋能智能问答</text>
+          </view>
+        </view>
+        
+        <!-- 我的知识库卡片 -->
+        <view class="knowledge-card my-card" bindtap="onMyCardTap">
+          <view class="card-sheen"></view>
+          <view class="card-content">
+            <text class="card-title">我的知识库</text>
+            <text class="card-subtitle">私有文件上传・构建专属大脑</text>
+          </view>
+        </view>
+      </view>
+
+
+
+      <!-- 文件列表区域：根据知识库类型切换显示 -->
+      <!-- 系统知识库组件 -->
+      <sys-knowledge 
+        wx:if="{{currentKnowledgeType === 'system'}}"
+        id="sys-knowledge"
+        selected-category="{{selectedCategory}}"
+        bind:countchange="onSysKnowledgeCountChange">
+      </sys-knowledge>
+      
+      <!-- 我的知识库组件 -->
+      <my-knowledge 
+        wx:if="{{currentKnowledgeType === 'my'}}"
+        id="my-knowledge"
+        selected-category="{{selectedCategory}}"
+        bind:countchange="onMyKnowledgeCountChange"
+        bind:knowledgecardtap="onKnowledgeCardTap">
+      </my-knowledge>
+    </view>
+    
+    <!-- 固定添加按钮（仅在我的知识库时显示） -->
+    <view class="add-button" wx:if="{{showAddButton}}" bindtap="onAddTap">
+      <t-icon name="add" size="24" color="#ffffff" />
+    </view>
+  </view>
+  
+  <!-- 添加知识库弹窗 -->
+  <add-knowledge 
+    show="{{showAddKnowledgeModal}}" 
+    bind:close="onCloseAddKnowledge"
+    bind:success="onAddKnowledgeSuccess">
+  </add-knowledge>
+</view>

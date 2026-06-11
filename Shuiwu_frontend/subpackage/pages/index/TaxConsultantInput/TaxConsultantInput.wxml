@@ -1,0 +1,232 @@
+<!--pages/index/TaxConsultantInput/TaxConsultantInput.wxml-->
+<view class="container">
+  <view class="form-wrapper">
+    <view class="form-title">税务师入驻登记表</view>
+    
+    <!-- 基本信息 -->
+    <view class="form-section">
+      <view class="section-title">基本信息</view>
+
+      <!-- 1. 姓名 -->
+      <view class="form-item">
+        <view class="form-label">
+          <text class="required">*</text>
+          <text>姓名</text>
+        </view>
+        <input class="form-input" placeholder="请输入姓名（2-100字符）" value="{{formData.name}}" bindinput="onNameInput" />
+      </view>
+
+      <!-- 2. 出生日期 -->
+      <view class="form-item">
+        <view class="form-label">
+          <text>出生日期</text>
+        </view>
+        <picker mode="date" value="{{formData.birthDate}}" bindchange="onBirthDateChange">
+          <view class="picker-view">
+            <text class="{{formData.birthDate ? 'picker-text' : 'picker-placeholder'}}" style="margin-top: -30rpx;">
+              {{formData.birthDate || '请选择出生日期'}}
+            </text>
+            <text class="picker-arrow">></text>
+          </view>
+        </picker>
+      </view>
+
+      <!-- 3. 身份证号码 -->
+      <view class="form-item">
+        <view class="form-label">
+          <text class="required">*</text>
+          <text>身份证号码</text>
+        </view>
+        <input class="form-input" type="idcard" placeholder="请输入身份证号码（15-20字符）" value="{{formData.idCard}}" bindinput="onIdCardInput" maxlength="20" />
+      </view>
+
+      <!-- 4. 现住地 -->
+      <view class="form-item">
+        <view class="form-label">
+          <text>现住地</text>
+        </view>
+        <input class="form-input" placeholder="请输入现住地" value="{{formData.address}}" bindinput="onAddressInput" />
+      </view>
+
+      <!-- 5. 联系电话 -->
+      <view class="form-item">
+        <view class="form-label">
+          <text class="required">*</text>
+          <text>联系电话</text>
+        </view>
+        <input class="form-input" type="number" placeholder="请输入联系电话（11-20字符）" value="{{formData.phone}}" bindinput="onPhoneInput" maxlength="20" />
+      </view>
+    </view>
+
+    <!-- 证书信息 -->
+    <view class="form-section">
+      <view class="section-title">证书信息</view>
+
+      <!-- 6. 税务师职业资格证书编号 -->
+      <view class="form-item">
+        <view class="form-label">
+          <text class="required">*</text>
+          <text>税务师职业资格证书编号</text>
+        </view>
+        <input class="form-input" placeholder="请输入证书编号" value="{{formData.certificateNo}}" bindinput="onCertificateNoInput" />
+      </view>
+
+      <!-- 7. 税务师职业资格证书取得时间 -->
+      <view class="form-item">
+        <view class="form-label">
+          <text>税务师职业资格证书取得时间</text>
+        </view>
+        <picker mode="date" value="{{formData.certificateDate}}" bindchange="onCertificateDateChange">
+          <view class="picker-view">
+            <text class="{{formData.certificateDate ? 'picker-text' : 'picker-placeholder'}}" style="margin-top: -30rpx;">
+              {{formData.certificateDate || '请选择证书取得时间'}}
+            </text>
+            <text class="picker-arrow">></text>
+          </view>
+        </picker>
+      </view>
+
+      <!-- 8. 税务师职业资格证书照片 -->
+      <view class="form-item">
+        <view class="form-label">
+          <text class="required">*</text>
+          <text>税务师职业资格证书照片</text>
+        </view>
+        <view class="upload-wrapper">
+          <view class="upload-item" wx:for="{{formData.certificateImages}}" wx:key="index">
+            <image class="upload-image" src="{{item}}" mode="aspectFill" bindtap="previewCertificateImage" data-index="{{index}}"></image>
+            <view class="upload-delete" bindtap="deleteCertificateImage" data-index="{{index}}">×</view>
+          </view>
+          <view class="upload-btn" bindtap="chooseCertificateImage" wx:if="{{formData.certificateImages.length < 3}}">
+            <text class="upload-icon">+</text>
+            <text class="upload-text">上传照片</text>
+          </view>
+        </view>
+        <view class="form-tip">至少上传1张照片，最多3张</view>
+      </view>
+    </view>
+    
+    <!-- 工作经历 -->
+    <view class="form-section">
+      <view class="section-title">
+        <text>工作经历（选填）</text>
+        <text class="add-btn" bindtap="addExperience">+ 添加经历</text>
+      </view>
+
+      <view class="experience-list">
+        <view class="experience-item" wx:for="{{formData.experiences}}" wx:key="index">
+          <view class="experience-header">
+            <text class="experience-title">经历 {{index + 1}}</text>
+            <text class="experience-delete" bindtap="deleteExperience" data-index="{{index}}">删除</text>
+          </view>
+
+          <!-- 8.1 起止时间 -->
+          <view class="form-item">
+            <view class="form-label">
+              <text >起止时间（年月）</text>
+            </view>
+            <view class="date-range">
+              <picker mode="date" fields="month" value="{{item.startDate}}" bindchange="onExperienceStartDateChange" data-index="{{index}}">
+                <view class="picker-view picker-view-small">
+                  <text class="{{item.startDate ? 'picker-text' : 'picker-placeholder'}}" style="margin-top: -40rpx;margin-right:20rpx">
+                    {{item.startDate || '开始时间'}}
+                  </text>
+                  <text class="picker-arrow">></text>
+                </view>
+              </picker>
+              <text class="date-separator">至</text>
+              <picker mode="date" fields="month" value="{{item.endDate}}" bindchange="onExperienceEndDateChange" data-index="{{index}}">
+                <view class="picker-view picker-view-small">
+                  <text class="{{item.endDate ? 'picker-text' : 'picker-placeholder'}}" style="margin-top: -40rpx;margin-right:20rpx">
+                    {{item.endDate || '结束时间'}}
+                  </text>
+                  <text class="picker-arrow">></text>
+                </view>
+              </picker>
+            </view>
+          </view>
+
+          <!-- 8.2 工作单位/执业机构名称 -->
+          <view class="form-item">
+            <view class="form-label">
+              <text>工作单位/执业机构名称</text>
+            </view>
+            <input class="form-input" placeholder="请输入工作单位或执业机构名称" value="{{item.company}}" bindinput="onExperienceCompanyInput" data-index="{{index}}" />
+          </view>
+
+          <!-- 8.3 职务/岗位 -->
+          <view class="form-item">
+            <view class="form-label">
+              <text>职务/岗位</text>
+            </view>
+            <input class="form-input" placeholder="请输入职务或岗位" value="{{item.position}}" bindinput="onExperiencePositionInput" data-index="{{index}}" />
+          </view>
+
+          <!-- 8.4 主要工作内容 -->
+          <view class="form-item">
+            <view class="form-label">
+              <text>主要工作内容</text>
+            </view>
+            <textarea class="form-textarea" placeholder="请输入主要工作内容" value="{{item.workContent}}" bindinput="onExperienceWorkContentInput" data-index="{{index}}" maxlength="500" show-confirm-bar="{{false}}"></textarea>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 其他信息 -->
+    <view class="form-section">
+      <view class="section-title">其他信息</view>
+      
+      <!-- 9. 擅长的税务业务领域 -->
+      <view class="form-item">
+        <view class="form-label">
+          <text class="required">*</text>
+          <text>擅长的税务业务领域</text>
+        </view>
+        <input class="form-input" placeholder="请输入擅长的税务业务领域" value="{{formData.expertise}}" bindinput="onExpertiseInput" />
+      </view>
+      
+      <!-- 10. 是否入驻 -->
+      <view class="form-item">
+        <view class="form-label">
+          <text>是否入驻</text>
+        </view>
+        <picker mode="selector" range="{{settledOptions}}" value="{{formData.settledIndex}}" bindchange="onSettledChange">
+          <view class="picker-view">
+            <text class="{{formData.settledIndex >= 0 ? 'picker-text' : 'picker-placeholder'}}" style="margin-top: -30rpx;">
+              {{formData.settledIndex >= 0 ? settledOptions[formData.settledIndex] : '请选择是否入驻'}}
+            </text>
+            <text class="picker-arrow">></text>
+          </view>
+        </picker>
+      </view>
+      
+      <!-- 11. 补充说明 -->
+      <view class="form-item">
+        <view class="form-label">
+          <text>补充说明</text>
+        </view>
+        <text class="form-label-tip">（可填写个人优势、服务理念、过往成功案例等，500字以内）</text>
+        <textarea class="form-textarea" placeholder="请输入补充说明" value="{{formData.additionalInfo}}" bindinput="onAdditionalInfoInput" maxlength="500" show-confirm-bar="{{false}}"></textarea>
+        <view class="char-count">{{formData.additionalInfo.length}}/500</view>
+      </view>
+    </view>
+    
+    <!-- 提交提示 -->
+    <view class="submit-tip">
+      <image class="submit-tip-icon" src="{{ossUrl}}/images/notice.png" mode="aspectFit"></image>
+      <text class="submit-tip-text">表单提交后，将在3-5个工作日内完成审核，审核结果将通过短信或邮箱通知，请保持通讯畅通。如有疑问，可联系客服。</text>
+    </view>
+
+    <!-- 承诺确认 -->
+    <view class="agreement-section" bindtap="onAgreementToggle">
+      <view class="agreement-check {{agreementChecked ? 'is-checked' : ''}}"></view>
+      <text class="agreement-text">本人承诺所填写信息及上传材料均真实准确，具备合法税务师执业资格，将诚信执业并承担相应责任</text>
+    </view>
+
+    <!-- 提交按钮 -->
+    <view class="submit-wrapper">
+      <button class="submit-btn {{isFormValid && agreementChecked ? '' : 'submit-btn-disabled'}}" bindtap="onSubmit" disabled="{{!isFormValid || !agreementChecked}}">提交申请</button>
+    </view>
+  </view>
+</view>

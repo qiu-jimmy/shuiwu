@@ -1,0 +1,83 @@
+{
+  "pages": [
+    "pages/index/index/index",
+    "pages/file/file/file",
+    "pages/agent/agent/agent",
+    "pages/mine/mine/mine",
+    "pages/mine/login/login",
+    "pages/mine/register/register",
+    "pages/agent/chat/chat",
+    "pages/agent/chat-vip/chat-vip",
+    "pages/mine/privacy/privacy",
+    "pages/mine/agreement/agreement"
+  ],
+  "subpackages": [
+    {
+      "root": "subpackage",
+      "pages": [
+        "pages/file/KnowledgeBase/KnowledgeBase",
+        "pages/file/add/add",
+        "pages/index/detailsPage/detailsPage",
+        "pages/index/detailsList/detailsList",
+        "pages/file/component/PreviewFile/PreviewFile",
+        "pages/mine/userInfo/userInfo",
+        "pages/mine/password/password",
+        "pages/index/allAgent/allAgent",
+        "pages/index/shuiwuInput/shuiwuInput",
+        "pages/index/TaxConsultantInput/TaxConsultantInput",
+        "pages/index/TaxConsultantList/TaxConsultantList",
+        "pages/mine/vip-buy/vip-buy",
+        "pages/mine/vip-order/vip-order",
+        "pages/mine/distribute/distribute",
+        "pages/mine/business-query/business-query",
+        "pages/mine/tax-query/tax-query",
+        "pages/agent/contractReview/contractReview",
+        "pages/index/individual/individual",
+        "pages/agent/corporateHealth/corporateHealth",
+        "pages/agent/reportSelector/reportSelector",
+        "pages/agent/invoicePenetration/invoicePenetration",
+        "pages/agent/businessRisk/businessRisk",
+        "pages/agent/taxAuthWebview/taxAuthWebview",
+        "pages/index/allInput/allInput",
+        "pages/mine/vip-center/vip-center",
+        "pages/mine/question/question",
+        "pages/mine/tax-cooperate/tax-cooperate",
+        "pages/mine/point/point",
+        "pages/mine/points-mall/points-mall",
+        "pages/mine/mcp-manager/mcp-manager"
+      ]
+    }
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "智税引擎",
+    "navigationBarBackgroundColor": "#ffffff"
+  },
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents",
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#3B55F3",
+    "list": [
+      {
+        "pagePath": "pages/index/index/index",
+        "text": "首页",
+        "iconPath": "images/tabbar/tabar1.png",
+        "selectedIconPath": "images/tabbar/tabar1_active.png"
+      },
+      {
+        "pagePath": "pages/agent/agent/agent",
+        "text": "AI",
+        "iconPath": "images/tabbar/tabar3.png",
+        "selectedIconPath": "images/tabbar/tabar3_active.png"
+      },
+      {
+        "pagePath": "pages/mine/mine/mine",
+        "text": "我的",
+        "iconPath": "images/tabbar/tabar4.png",
+        "selectedIconPath": "images/tabbar/tabar4_active.png"
+      }
+    ]
+  }
+}

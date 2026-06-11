@@ -1,0 +1,267 @@
+/* pages/file/KnowledgeBase/KnowledgeBase.wxss */
+
+/* ==================== 容器样式 ==================== */
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f8fafc;
+  background-image:
+    radial-gradient(120% 80% at 12% -8%, rgba(99, 102, 241, 0.16), transparent 55%),
+    radial-gradient(120% 80% at 92% 0%, rgba(245, 158, 11, 0.14), transparent 55%),
+    linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+  padding: 28rpx 24rpx 120rpx;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-content {
+  position: relative;
+  z-index: 1;
+}
+
+.page-shell {
+  width: 100%;
+  max-width: 720rpx;
+  margin: 0 auto;
+}
+
+.page-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-orb {
+  position: absolute;
+  border-radius: 999rpx;
+  opacity: 0.6;
+}
+
+.bg-orb-1 {
+  width: 420rpx;
+  height: 420rpx;
+  top: -220rpx;
+  left: -180rpx;
+  background: radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.55), transparent 65%);
+}
+
+.bg-orb-2 {
+  width: 360rpx;
+  height: 360rpx;
+  top: 140rpx;
+  right: -180rpx;
+  background: radial-gradient(circle at 70% 30%, rgba(245, 158, 11, 0.5), transparent 65%);
+}
+
+.bg-orb-3 {
+  width: 460rpx;
+  height: 460rpx;
+  bottom: -260rpx;
+  left: 40rpx;
+  opacity: 0.45;
+  background: radial-gradient(circle at 40% 60%, rgba(99, 102, 241, 0.4), transparent 70%);
+}
+
+/* ==================== 知识库卡片 ==================== */
+.card-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 20rpx;
+  margin-bottom: 28rpx;
+}
+
+.knowledge-card {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  border-radius: 24rpx;
+  padding: 42rpx 40rpx;
+  box-sizing: border-box;
+  border: 1rpx solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 24rpx 50rpx rgba(79, 70, 229, 0.25);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.knowledge-card:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 16rpx 34rpx rgba(79, 70, 229, 0.22);
+}
+
+.system-card {
+  background: linear-gradient(135deg, #67e8f9 0%, #22d3ee 38%, #06b6d4 70%, #0891b2 140%);
+}
+
+.my-card {
+  background: linear-gradient(135deg, #fca5a5 0%, #f87171 38%, #ef4444 70%, #dc2626 140%);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.card-title {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #fff;
+  line-height: 1.4;
+  letter-spacing: 1.5rpx;
+}
+
+.card-subtitle {
+  font-size: 24rpx;
+  color: #fff;
+  opacity: 0.92;
+  line-height: 1.5;
+}
+
+.card-sheen {
+  position: absolute;
+  top: -70rpx;
+  left: -40rpx;
+  width: 240rpx;
+  height: 240rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* ==================== 筛选区域 ==================== */
+.filter-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 16rpx 16rpx;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 18rpx;
+  border: 1rpx solid rgba(148, 163, 184, 0.22);
+  box-shadow: 0 18rpx 36rpx rgba(15, 23, 42, 0.08);
+  margin-top: 24rpx;
+  gap: 16rpx;
+  box-sizing: border-box;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.filter-section {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: 10rpx 16rpx;
+  border-radius: 999rpx;
+  background: rgba(99, 102, 241, 0.08);
+  border: 1rpx solid rgba(99, 102, 241, 0.2);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.filter-section:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 10rpx 18rpx rgba(79, 70, 229, 0.16);
+}
+
+.filter-label {
+  font-size: 24rpx;
+  color: #64748b;
+}
+
+.filter-value {
+  font-size: 24rpx;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.arrow-down {
+  font-size: 20rpx;
+  color: #6366f1;
+  margin-left: 4rpx;
+}
+
+.arrow-down::after {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 6px solid currentColor;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.filter-count-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8rpx;
+  width: 100%;
+  padding: 10rpx 16rpx;
+  box-sizing: border-box;
+  border-radius: 999rpx;
+  background: rgba(15, 23, 42, 0.04);
+  border: 1rpx solid rgba(148, 163, 184, 0.24);
+}
+
+.filter-count {
+  font-size: 24rpx;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.filter-divider {
+  width: 2rpx;
+  height: 32rpx;
+  background: rgba(148, 163, 184, 0.35);
+}
+
+
+/* ==================== 固定添加按钮 ==================== */
+.add-button {
+  position: fixed;
+  right: 28rpx;
+  bottom: 48rpx;
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 999rpx;
+  background: #3b55f3;
+  box-shadow: 0 16rpx 30rpx rgba(59, 85, 243, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.add-button:active {
+  transform: translateY(3rpx) scale(0.98);
+  box-shadow:
+    0 12rpx 24rpx rgba(79, 70, 229, 0.3),
+    0 6rpx 14rpx rgba(245, 158, 11, 0.18);
+}
+
+.add-icon {
+  width: 48rpx;
+  height: 48rpx;
+  filter: drop-shadow(0 6rpx 10rpx rgba(15, 23, 42, 0.2));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .knowledge-card,
+  .filter-section,
+  .add-button {
+    transition: none;
+  }
+}

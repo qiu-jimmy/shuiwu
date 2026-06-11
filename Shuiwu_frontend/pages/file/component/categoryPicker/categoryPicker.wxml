@@ -1,0 +1,19 @@
+<!--pages/file/component/categoryPicker/categoryPicker.wxml-->
+<view class="picker-mask" wx:if="{{show}}" bindtap="onMaskTap">
+  <view class="picker-container" catchtap="stopPropagation">
+    <view class="picker-header">
+      <text class="picker-title">选择分类</text>
+      <text class="picker-close" bindtap="onClose">×</text>
+    </view>
+    <scroll-view class="picker-body" scroll-y="{{true}}">
+      <view class="picker-item {{selectedIndex === index ? 'picker-item-active' : ''}}" 
+            wx:for="{{options}}" 
+            wx:key="type_id"
+            data-index="{{index}}"
+            bindtap="onSelect">
+        <text class="picker-item-text">{{item.type_name}}</text>
+        <text class="picker-item-check" wx:if="{{selectedIndex === index}}">✓</text>
+      </view>
+    </scroll-view>
+  </view>
+</view>

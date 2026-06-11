@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "category-selector": "/pages/file/component/categorySelector/categorySelector",
+    "preview-file": "/pages/file/component/PreviewFile/PreviewFile",
+    "file-list": "/pages/file/component/fileList/fileList",
+    "t-icon": "tdesign-miniprogram/icon/icon"
+  }
+}

@@ -1,0 +1,351 @@
+<!--
+  individual.wxml
+  工商执照申请页面 - 收集执照办理所需的店铺信息、身份证信息及申请人基本信息，提交至后端工商执照申请接口
+-->
+<view class="page-wrapper">
+
+  <!-- ==================== Hero 区域：科技感渐变背景 + 步骤条 ==================== -->
+  <view class="hero-wrapper">
+    <!-- 装饰光圈（纯 CSS 渲染） -->
+    <view class="hero-deco hero-deco-top"></view>
+    <view class="hero-deco hero-deco-bottom"></view>
+
+    <!-- 标签行 -->
+    <view class="hero-badge-row">
+      <text class="hero-badge">✦ 支持主流地区</text>
+      <text class="hero-badge">AI 智能助手在线</text>
+    </view>
+
+    <!-- 主标题 -->
+    <text class="hero-title">工商执照申请</text>
+    <text class="hero-subtitle">3 分钟在线提交资料，智能匹配合规办照方案</text>
+    <text class="hero-tip">后续开票、报税等服务由专员在审核时一并对接，无需在此选择</text>
+
+    <!-- 步骤条 -->
+    <text class="steps-hint-text">当前进度：第 1 步 · 提交开业资料</text>
+    <view class="steps-row">
+      <view class="step-item">
+        <view class="step-dot step-dot-active"></view>
+        <text class="step-label step-label-active">提交资料</text>
+      </view>
+      <view class="step-line"></view>
+      <view class="step-item">
+        <view class="step-dot"></view>
+        <text class="step-label">信息审核</text>
+      </view>
+      <view class="step-line"></view>
+      <view class="step-item">
+        <view class="step-dot"></view>
+        <text class="step-label">线上缴费</text>
+      </view>
+      <view class="step-line"></view>
+      <view class="step-item">
+        <view class="step-dot"></view>
+        <text class="step-label">领取执照</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ==================== 表单区域 ==================== -->
+  <view class="form-area">
+
+    <!-- 01 店铺信息 -->
+    <view class="form-card">
+      <view class="card-header">
+        <view class="card-num-badge">01</view>
+        <text class="card-title">店铺信息</text>
+        <text class="card-tag">必填</text>
+      </view>
+      <text class="card-tip">支持自定义字号，建议与主营商品或品牌相关</text>
+
+      <view class="form-item">
+        <view class="form-label">
+          <text class="required-dot">*</text>
+          <text>营业执照办理字号</text>
+        </view>
+        <input class="form-input"
+               value="{{licenseStoreName}}"
+               bindinput="onLicenseStoreNameInput"
+               placeholder="例如：好物优品店的家庭数智店铺"
+               placeholder-class="input-placeholder" />
+      </view>
+
+      <!-- 已添加的备用字号列表 -->
+      <view class="extra-name-list" wx:if="{{licenseStoreNameList.length > 0}}">
+        <view class="extra-name-item" wx:for="{{licenseStoreNameList}}" wx:key="index">
+          <text class="extra-name-text">{{item}}</text>
+          <text class="extra-name-delete" catchtap="removeExtraName" data-index="{{index}}">✕</text>
+        </view>
+      </view>
+
+      <!-- 仅在主输入有内容时才显示"添加"按钮 -->
+      <view class="add-more-btn" bindtap="addMoreName" wx:if="{{licenseStoreName}}">
+        <text class="add-more-icon">+</text>
+        <text class="add-more-text">添加更多字号方案</text>
+      </view>
+      <text class="field-hint" wx:if="{{licenseStoreNameList.length > 0}}">系统将按政策优先审核可用方案</text>
+    </view>
+
+    <!-- 02 身份证信息 -->
+    <view class="form-card">
+      <view class="card-header">
+        <view class="card-num-badge">02</view>
+        <text class="card-title">身份证信息</text>
+        <text class="card-tag">必填</text>
+      </view>
+      <text class="card-tip">用于实名校验与工商备案，不会对外展示，请确保照片清晰无遮挡</text>
+
+      <!-- 身份证正反面上传 -->
+      <view class="id-card-upload-row">
+        <view class="id-card-upload-item" bindtap="chooseIdCardImage" data-type="front">
+          <view class="id-card-frame {{idCardFrontImage.tempPath ? 'id-card-frame-filled' : ''}}">
+            <image wx:if="{{idCardFrontImage.tempPath}}"
+                   class="id-card-preview"
+                   src="{{idCardFrontImage.tempPath}}"
+                   mode="aspectFill"></image>
+            <view wx:else class="id-card-placeholder">
+              <text class="id-card-placeholder-icon">＋</text>
+              <text class="id-card-placeholder-text">上传照片</text>
+            </view>
+            <view class="upload-status-mask" wx:if="{{idCardFrontImage.uploading}}">
+              <text class="upload-status-text">上传中...</text>
+            </view>
+          </view>
+          <text class="id-card-label {{!idCardFrontImage.tempPath ? 'id-card-label-warn' : ''}}">身份证—人像面</text>
+        </view>
+
+        <view class="id-card-upload-item" bindtap="chooseIdCardImage" data-type="back">
+          <view class="id-card-frame {{idCardBackImage.tempPath ? 'id-card-frame-filled' : ''}}">
+            <image wx:if="{{idCardBackImage.tempPath}}"
+                   class="id-card-preview"
+                   src="{{idCardBackImage.tempPath}}"
+                   mode="aspectFill"></image>
+            <view wx:else class="id-card-placeholder">
+              <text class="id-card-placeholder-icon">＋</text>
+              <text class="id-card-placeholder-text">上传照片</text>
+            </view>
+            <view class="upload-status-mask" wx:if="{{idCardBackImage.uploading}}">
+              <text class="upload-status-text">上传中...</text>
+            </view>
+          </view>
+          <text class="id-card-label {{!idCardBackImage.tempPath ? 'id-card-label-warn' : ''}}">身份证—国徽面</text>
+        </view>
+      </view>
+
+      <!-- 身份证号码 -->
+      <view class="form-item">
+        <view class="form-label">
+          <text class="required-dot">*</text>
+          <text>身份证号码</text>
+        </view>
+        <input class="form-input"
+               value="{{idCardNumber}}"
+               bindinput="onIdCardNumberInput"
+               placeholder="请输入与申请人一致的身份证号"
+               placeholder-class="input-placeholder"
+               maxlength="18" />
+      </view>
+
+      <!-- 身份证有效期 -->
+      <view class="form-item">
+        <view class="form-label">
+          <text class="required-dot">*</text>
+          <text>身份证有效期</text>
+        </view>
+        <!-- 长期 / 区间 切换 -->
+        <view class="valid-type-toggle">
+          <view class="toggle-btn {{idCardValidType === 'range' ? 'toggle-btn-active' : ''}}"
+                bindtap="setValidType" data-type="range">选择起止日期</view>
+          <view class="toggle-btn {{idCardValidType === 'long_term' ? 'toggle-btn-active' : ''}}"
+                bindtap="setValidType" data-type="long_term">长期</view>
+        </view>
+        <!-- 日期区间 -->
+        <view class="date-range-row" wx:if="{{idCardValidType === 'range'}}">
+          <picker mode="date" value="{{idCardValidStart}}" bindchange="onValidStartChange">
+            <view class="date-picker {{idCardValidStart ? 'date-picker-filled' : ''}}">
+              <text>{{idCardValidStart || '开始日期'}}</text>
+            </view>
+          </picker>
+          <text class="date-sep">—</text>
+          <picker mode="date" value="{{idCardValidEnd}}" bindchange="onValidEndChange">
+            <view class="date-picker {{idCardValidEnd ? 'date-picker-filled' : ''}}">
+              <text>{{idCardValidEnd || '截止日期'}}</text>
+            </view>
+          </picker>
+        </view>
+        <!-- 长期标签 -->
+        <view class="long-term-tag" wx:else>
+          <text class="long-term-text">长期有效</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 03 申请人基本信息 -->
+    <view class="form-card">
+      <view class="card-header">
+        <view class="card-num-badge">03</view>
+        <text class="card-title">申请人基本信息</text>
+        <text class="card-tag">必填</text>
+      </view>
+      <text class="card-tip">将用于工商登记与进度通知，请确保真实有效</text>
+
+      <view class="form-item">
+        <view class="form-label">
+          <text class="required-dot">*</text>
+          <text>姓名</text>
+        </view>
+        <input class="form-input"
+               value="{{applicantName}}"
+               bindinput="onApplicantNameInput"
+               placeholder="请输入申请人姓名"
+               placeholder-class="input-placeholder" />
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">
+          <text class="required-dot">*</text>
+          <text>手机号</text>
+        </view>
+        <input class="form-input"
+               value="{{applicantPhone}}"
+               bindinput="onApplicantPhoneInput"
+               placeholder="用于接收办证进度和短信通知"
+               placeholder-class="input-placeholder"
+               type="number"
+               maxlength="11" />
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">
+          <text class="required-dot">*</text>
+          <text>政治面貌</text>
+        </view>
+        <picker mode="selector"
+                range="{{politicalStatusOptions}}"
+                value="{{politicalStatusIndex >= 0 ? politicalStatusIndex : 0}}"
+                bindchange="onPoliticalStatusChange">
+          <view class="picker-view">
+            <text class="{{politicalStatusIndex >= 0 ? 'picker-text' : 'picker-placeholder'}}">
+              {{politicalStatusIndex >= 0 ? politicalStatusOptions[politicalStatusIndex] : '请选择政治面貌'}}
+            </text>
+            <text class="picker-arrow">›</text>
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">
+          <text class="required-dot">*</text>
+          <text>文化程度</text>
+        </view>
+        <picker mode="selector"
+                range="{{educationLevelOptions}}"
+                value="{{educationLevelIndex >= 0 ? educationLevelIndex : 0}}"
+                bindchange="onEducationLevelChange">
+          <view class="picker-view">
+            <text class="{{educationLevelIndex >= 0 ? 'picker-text' : 'picker-placeholder'}}">
+              {{educationLevelIndex >= 0 ? educationLevelOptions[educationLevelIndex] : '请选择文化程度'}}
+            </text>
+            <text class="picker-arrow">›</text>
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-item" style="margin-bottom:0;">
+        <view class="form-label">
+          <text class="optional-tag">选填</text>
+          <text>邮箱</text>
+        </view>
+        <input class="form-input"
+               value="{{email}}"
+               bindinput="onEmailInput"
+               placeholder="用于接收电子执照和回执，可暂不填写"
+               placeholder-class="input-placeholder" />
+      </view>
+    </view>
+
+    <!-- 04 补充材料与备注（选填） -->
+    <view class="form-card">
+      <view class="card-header">
+        <view class="card-num-badge card-num-badge-optional">04</view>
+        <text class="card-title">补充材料与备注</text>
+        <text class="card-tag card-tag-optional">选填</text>
+      </view>
+      <text class="card-tip">可上传店铺门头、室内照片、合同等，有助于提升通过率</text>
+
+      <view class="form-item">
+        <view class="upload-grid">
+          <view class="upload-thumb" wx:for="{{extraAttachments}}" wx:key="index">
+            <image class="upload-thumb-img"
+                   src="{{item.tempPath}}"
+                   mode="aspectFill"
+                   bindtap="previewExtraAttachment"
+                   data-index="{{index}}"></image>
+            <view class="upload-thumb-delete" catchtap="removeExtraAttachment" data-index="{{index}}">✕</view>
+            <view class="upload-thumb-mask" wx:if="{{item.uploading}}">
+              <text>上传中</text>
+            </view>
+          </view>
+          <view class="upload-add-btn" bindtap="chooseExtraAttachment" wx:if="{{extraAttachments.length < 5}}">
+            <text class="upload-add-icon">+</text>
+            <text class="upload-add-text">上传补充资料</text>
+          </view>
+        </view>
+        <text class="field-hint">最多 5 张</text>
+      </view>
+
+      <view class="form-item" style="margin-bottom:0;">
+        <view class="form-label">
+          <text>办理备注</text>
+        </view>
+        <textarea class="form-textarea"
+                  value="{{userRemarks}}"
+                  bindinput="onRemarksInput"
+                  placeholder="可补充说明经营特色、开业时间等信息"
+                  placeholder-class="input-placeholder"
+                  maxlength="300"
+                  show-confirm-bar="{{false}}" />
+        <text class="char-count">{{userRemarks.length}}/300</text>
+      </view>
+    </view>
+
+    <!-- 办理说明 & 注意事项 -->
+    <view class="notice-card">
+      <text class="notice-card-title">办理方案与注意事项</text>
+
+      <view class="notice-section">
+        <text class="notice-section-title">营业执照办理方案</text>
+        <text class="notice-text">经营名称：营业执照归属区 + 数商 + 自定义字号 / 姓名 + 壹/编号 + 后缀等多种组合</text>
+        <text class="notice-text">经营地址：按本地政策支持园区地址或线上经营地址，平台将为您智能匹配合规方案</text>
+        <text class="notice-text">经营范围：默认覆盖日常网络零售、电商服务等常见项目，特殊资质将由专员确认</text>
+      </view>
+
+      <view class="notice-section" style="margin-bottom:0;">
+        <text class="notice-section-title notice-section-title-warn">重要提示</text>
+        <text class="notice-text notice-text-warn">· 部分地区暂不支持纯线上地址办理，将为符合条件的客户推荐政策园区方案</text>
+        <text class="notice-text notice-text-warn">· 提交资料后，专员将在 1 个工作日内联系您确认细节，请保持手机畅通</text>
+        <text class="notice-text notice-text-warn">· 如需变更经营范围或注销，可在「工商引擎—历史订单」中发起后续服务</text>
+      </view>
+    </view>
+
+    <!-- 底部占位，防止固定操作条遮挡内容 -->
+    <view class="bottom-placeholder"></view>
+  </view>
+
+  <!-- ==================== 底部固定操作条 ==================== -->
+  <view class="bottom-bar">
+    <view class="protocol-row" bindtap="toggleProtocol">
+      <view class="protocol-checkbox {{agreeProtocol ? 'protocol-checkbox-checked' : ''}}">
+        <text wx:if="{{agreeProtocol}}" class="protocol-check-icon">✓</text>
+      </view>
+      <text class="protocol-text">我已阅读并同意</text>
+      <text class="protocol-link" catchtap="openProtocol">《执照办理协议》</text>
+    </view>
+    <button class="submit-btn {{isFormValid && !submitting ? '' : 'submit-btn-disabled'}}"
+            bindtap="submitForm"
+            disabled="{{!isFormValid || submitting}}">
+      {{submitting ? '提交中...' : '提交执照申请'}}
+    </button>
+  </view>
+
+</view>

@@ -1,0 +1,75 @@
+<!-- reportSelector.wxml — 数企云检报告类型选择页
+     风格：深色科技感，三张渐变卡片
+-->
+<view class="page">
+  <!-- 背景网格装饰 -->
+  <view class="bg-grid"></view>
+  <!-- 背景光晕 -->
+  <view class="bg-glow bg-glow--1"></view>
+  <view class="bg-glow bg-glow--2"></view>
+
+  <!-- 页头 -->
+  <view class="header">
+    <text class="header-en">ENTERPRISE CLOUD CHECK</text>
+    <text class="header-title">数企云检</text>
+    <text class="header-subtitle">企业智能报告 · 精准风险识别</text>
+  </view>
+
+  <!-- 报告卡片列表 -->
+  <view class="cards">
+
+    <!-- 全景报告 -->
+    <view class="report-card" bindtap="onPanoramicTap" hover-class="card--hover" hover-stay-time="100">
+      <view class="card-accent accent--blue"></view>
+      <view class="card-body">
+        <view class="card-icon-box icon-box--blue">
+          <text class="card-icon-char">企</text>
+        </view>
+        <view class="card-meta">
+          <view class="card-title-row">
+            <text class="card-name">全景报告</text>
+          </view>
+          <text class="card-desc">AI驱动 · 全维度税务画像 · 股权穿透分析</text>
+        </view>
+        <text class="card-arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 发票穿透报告 -->
+    <view class="report-card" bindtap="onInvoiceTap" hover-class="card--hover" hover-stay-time="100">
+      <view class="card-accent accent--teal"></view>
+      <view class="card-body">
+        <view class="card-icon-box icon-box--teal">
+          <text class="card-icon-char">票</text>
+        </view>
+        <view class="card-meta">
+          <view class="card-title-row">
+            <text class="card-name">发票穿透报告</text>
+          </view>
+          <text class="card-desc">发票数据深度解析 · 财税综合风险评估</text>
+        </view>
+        <text class="card-arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 经营风险报告 -->
+    <view class="report-card" bindtap="onBusinessTap" hover-class="card--hover" hover-stay-time="100">
+      <view class="card-accent accent--orange"></view>
+      <view class="card-body">
+        <view class="card-icon-box icon-box--orange">
+          <text class="card-icon-char">险</text>
+        </view>
+        <view class="card-meta">
+          <view class="card-title-row">
+            <text class="card-name">经营风险报告</text>
+          </view>
+          <text class="card-desc">经营状况深度分析 · 风险预警与量化评估</text>
+        </view>
+        <text class="card-arrow">›</text>
+      </view>
+    </view>
+
+  </view>
+
+  <text class="footer-tip">内容由AI生成，仅供参考</text>
+</view>

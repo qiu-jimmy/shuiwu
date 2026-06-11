@@ -1,0 +1,91 @@
+page{
+  background-color: #ffffff;
+  background-image: none;
+}
+.header {
+  height: 32rpx;
+  width: 100%;
+  text-align: center;
+  font-size: 20rpx;
+  line-height: 32rpx;
+  color: gray;
+  position: absolute;
+  top: 32rpx;
+}
+
+.chat-box {
+  padding-top: 80rpx;
+}
+
+.t-chat__list {
+  padding: 0 0 0 32rpx;
+  box-sizing: border-box;
+}
+
+.t-chat-message {
+  padding: 0 32rpx;
+}
+
+content1{
+  width: 100% !important; 
+}
+.t-chat-content{
+  max-width: 100% !important;
+}
+.t-chat-markdown{
+  max-width:100% !important;
+}
+
+.t-chat-markdown-code__content{
+  box-sizing: border-box !important;
+  padding: 20rpx !important;
+}
+
+.preview {
+  padding: 16rpx;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid black;
+}
+
+.message-actions {
+  display: flex;
+  align-items: center;
+}
+
+.copy-btn {
+  background-color: #F6F6F6 !important;
+  margin-top: 20rpx;
+}
+
+/* 普通模式提示（底部弹出） */
+.basic-mode-toast {
+  position: fixed;
+  bottom: 100rpx;
+  left: 50%;
+  transform: translateX(-50%) translateY(100rpx);
+  background: linear-gradient(135deg, #FFF8E1 0%, #FFE0B2 100%);
+  border-radius: 50rpx;
+  padding: 16rpx 32rpx;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  box-shadow: 0 4rpx 16rpx rgba(255, 152, 0, 0.2);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  border: 1rpx solid #FFB74D;
+  max-width: 600rpx;
+}
+
+.basic-mode-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.basic-toast-text {
+  font-size: 26rpx;
+  color: #E65100;
+  font-weight: 500;
+  text-align: center;
+}

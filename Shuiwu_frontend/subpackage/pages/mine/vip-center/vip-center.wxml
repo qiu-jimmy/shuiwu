@@ -1,0 +1,129 @@
+<!--pages/mine/vip-center/vip-center.wxml-->
+<view class="page">
+  <view class="hero">
+    <text class="hero-title">会员中心</text>
+    <text class="hero-subtitle">查看当前会员状态与权益使用情况</text>
+  </view>
+
+  <view class="content">
+    <view wx:if="{{!isLogin}}" class="empty-card">
+      <text class="empty-title">登录后查看会员中心</text>
+      <text class="empty-desc">会员等级、权益配额和功能开通状态将在这里展示</text>
+      <t-button theme="primary" block bind:tap="onLoginTap">去登录</t-button>
+    </view>
+
+    <view wx:elif="{{loading && !memberInfo}}" class="loading-block">
+      <t-loading size="40rpx" />
+      <text class="loading-text">会员信息加载中...</text>
+    </view>
+
+    <view wx:elif="{{memberInfo || memberStats}}">
+      <view class="card summary-card">
+        <view class="summary-row">
+          <view class="summary-info">
+            <text class="summary-level">{{display.packageName}}</text>
+            <text class="summary-package">套餐id：{{display.levelLabel}}</text>
+          </view>
+          <t-tag size="small" variant="light" theme="{{display.validTheme}}">
+            {{display.validLabel}}
+          </t-tag>
+        </view>
+
+        <view class="summary-meta">
+          <view class="meta-item">
+            <text class="meta-label">到期时间</text>
+            <text class="meta-value">{{display.expireLabel}}</text>
+          </view>
+          <view class="meta-item">
+            <text class="meta-label">套餐状态</text>
+            <text class="meta-value">{{display.packageStatusLabel}}</text>
+          </view>
+        </view>
+
+        <view class="summary-actions">
+          <t-button class="summary-action" theme="primary" size="small" bind:tap="onBuyTap">续费/升级</t-button>
+          <t-button class="summary-action" variant="outline" size="small" bind:tap="onOrderTap">订单记录</t-button>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="card-header">
+          <text class="card-title">会员详情</text>
+        </view>
+        <t-cell-group class="cell-group">
+          <t-cell
+            wx:for="{{summaryRows}}"
+            wx:key="label"
+            title="{{item.label}}"
+            note="{{item.value}}"
+            t-class-title="cell-title"
+            t-class-note="cell-note"
+          />
+          <t-cell title="套餐说明" note="{{display.packageDesc}}" t-class-title="cell-title" t-class-note="cell-note" />
+        </t-cell-group>
+      </view>
+
+      <view class="card">
+        <view class="card-header">
+          <text class="card-title">权益用量</text>
+        </view>
+
+        <view class="usage-list">
+          <view wx:if="{{statsLoading && !usageItems.length}}" class="loading-block loading-block--inner">
+            <t-loading size="32rpx" />
+            <text class="loading-text">统计加载中...</text>
+          </view>
+
+          <view wx:elif="{{usageItems.length}}">
+            <view class="usage-item" wx:for="{{usageItems}}" wx:key="key">
+              <view class="usage-head">
+                <text class="usage-label">{{item.label}}</text>
+                <text class="usage-value">{{item.usedLabel}} / {{item.totalLabel}}</text>
+              </view>
+
+              <view class="usage-meta">
+                <text class="usage-remaining">剩余：{{item.remainLabel}}</text>
+                <text class="usage-percent">{{item.percentLabel}}</text>
+              </view>
+
+              <view wx:if="{{!item.enabled}}" class="usage-tag-row">
+                <t-tag size="small" variant="light" theme="default">未开通</t-tag>
+              </view>
+              <view wx:elif="{{item.unlimited}}" class="usage-tag-row">
+                <t-tag size="small" variant="light" theme="success">不限</t-tag>
+              </view>
+              <t-progress wx:else percentage="{{item.percent}}" strokeWidth="12rpx" label="{{false}}" />
+            </view>
+          </view>
+
+          <view wx:else class="stats-empty">
+            <text class="stats-empty-text">{{statsError || '暂无统计数据'}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="card-header">
+          <text class="card-title">功能开通状态</text>
+        </view>
+
+        <view wx:if="{{featureItems.length}}" class="feature-list">
+          <view wx:for="{{featureItems}}" wx:key="key" class="feature-item">
+            <text class="feature-name">{{item.label}}</text>
+            <t-tag size="small" variant="light" theme="{{item.enabled ? 'success' : 'default'}}">
+              {{item.enabled ? '已开通' : '未开通'}}
+            </t-tag>
+          </view>
+        </view>
+        <view wx:else class="stats-empty">
+          <text class="stats-empty-text">{{statsError || '暂无功能数据'}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view wx:else class="empty-card">
+      <t-empty description="{{errorMessage || '暂无会员信息'}}" />
+      <t-button theme="primary" size="small" bind:tap="onReloadTap">重新加载</t-button>
+    </view>
+  </view>
+</view>

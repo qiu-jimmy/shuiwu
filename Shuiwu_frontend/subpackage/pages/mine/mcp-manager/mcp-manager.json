@@ -1,0 +1,14 @@
+{
+  "usingComponents": {
+    "t-cell": "tdesign-miniprogram/cell/cell",
+    "t-cell-group": "tdesign-miniprogram/cell-group/cell-group",
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-tag": "tdesign-miniprogram/tag/tag",
+    "t-loading": "tdesign-miniprogram/loading/loading",
+    "t-empty": "tdesign-miniprogram/empty/empty",
+    "t-switch": "tdesign-miniprogram/switch/switch",
+    "t-dialog": "tdesign-miniprogram/dialog/dialog",
+    "t-message": "tdesign-miniprogram/message/message"
+  },
+  "navigationBarTitleText": "MCP工具管理"
+}

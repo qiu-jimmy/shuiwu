@@ -1,0 +1,93 @@
+/* pages/file/component/categoryPicker/categoryPicker.wxss */
+
+/* 遮罩层 */
+.picker-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/* 选择器容器 */
+.picker-container {
+  width: 100%;
+  max-height: 70vh;
+  background-color: #fff;
+  border-top-left-radius: 30rpx;
+  border-top-right-radius: 30rpx;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* 头部 */
+.picker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #F0F0F0;
+}
+
+.picker-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.picker-close {
+  font-size: 48rpx;
+  color: #999;
+  line-height: 1;
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 选项列表 */
+.picker-body {
+  flex: 1;
+  max-height: calc(70vh - 120rpx);
+}
+
+.picker-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #F5F5F5;
+  transition: background-color 0.2s;
+}
+
+.picker-item:active {
+  background-color: #F5F7FB;
+}
+
+.picker-item-active {
+  background-color: #E5EBFF;
+}
+
+.picker-item-text {
+  font-size: 28rpx;
+  color: #333;
+  flex: 1;
+}
+
+.picker-item-active .picker-item-text {
+  color: #3B55F3;
+  font-weight: 500;
+}
+
+.picker-item-check {
+  font-size: 32rpx;
+  color: #3B55F3;
+  margin-left: 20rpx;
+}

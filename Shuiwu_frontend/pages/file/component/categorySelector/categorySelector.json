@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "category-picker": "/pages/file/component/categoryPicker/categoryPicker"
+  }
+}

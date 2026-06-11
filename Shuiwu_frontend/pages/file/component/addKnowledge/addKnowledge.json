@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "category-selector": "/pages/file/component/categorySelector/categorySelector",
+    "category-picker": "/pages/file/component/categoryPicker/categoryPicker"
+  }
+}

@@ -1,0 +1,338 @@
+<!--pages/index/shuiwuInput/shuiwuInput.wxml-->
+<view class="container">
+  <!-- 纳税人类型 -->
+  <view class="form-section">
+    <view class="section-title">纳税人类型</view>
+    <view class="form-item">
+      <view class="form-label">
+        <text class="required">*</text>
+        <text>纳税人类型</text>
+      </view>
+      <picker mode="selector" range="{{taxpayerTypeOptions}}" range-key="label" value="{{taxpayerTypeIndex}}" bindchange="onTaxpayerTypeChange">
+        <view class="picker-view">
+          <text class="{{taxpayerTypeOptions[taxpayerTypeIndex] ? 'picker-text' : 'picker-placeholder'}}">
+            {{taxpayerTypeOptions[taxpayerTypeIndex] ? taxpayerTypeOptions[taxpayerTypeIndex].label : '请选择纳税人类型'}}
+          </text>
+          <text class="picker-arrow">></text>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 税期选择 -->
+  <view class="form-section">
+    <view class="section-title">税期</view>
+    <view class="form-item" wx:if="{{taxpayerType === 'small_scale'}}">
+      <view class="form-label">
+        <text class="required">*</text>
+        <text>申报周期</text>
+      </view>
+      <view class="period-type-selector">
+        <view class="period-type-item {{periodType === 'quarter' ? 'active' : ''}}" 
+              data-type="quarter" bindtap="onPeriodTypeChange">
+          <text>季度</text>
+        </view>
+        <view class="period-type-item {{periodType === 'month' ? 'active' : ''}}" 
+              data-type="month" bindtap="onPeriodTypeChange">
+          <text>月度</text>
+        </view>
+      </view>
+    </view>
+    <view class="form-item">
+      <view class="form-label">
+        <text class="required">*</text>
+        <text>所属期</text>
+      </view>
+      <picker mode="selector" 
+              range="{{periodType === 'quarter' ? quarterOptions : monthOptions}}" 
+              range-key="label" 
+              value="{{periodValueIndex}}" 
+              bindchange="onPeriodValueChange">
+        <view class="picker-view">
+          <text class="{{currentPeriodLabel ? 'picker-text' : 'picker-placeholder'}}">
+            {{currentPeriodLabel || '请选择所属期'}}
+          </text>
+          <text class="picker-arrow">></text>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 纳税人信息 -->
+  <view class="form-section">
+    <view class="section-title">纳税人信息</view>
+    <view class="form-item">
+      <view class="form-label">
+        <text class="required">*</text>
+        <text>纳税人识别号</text>
+      </view>
+      <input class="form-input" type="text" placeholder="请输入纳税人识别号(18位)" 
+             value="{{taxNo}}" bindinput="onTaxNoInput" maxlength="18" />
+    </view>
+    <view class="form-item">
+      <view class="form-label">
+        <text class="required">*</text>
+        <text>企业名称</text>
+      </view>
+      <input class="form-input" type="text" placeholder="请输入企业名称" 
+             value="{{companyName}}" bindinput="onCompanyNameInput" />
+    </view>
+    <view class="form-item">
+      <view class="form-label">
+        <text class="required">*</text>
+        <text>联系电话</text>
+      </view>
+      <input class="form-input" type="number" placeholder="请输入手机号" 
+             value="{{taxpayerPhone}}" bindinput="onTaxpayerPhoneInput" maxlength="11" />
+    </view>
+  </view>
+
+  <!-- 小规模纳税人申报信息 -->
+  <view class="form-section" wx:if="{{taxpayerType === 'small_scale'}}">
+    <view class="section-title">
+      <text>销售额信息</text>
+    </view>
+    
+    <!-- 3%征收率应税行为 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text>3%征收率应税销售额（含税）</text>
+      </view>
+      <input class="form-input" type="digit" placeholder="请输入金额（元）" 
+             value="{{smallScaleData.taxRate3.totalIncomeWithTax}}" 
+             data-field="taxRate3.totalIncomeWithTax" bindinput="onSmallScaleInput" />
+    </view>
+    <view class="form-item">
+      <view class="form-label">
+        <text>3%征收率扣除额</text>
+      </view>
+      <input class="form-input" type="digit" placeholder="请输入扣除金额（元）" 
+             value="{{smallScaleData.taxRate3.deductionAmount}}" 
+             data-field="taxRate3.deductionAmount" bindinput="onSmallScaleInput" />
+    </view>
+    
+    <!-- 5%征收率应税行为 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text>5%征收率应税销售额（含税）</text>
+      </view>
+      <input class="form-input" type="digit" placeholder="请输入金额（元）" 
+             value="{{smallScaleData.taxRate5.totalIncomeWithTax}}" 
+             data-field="taxRate5.totalIncomeWithTax" bindinput="onSmallScaleInput" />
+    </view>
+    <view class="form-item">
+      <view class="form-label">
+        <text>5%征收率扣除额</text>
+      </view>
+      <input class="form-input" type="digit" placeholder="请输入扣除金额（元）" 
+             value="{{smallScaleData.taxRate5.deductionAmount}}" 
+             data-field="taxRate5.deductionAmount" bindinput="onSmallScaleInput" />
+    </view>
+  </view>
+
+  <!-- 小规模纳税人免税信息 -->
+  <view class="form-section" wx:if="{{taxpayerType === 'small_scale'}}">
+    <view class="section-title">
+      <text>免税销售额</text>
+      <text class="form-label-tip">（选填）</text>
+    </view>
+    
+    <!-- 小微企业免税销售额 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text>小微企业免税销售额-货物及劳务</text>
+      </view>
+      <input class="form-input" type="digit" placeholder="请输入金额（元）" 
+             value="{{smallScaleData.smallMicroExempt.goodsAndLabor}}" 
+             data-field="smallMicroExempt.goodsAndLabor" bindinput="onSmallScaleInput" />
+    </view>
+    <view class="form-item">
+      <view class="form-label">
+        <text>小微企业免税销售额-服务、不动产</text>
+      </view>
+      <input class="form-input" type="digit" placeholder="请输入金额（元）" 
+             value="{{smallScaleData.smallMicroExempt.serviceAndRealEstate}}" 
+             data-field="smallMicroExempt.serviceAndRealEstate" bindinput="onSmallScaleInput" />
+    </view>
+    
+    <!-- 未达起征点销售额 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text>未达起征点销售额-货物及劳务</text>
+      </view>
+      <input class="form-input" type="digit" placeholder="请输入金额（元）" 
+             value="{{smallScaleData.belowThreshold.goodsAndLabor}}" 
+             data-field="belowThreshold.goodsAndLabor" bindinput="onSmallScaleInput" />
+    </view>
+    <view class="form-item">
+      <view class="form-label">
+        <text>未达起征点销售额-服务、不动产</text>
+      </view>
+      <input class="form-input" type="digit" placeholder="请输入金额（元）" 
+             value="{{smallScaleData.belowThreshold.serviceAndRealEstate}}" 
+             data-field="belowThreshold.serviceAndRealEstate" bindinput="onSmallScaleInput" />
+    </view>
+    
+    <!-- 其他免税销售额 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text>其他免税销售额-货物及劳务</text>
+      </view>
+      <input class="form-input" type="digit" placeholder="请输入金额（元）" 
+             value="{{smallScaleData.otherExempt.goodsAndLabor}}" 
+             data-field="otherExempt.goodsAndLabor" bindinput="onSmallScaleInput" />
+    </view>
+    <view class="form-item">
+      <view class="form-label">
+        <text>其他免税销售额-服务、不动产</text>
+      </view>
+      <input class="form-input" type="digit" placeholder="请输入金额（元）" 
+             value="{{smallScaleData.otherExempt.serviceAndRealEstate}}" 
+             data-field="otherExempt.serviceAndRealEstate" bindinput="onSmallScaleInput" />
+    </view>
+  </view>
+
+  <!-- 小规模纳税人减征和预缴信息 -->
+  <view class="form-section" wx:if="{{taxpayerType === 'small_scale'}}">
+    <view class="section-title">
+      <text>减征和预缴信息</text>
+      <text class="form-label-tip">（选填）</text>
+    </view>
+    
+    <!-- 本期应纳税额减征额 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text>本期应纳税额减征额-货物及劳务</text>
+      </view>
+      <input class="form-input" type="digit" placeholder="请输入金额（元）" 
+             value="{{smallScaleData.taxReduction.goodsAndLabor}}" 
+             data-field="taxReduction.goodsAndLabor" bindinput="onSmallScaleInput" />
+    </view>
+    <view class="form-item">
+      <view class="form-label">
+        <text>本期应纳税额减征额-服务、不动产</text>
+      </view>
+      <input class="form-input" type="digit" placeholder="请输入金额（元）" 
+             value="{{smallScaleData.taxReduction.serviceAndRealEstate}}" 
+             data-field="taxReduction.serviceAndRealEstate" bindinput="onSmallScaleInput" />
+    </view>
+    
+    <!-- 本期预缴税额 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text>本期预缴税额-货物及劳务</text>
+      </view>
+      <input class="form-input" type="digit" placeholder="请输入金额（元）" 
+             value="{{smallScaleData.prepaidTax.goodsAndLabor}}" 
+             data-field="prepaidTax.goodsAndLabor" bindinput="onSmallScaleInput" />
+    </view>
+    <view class="form-item">
+      <view class="form-label">
+        <text>本期预缴税额-服务、不动产</text>
+      </view>
+      <input class="form-input" type="digit" placeholder="请输入金额（元）" 
+             value="{{smallScaleData.prepaidTax.serviceAndRealEstate}}" 
+             data-field="prepaidTax.serviceAndRealEstate" bindinput="onSmallScaleInput" />
+    </view>
+  </view>
+
+  <!-- 一般纳税人申报信息 -->
+  <view class="form-section" wx:if="{{taxpayerType === 'general'}}">
+    <view class="section-title">
+      <text>销售额和销项税额</text>
+    </view>
+    
+    <view class="form-item">
+      <view class="form-label">
+        <text>应税货物销售额</text>
+      </view>
+      <input class="form-input" type="digit" placeholder="请输入金额（元）" 
+             value="{{generalData.goodsSales}}" 
+             data-field="goodsSales" bindinput="onGeneralInput" />
+    </view>
+    
+    <view class="form-item">
+      <view class="form-label">
+        <text>应税劳务销售额</text>
+      </view>
+      <input class="form-input" type="digit" placeholder="请输入金额（元）" 
+             value="{{generalData.laborSales}}" 
+             data-field="laborSales" bindinput="onGeneralInput" />
+    </view>
+    
+    <view class="form-item">
+      <view class="form-label">
+        <text>免税货物销售额</text>
+      </view>
+      <input class="form-input" type="digit" placeholder="请输入金额（元）" 
+             value="{{generalData.exemptGoodsSales}}" 
+             data-field="exemptGoodsSales" bindinput="onGeneralInput" />
+    </view>
+    
+    <view class="form-item">
+      <view class="form-label">
+        <text>免税劳务销售额</text>
+      </view>
+      <input class="form-input" type="digit" placeholder="请输入金额（元）" 
+             value="{{generalData.exemptLaborSales}}" 
+             data-field="exemptLaborSales" bindinput="onGeneralInput" />
+    </view>
+  </view>
+
+  <!-- 一般纳税人进项税额 -->
+  <view class="form-section" wx:if="{{taxpayerType === 'general'}}">
+    <view class="section-title">
+      <text>进项税额</text>
+    </view>
+    
+    <view class="form-item">
+      <view class="form-label">
+        <text>本期认证相符且申报抵扣-税额</text>
+      </view>
+      <input class="form-input" type="digit" placeholder="请输入金额（元）" 
+             value="{{generalData.inputTaxCurrent}}" 
+             data-field="inputTaxCurrent" bindinput="onGeneralInput" />
+    </view>
+    
+    <view class="form-item">
+      <view class="form-label">
+        <text>前期认证相符且申报抵扣-税额</text>
+      </view>
+      <input class="form-input" type="digit" placeholder="请输入金额（元）" 
+             value="{{generalData.inputTaxPrevious}}" 
+             data-field="inputTaxPrevious" bindinput="onGeneralInput" />
+    </view>
+    
+    <view class="form-item">
+      <view class="form-label">
+        <text>进项税额转出</text>
+      </view>
+      <input class="form-input" type="digit" placeholder="请输入金额（元）" 
+             value="{{generalData.inputTaxTransfer}}" 
+             data-field="inputTaxTransfer" bindinput="onGeneralInput" />
+    </view>
+  </view>
+
+  <!-- 备注 -->
+  <view class="form-section">
+    <view class="section-title">备注</view>
+    <view class="form-item">
+      <view class="form-label">
+        <text>备注</text>
+        <text class="form-label-tip">（选填）</text>
+      </view>
+      <textarea class="form-textarea" placeholder="请输入备注信息" 
+                value="{{userRemarks}}" bindinput="onRemarksInput" maxlength="500" show-confirm-bar="{{false}}" />
+      <view class="char-count">{{userRemarks.length}}/500</view>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-wrapper">
+    <button class="submit-btn {{isFormValid && !submitting ? '' : 'submit-btn-disabled'}}" 
+            bindtap="submitForm" 
+            disabled="{{!isFormValid || submitting}}">
+      {{submitting ? '提交中...' : '提交申报'}}
+    </button>
+  </view>
+</view>

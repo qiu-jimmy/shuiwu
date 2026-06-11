@@ -1,0 +1,126 @@
+<!--pages/mine/mcp-manager/mcp-manager.wxml-->
+<view class="page">
+  <view class="hero">
+    <text class="hero-title">MCP工具管理</text>
+    <text class="hero-subtitle">Model Context Protocol - 模型上下文协议工具配置</text>
+  </view>
+
+  <view class="content">
+    <view wx:if="{{!isLogin}}" class="empty-card">
+      <text class="empty-title">登录后使用MCP工具</text>
+      <text class="empty-desc">MCP工具需要登录后才能使用</text>
+      <t-button theme="primary" block bind:tap="onLoginTap">去登录</t-button>
+    </view>
+
+    <view wx:elif="{{loading}}" class="loading-block">
+      <t-loading size="40rpx" />
+      <text class="loading-text">加载中...</text>
+    </view>
+
+    <view wx:else>
+      <view class="card status-card">
+        <view class="status-header">
+          <text class="status-title">MCP功能状态</text>
+          <t-tag size="medium" variant="light" theme="{{mcpEnabled ? 'success' : 'default'}}">
+            {{mcpEnabled ? '已开通' : '未开通'}}
+          </t-tag>
+        </view>
+        <view class="status-desc">
+          <text class="desc-text" wx:if="{{mcpEnabled}}">您已开通MCP工具功能，可以使用以下工具服务</text>
+          <text class="desc-text" wx:else>当前套餐未开通MCP工具功能，请升级会员后使用</text>
+        </view>
+        <view class="status-action" wx:if="{{!mcpEnabled}}">
+          <t-button theme="primary" size="small" bind:tap="onUpgradeTap">升级会员</t-button>
+        </view>
+      </view>
+
+      <view class="card" wx:if="{{mcpEnabled}}">
+        <view class="card-header">
+          <text class="card-title">可用工具列表</text>
+        </view>
+
+        <view wx:if="{{toolsLoading}}" class="loading-block loading-block--inner">
+          <t-loading size="32rpx" />
+          <text class="loading-text">工具加载中...</text>
+        </view>
+
+        <view wx:elif="{{toolsList.length}}" class="tools-list">
+          <view class="tool-item" wx:for="{{toolsList}}" wx:key="name">
+            <view class="tool-info">
+              <view class="tool-header">
+                <text class="tool-name">{{item.display_name || item.name}}</text>
+                <t-tag size="small" variant="light" theme="{{item.enabled ? 'success' : 'default'}}">
+                  {{item.enabled ? '已启用' : '未启用'}}
+                </t-tag>
+              </view>
+              <text class="tool-desc">{{item.description || '暂无描述'}}</text>
+              <view class="tool-meta" wx:if="{{item.version || item.author}}">
+                <text class="meta-item" wx:if="{{item.version}}">版本: {{item.version}}</text>
+                <text class="meta-item" wx:if="{{item.author}}">作者: {{item.author}}</text>
+              </view>
+            </view>
+            <view class="tool-action">
+              <t-switch 
+                value="{{item.enabled}}" 
+                bind:change="onToolSwitch" 
+                data-name="{{item.name}}"
+                data-index="{{index}}"
+              />
+            </view>
+          </view>
+        </view>
+
+        <view wx:else class="empty-state">
+          <t-empty description="暂无可用工具" />
+        </view>
+      </view>
+
+      <view class="card" wx:if="{{mcpEnabled}}">
+        <view class="card-header">
+          <text class="card-title">使用说明</text>
+        </view>
+        <view class="guide-list">
+          <view class="guide-item">
+            <view class="guide-number">1</view>
+            <text class="guide-text">在AI对话中，系统会自动调用已启用的MCP工具</text>
+          </view>
+          <view class="guide-item">
+            <view class="guide-number">2</view>
+            <text class="guide-text">MCP工具可以扩展AI的能力，如联网搜索、数据分析等</text>
+          </view>
+          <view class="guide-item">
+            <view class="guide-number">3</view>
+            <text class="guide-text">您可以根据需要开启或关闭特定工具</text>
+          </view>
+          <view class="guide-item">
+            <view class="guide-number">4</view>
+            <text class="guide-text">工具调用会消耗相应的会员权益额度</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="card-header">
+          <text class="card-title">使用统计</text>
+        </view>
+        <t-cell-group>
+          <t-cell title="今日调用次数" note="{{stats.todayCalls || 0}} 次" />
+          <t-cell title="本月调用次数" note="{{stats.monthCalls || 0}} 次" />
+          <t-cell title="剩余调用额度" note="{{stats.remainingCalls || '不限'}}" />
+        </t-cell-group>
+      </view>
+    </view>
+  </view>
+</view>
+
+<t-dialog
+  visible="{{showUpgradeDialog}}"
+  title="升级会员"
+  content="MCP工具需要升级会员后才能使用，是否前往会员中心？"
+  confirm-btn="去升级"
+  cancel-btn="取消"
+  bind:confirm="onConfirmUpgrade"
+  bind:cancel="onCancelUpgrade"
+/>
+
+<t-message id="t-message" />

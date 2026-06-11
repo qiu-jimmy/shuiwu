@@ -1,0 +1,130 @@
+<!--
+  注册页面
+
+  功能说明：
+  - 当前注册功能已关闭，仅支持微信快捷登录
+  - 保留注册表单代码以备后续启用
+  - 支持分销邀请码自动填充和绑定
+
+  启用注册功能时：
+  1. 将下方注释的表单代码取消注释
+  2. 删除当前显示的"注册已关闭"提示区域
+  3. 邀请码字段会自动从 globalData.pendingInviteCode 填充
+-->
+
+<view class="page">
+  <view class="card">
+    <!-- 当前显示：注册已关闭 -->
+    <view class="card-header">
+      <text class="card-title">注册已关闭</text>
+      <text class="card-desc">请使用微信快捷登录功能</text>
+    </view>
+
+    <view class="form" style="text-align: center; padding: 80rpx 0;">
+      <view style="font-size: 32rpx; color: #666; margin-bottom: 40rpx;">🔒</view>
+      <view style="font-size: 28rpx; color: #999; line-height: 1.6;">
+        当前仅支持微信快捷登录方式
+      </view>
+      <view style="font-size: 28rpx; color: #999; line-height: 1.6;">
+        请点击下方按钮返回登录页面
+      </view>
+    </view>
+
+    <view class="actions">
+      <t-button
+        theme="success"
+        variant="outline"
+        block
+        icon="logo-wechat"
+        bind:tap="goToLogin"
+      >返回登录</t-button>
+    </view>
+
+    <!--
+      启用注册功能时，取消下方注释并删除上面的"注册已关闭"区域
+
+      <view class="card-header">
+        <text class="card-title">注册账号</text>
+        <text class="card-desc">填写信息完成注册</text>
+      </view>
+
+      <view class="form">
+        <view class="form-item">
+          <input
+            class="input"
+            data-field="phone"
+            value="{{form.phone}}"
+            bindinput="onInputChange"
+            placeholder="请输入手机号"
+            type="number"
+            maxlength="11"
+          />
+        </view>
+
+        <view class="form-item">
+          <input
+            class="input"
+            data-field="password"
+            value="{{form.password}}"
+            bindinput="onInputChange"
+            placeholder="请输入登录密码"
+            type="password"
+            maxlength="20"
+          />
+        </view>
+
+        <view class="form-item">
+          <input
+            class="input"
+            data-field="confirmPassword"
+            value="{{form.confirmPassword}}"
+            bindinput="onInputChange"
+            placeholder="请再次输入密码"
+            type="password"
+            maxlength="20"
+          />
+        </view>
+
+        <view class="form-item">
+          <input
+            class="input"
+            data-field="nickname"
+            value="{{form.nickname}}"
+            bindinput="onInputChange"
+            placeholder="请输入昵称"
+            maxlength="20"
+          />
+        </view>
+
+        <view class="form-item invite-code-item">
+          <input
+            class="input"
+            data-field="referral_code"
+            value="{{form.referral_code}}"
+            bindinput="onInputChange"
+            placeholder="请输入邀请码（可选）"
+            maxlength="20"
+            disabled="{{isAutoInviteCode}}"
+          />
+          <view wx:if="{{isAutoInviteCode}}" class="auto-fill-tip">
+            已识别邀请码
+          </view>
+        </view>
+      </view>
+
+      <view class="actions">
+        <t-button
+          theme="primary"
+          block
+          loading="{{loading}}"
+          disabled="{{loading}}"
+          bind:tap="onSubmit"
+        >注册</t-button>
+        <view class="login-link" bind:tap="goToLogin">
+          已有账号？返回登录
+        </view>
+      </view>
+    -->
+
+  </view>
+</view>
