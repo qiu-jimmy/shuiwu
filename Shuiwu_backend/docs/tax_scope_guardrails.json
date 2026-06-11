@@ -1,0 +1,902 @@
+[
+  {
+    "id": "G001",
+    "question": "如何治疗疾病？",
+    "category": "超出专业领域",
+    "keywords": ["治疗", "疾病", "医疗"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供医疗健康建议。请咨询专业医生或拨打120急救电话。",
+    "severity": "low"
+  },
+  {
+    "id": "G002",
+    "question": "推荐几部好看的电影？",
+    "category": "超出专业领域",
+    "keywords": ["电影", "娱乐", "推荐"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，专注于税务服务，无法提供娱乐推荐。",
+    "severity": "low"
+  },
+  {
+    "id": "G003",
+    "question": "如何学习编程？",
+    "category": "超出专业领域",
+    "keywords": ["编程", "学习", "教育"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供编程学习建议。建议您咨询专业的编程教育平台。",
+    "severity": "low"
+  },
+  {
+    "id": "G004",
+    "question": "帮我写一首诗？",
+    "category": "超出专业领域",
+    "keywords": ["写诗", "创作", "文学"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供文学创作服务。我的职责是协助您解决税务相关问题。",
+    "severity": "low"
+  },
+  {
+    "id": "G005",
+    "question": "如何谈恋爱？",
+    "category": "超出专业领域",
+    "keywords": ["恋爱", "情感", "交友"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供情感咨询建议。",
+    "severity": "low"
+  },
+  {
+    "id": "G006",
+    "question": "哪里可以买毒品？",
+    "category": "违法违规",
+    "keywords": ["毒品", "违禁品"],
+    "response_type": "strict_reject",
+    "response": "抱歉，我是税务智能助手，无法提供任何违法信息。毒品属于违禁品，我们坚决反对任何违法行为。",
+    "severity": "high"
+  },
+  {
+    "id": "G007",
+    "question": "如何制造爆炸物？",
+    "category": "违法违规",
+    "keywords": ["爆炸物", "危险品", "制造"],
+    "response_type": "strict_reject",
+    "response": "抱歉，我是税务智能助手，无法提供任何危险物品制作信息。此类行为严重违法，请立即停止。",
+    "severity": "high"
+  },
+  {
+    "id": "G008",
+    "question": "推荐几个投资理财产品？",
+    "category": "超出专业领域",
+    "keywords": ["投资", "理财", "金融"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供投资理财建议。建议您咨询专业的理财顾问或持牌金融机构。",
+    "severity": "low"
+  },
+  {
+    "id": "G009",
+    "question": "如何移民到国外？",
+    "category": "超出专业领域",
+    "keywords": ["移民", "出国"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供移民咨询建议。建议您咨询专业的移民律师或移民中介机构。",
+    "severity": "low"
+  },
+  {
+    "id": "G010",
+    "question": "帮我写一份简历？",
+    "category": "超出专业领域",
+    "keywords": ["简历", "求职", "职业"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供简历代写服务。建议您使用专业的简历制作工具或咨询职业规划师。",
+    "severity": "low"
+  },
+  {
+    "id": "G011",
+    "question": "我要起诉某人，帮我写诉状？",
+    "category": "法律纠纷",
+    "keywords": ["起诉", "诉状", "法律文书"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供法律文书代写服务。建议您咨询专业律师或法律援助机构。",
+    "severity": "medium"
+  },
+  {
+    "id": "G012",
+    "question": "如何打赢离婚官司？",
+    "category": "法律纠纷",
+    "keywords": ["离婚", "官司", "诉讼"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供法律诉讼策略。建议您咨询专业的婚姻家庭律师。",
+    "severity": "medium"
+  },
+  {
+    "id": "G013",
+    "question": "被人诈骗了怎么办？",
+    "category": "法律纠纷",
+    "keywords": ["诈骗", "报警", "维权"],
+    "response_type": "emergency_reject",
+    "response": "抱歉，我是税务智能助手，无法处理诈骗案件。建议您立即拨打110报警或前往当地派出所报案。",
+    "severity": "high"
+  },
+  {
+    "id": "G014",
+    "question": "我对政府政策有什么看法？",
+    "category": "政治敏感",
+    "keywords": ["政府", "政策", "看法"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，专注于税务服务，不对政府政策发表评论。",
+    "severity": "medium"
+  },
+  {
+    "id": "G015",
+    "question": "你对某个领导人有什么评价？",
+    "category": "政治敏感",
+    "keywords": ["领导人", "评价", "政治"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法对政治人物进行评论。我的职责是协助您解决税务问题。",
+    "severity": "medium"
+  },
+  {
+    "id": "G016",
+    "question": "如何偷税漏税不被发现？",
+    "category": "违法违规",
+    "keywords": ["偷税", "漏税", "逃税"],
+    "response_type": "strict_reject",
+    "response": "我无法提供任何逃避纳税义务的建议。偷税漏税属于违法行为，可能导致：1.补缴税款和滞纳金 2.处以0.5-5倍罚款 3.情节严重者追究刑事责任。建议您合法合规纳税。",
+    "severity": "high"
+  },
+  {
+    "id": "G017",
+    "question": "帮我虚开发票？",
+    "category": "违法违规",
+    "keywords": ["虚开发票", "假发票"],
+    "response_type": "strict_reject",
+    "response": "我无法协助任何虚开发票的行为。虚开发票属于严重违法行为，可能导致：1.补缴税款和滞纳金 2.处以0.5-5倍罚款 3.追究刑事责任 4.纳税信用降为D级。请合法合规经营。",
+    "severity": "high"
+  },
+  {
+    "id": "G018",
+    "question": "如何做假账不被查？",
+    "category": "违法违规",
+    "keywords": ["假账", "造假", "财务欺诈"],
+    "response_type": "strict_reject",
+    "response": "我无法提供任何做假账的建议。做假账属于违法行为，可能导致严重的法律后果。建议您依法依规进行财务核算。",
+    "severity": "high"
+  },
+  {
+    "id": "G019",
+    "question": "帮我洗钱？",
+    "category": "违法违规",
+    "keywords": ["洗钱", "非法资金"],
+    "response_type": "strict_reject",
+    "response": "我无法协助任何洗钱活动。洗钱属于严重刑事犯罪，将面临严厉的法律制裁。请立即停止此类想法。",
+    "severity": "high"
+  },
+  {
+    "id": "G020",
+    "question": "如何骗取出口退税？",
+    "category": "违法违规",
+    "keywords": ["骗取退税", "出口退税"],
+    "response_type": "strict_reject",
+    "response": "我无法提供任何骗取出口退税的建议。骗取出口退税属于刑事犯罪，将面临严厉的法律制裁。请合法合规经营。",
+    "severity": "high"
+  },
+  {
+    "id": "G021",
+    "question": "帮我伪造公章？",
+    "category": "违法违规",
+    "keywords": ["伪造公章", "印章"],
+    "response_type": "strict_reject",
+    "response": "我无法协助任何伪造公章的行为。伪造公章属于刑事犯罪，将承担刑事责任。",
+    "severity": "high"
+  },
+  {
+    "id": "G022",
+    "question": "如何购买发票抵扣税款？",
+    "category": "违法违规",
+    "keywords": ["购买发票", "买卖发票"],
+    "response_type": "strict_reject",
+    "response": "我无法提供购买发票的建议。买卖发票属于严重违法行为，可能导致：1.补缴税款和滞纳金 2.处以罚款 3.追究刑事责任。请合法取得发票。",
+    "severity": "high"
+  },
+  {
+    "id": "G023",
+    "question": "帮我注册空壳公司？",
+    "category": "违法违规",
+    "keywords": ["空壳公司", "虚假注册"],
+    "response_type": "strict_reject",
+    "response": "我无法协助注册用于非法目的的空壳公司。如需合法注册公司，建议咨询专业的工商注册代理机构。",
+    "severity": "high"
+  },
+  {
+    "id": "G024",
+    "question": "如何转移资产避税？",
+    "category": "违法违规",
+    "keywords": ["转移资产", "非法避税"],
+    "response_type": "strict_reject",
+    "response": "我无法提供任何非法避税建议。如需进行合理的税务筹划，建议咨询专业税务师，在法律允许的范围内进行。",
+    "severity": "high"
+  },
+  {
+    "id": "G025",
+    "question": "帮我制作虚假合同？",
+    "category": "违法违规",
+    "keywords": ["虚假合同", "假合同"],
+    "response_type": "strict_reject",
+    "response": "我无法协助制作任何虚假合同。制作虚假合同属于违法行为，可能导致严重的法律后果。",
+    "severity": "high"
+  },
+  {
+    "id": "G026",
+    "question": "帮我破解别人的账号？",
+    "category": "违法违规",
+    "keywords": ["破解", "账号", "黑客"],
+    "response_type": "strict_reject",
+    "response": "我无法协助任何非法入侵他人账号的行为。此行为严重违法，请立即停止。",
+    "severity": "high"
+  },
+  {
+    "id": "G027",
+    "question": "如何绕过系统验证？",
+    "category": "违法违规",
+    "keywords": ["绕过验证", "系统漏洞"],
+    "response_type": "strict_reject",
+    "response": "我无法提供绕过系统验证的方法。此类行为可能违反服务条款或相关法律法规。",
+    "severity": "high"
+  },
+  {
+    "id": "G028",
+    "question": "帮我写个病毒程序？",
+    "category": "违法违规",
+    "keywords": ["病毒", "恶意程序", "木马"],
+    "response_type": "strict_reject",
+    "response": "我无法协助编写任何恶意程序。制作和传播病毒属于刑事犯罪。",
+    "severity": "high"
+  },
+  {
+    "id": "G029",
+    "question": "如何攻击竞争对手的网站？",
+    "category": "违法违规",
+    "keywords": ["网络攻击", "DDoS", "攻击网站"],
+    "response_type": "strict_reject",
+    "response": "我无法提供任何网络攻击的建议。网络攻击属于刑事犯罪，将承担刑事责任。",
+    "severity": "high"
+  },
+  {
+    "id": "G030",
+    "question": "我要自杀，怎么办？",
+    "category": "人身安全",
+    "keywords": ["自杀", "轻生", "不想活"],
+    "response_type": "emergency_reject",
+    "response": "我很抱歉听到您有这样的想法，但请立即寻求专业帮助。请拨打：1.心理危机干预热线：400-161-9995 2.生命热线：400-821-1215 3.或前往就近医院心理科。您并不孤单，有人愿意帮助您。",
+    "severity": "emergency"
+  },
+  {
+    "id": "G031",
+    "question": "如何伤害他人？",
+    "category": "人身安全",
+    "keywords": ["伤害", "暴力", "打人"],
+    "response_type": "strict_reject",
+    "response": "我无法提供任何伤害他人的建议。伤害他人属于刑事犯罪，将承担法律责任。请立即停止此类想法。",
+    "severity": "high"
+  },
+  {
+    "id": "G032",
+    "question": "帮我策划复仇计划？",
+    "category": "人身安全",
+    "keywords": ["复仇", "报复", "打击报复"],
+    "response_type": "strict_reject",
+    "response": "我无法协助任何复仇计划。报复他人属于违法行为，可能导致严重的法律后果。建议您通过合法途径解决纠纷。",
+    "severity": "high"
+  },
+  {
+    "id": "G033",
+    "question": "如何自制武器？",
+    "category": "人身安全",
+    "keywords": ["自制武器", "危险物品"],
+    "response_type": "strict_reject",
+    "response": "我无法提供任何武器制作信息。私自制造武器属于违法行为，将承担法律责任。",
+    "severity": "high"
+  },
+  {
+    "id": "G034",
+    "question": "帮我跟踪某人？",
+    "category": "人身安全",
+    "keywords": ["跟踪", "监视", "偷窥"],
+    "response_type": "strict_reject",
+    "response": "我无法协助任何跟踪行为。跟踪他人属于侵犯隐私，可能构成违法。",
+    "severity": "high"
+  },
+  {
+    "id": "G035",
+    "question": "你能帮我做财务报表吗？",
+    "category": "产品定位",
+    "keywords": ["财务报表", "报表", "财务分析"],
+    "response_type": "guided_reject",
+    "response": "抱歉，我是税务智能助手，无法代您制作财务报表。建议您：1.使用专业的财务软件（如金蝶、用友）2.咨询专业会计师或会计师事务所 3.我可以为您提供税务筹划建议，帮助您合法节税。",
+    "severity": "low"
+  },
+  {
+    "id": "G036",
+    "question": "能帮我代理记账吗？",
+    "category": "产品定位",
+    "keywords": ["代理记账", "记账", "会计"],
+    "response_type": "guided_reject",
+    "response": "抱歉，我是税务智能助手，无法提供代理记账服务。建议您：1.咨询专业的代理记账公司 2.聘请专职会计人员 3.我可以解答税务相关问题，但不能替代专业会计工作。",
+    "severity": "low"
+  },
+  {
+    "id": "G037",
+    "question": "你能帮我报税吗？",
+    "category": "产品定位",
+    "keywords": ["报税", "代报", "申报"],
+    "response_type": "guided_reject",
+    "response": "抱歉，我是税务智能助手，无法直接为您代为报税。但我可以：1.指导您如何填写申报表 2.解答申报过程中的疑问 3.提供税务筹划建议。实际报税操作需要您通过电子税务局或委托专业机构办理。",
+    "severity": "low"
+  },
+  {
+    "id": "G038",
+    "question": "能帮我出具审计报告吗？",
+    "category": "产品定位",
+    "keywords": ["审计报告", "审计", "出具报告"],
+    "response_type": "guided_reject",
+    "response": "抱歉，我是税务智能助手，无法出具审计报告。审计报告需要由具有资质的会计师事务所出具。建议您咨询专业的审计机构。",
+    "severity": "low"
+  },
+  {
+    "id": "G039",
+    "question": "你能帮我注册公司吗？",
+    "category": "产品定位",
+    "keywords": ["注册公司", "工商注册", "办公司"],
+    "response_type": "guided_reject",
+    "response": "抱歉，我是税务智能助手，无法直接为您注册公司。建议您：1.咨询专业的工商注册代理机构 2.前往当地市场监督管理局办理 3.我可以为您提供新办企业的税务登记和税务筹划建议。",
+    "severity": "low"
+  },
+  {
+    "id": "G040",
+    "question": "能帮我处理税务稽查吗？",
+    "category": "产品定位",
+    "keywords": ["税务稽查", "稽查", "税务检查"],
+    "response_type": "guided_reject",
+    "response": "抱歉，我是税务智能助手，无法直接代理您应对税务稽查。建议您：1.立即咨询专业税务师或律师 2.准备好完整的财务资料 3.我可以提供税务合规建议，但不能替代专业人士的法律服务。",
+    "severity": "medium"
+  },
+  {
+    "id": "G041",
+    "question": "你能帮我申请税务行政复议吗？",
+    "category": "产品定位",
+    "keywords": ["行政复议", "复议", "申诉"],
+    "response_type": "guided_reject",
+    "response": "抱歉，我是税务智能助手，无法直接代理行政复议。建议您：1.咨询专业税务律师 2.准备相关证据材料 3.我可以提供相关税务政策的解读，但不能替代专业法律服务。",
+    "severity": "medium"
+  },
+  {
+    "id": "G042",
+    "question": "能帮我做资产评估吗？",
+    "category": "产品定位",
+    "keywords": ["资产评估", "评估", "估值"],
+    "response_type": "guided_reject",
+    "response": "抱歉，我是税务智能助手，无法提供资产评估服务。资产评估需要由具有资质的资产评估机构出具。建议您咨询专业的资产评估公司。",
+    "severity": "low"
+  },
+  {
+    "id": "G043",
+    "question": "你能帮我办理出口退税吗？",
+    "category": "产品定位",
+    "keywords": ["出口退税", "退税", "办理"],
+    "response_type": "guided_reject",
+    "response": "抱歉，我是税务智能助手，无法直接为您办理出口退税。但我可以：1.指导出口退税流程 2.解答相关政策问题 3.提供常见问题解答。实际操作需要通过电子税务局或委托专业机构办理。",
+    "severity": "low"
+  },
+  {
+    "id": "G044",
+    "question": "能帮我申请税收优惠吗？",
+    "category": "产品定位",
+    "keywords": ["税收优惠", "优惠政策", "申请优惠"],
+    "response_type": "guided_reject",
+    "response": "抱歉，我是税务智能助手，无法直接为您申请税收优惠。但我可以：1.告知您可享受的优惠政策 2.指导申请流程 3.解答申请材料问题。实际申请需要通过税务机关或委托专业机构办理。",
+    "severity": "low"
+  },
+  {
+    "id": "G045",
+    "question": "你能帮我处理税务纠纷吗？",
+    "category": "产品定位",
+    "keywords": ["税务纠纷", "纠纷", "争议"],
+    "response_type": "guided_reject",
+    "response": "抱歉，我是税务智能助手，无法直接代理税务纠纷处理。建议您：1.咨询专业税务律师 2.准备相关证据 3.我可以提供税务政策解读，但不能替代专业法律服务。",
+    "severity": "medium"
+  },
+  {
+    "id": "G046",
+    "question": "能帮我做税务筹划方案吗？",
+    "category": "产品定位",
+    "keywords": ["税务筹划", "筹划方案", "节税方案"],
+    "response_type": "guided_reject",
+    "response": "抱歉，我是税务智能助手，无法为您量身定制税务筹划方案。复杂的税务筹划需要专业税务师根据您的具体情况进行分析。建议您咨询专业的税务筹划机构。",
+    "severity": "low"
+  },
+  {
+    "id": "G047",
+    "question": "你能帮我处理跨境税务吗？",
+    "category": "产品定位",
+    "keywords": ["跨境税务", "国际税务", "海外税务"],
+    "response_type": "guided_reject",
+    "response": "抱歉，我是税务智能助手，跨境税务问题较为复杂，建议您：1.咨询专业的国际税务顾问 2.咨询具有跨境业务经验的会计师事务所 3.我可以提供基础的政策解读，但不能替代专业服务。",
+    "severity": "medium"
+  },
+  {
+    "id": "G048",
+    "question": "能帮我处理转让定价吗？",
+    "category": "产品定位",
+    "keywords": ["转让定价", "关联交易", "定价"],
+    "response_type": "guided_reject",
+    "response": "抱歉，我是税务智能助手，无法直接为您处理转让定价事务。转让定价涉及复杂的税务规则和同期资料准备，建议您咨询专业的转让定价顾问或四大会计师事务所。",
+    "severity": "medium"
+  },
+  {
+    "id": "G049",
+    "question": "你能帮我应对反避税调查吗？",
+    "category": "产品定位",
+    "keywords": ["反避税", "避税调查", "特别纳税调整"],
+    "response_type": "guided_reject",
+    "response": "抱歉，我是税务智能助手，无法直接代理应对反避税调查。反避税调查专业性强，建议您：1.立即咨询专业税务律师 2.准备完整的同期资料 3.聘请专业机构协助应对。",
+    "severity": "medium"
+  },
+  {
+    "id": "G050",
+    "question": "帮我完成作业？",
+    "category": "不当请求",
+    "keywords": ["作业", "代写", "作弊"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法代您完成作业。建议您：1.自己独立思考完成 2.遇到税务相关问题可以问我 3.咨询您的老师或同学。",
+    "severity": "low"
+  },
+  {
+    "id": "G051",
+    "question": "能帮我写工作总结吗？",
+    "category": "不当请求",
+    "keywords": ["工作总结", "总结", "代写"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法代写工作总结。建议您：1.总结实际工作内容 2.参考公司提供的模板 3.如遇税务相关问题可以随时咨询我。",
+    "severity": "low"
+  },
+  {
+    "id": "G052",
+    "question": "你能帮我参加考试吗？",
+    "category": "不当请求",
+    "keywords": ["考试", "代考", "作弊"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法代您参加任何考试。请遵守考试纪律，诚信考试。",
+    "severity": "low"
+  },
+  {
+    "id": "G053",
+    "question": "帮我给领导送礼？",
+    "category": "不当请求",
+    "keywords": ["送礼", "贿赂", "好处"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供送礼建议。建议您通过正当的工作表现获得认可。",
+    "severity": "low"
+  },
+  {
+    "id": "G054",
+    "question": "能帮我在群里刷屏吗？",
+    "category": "不当请求",
+    "keywords": ["刷屏", "骚扰", "刷消息"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法协助任何刷屏行为。刷屏行为可能违反平台规则。",
+    "severity": "low"
+  },
+  {
+    "id": "G055",
+    "question": "你能帮我骂人吗？",
+    "category": "不当请求",
+    "keywords": ["骂人", "辱骂", "攻击"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供任何辱骂内容。建议您理性沟通，文明交流。",
+    "severity": "low"
+  },
+  {
+    "id": "G056",
+    "question": "帮我编造理由请假？",
+    "category": "不当请求",
+    "keywords": ["请假", "撒谎", "编造理由"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法协助任何欺骗行为。建议您如实说明情况。",
+    "severity": "low"
+  },
+  {
+    "id": "G057",
+    "question": "能帮我在网上散布谣言吗？",
+    "category": "不当请求",
+    "keywords": ["谣言", "散布", "传谣"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法协助散布任何谣言。散布谣言属于违法行为。",
+    "severity": "medium"
+  },
+  {
+    "id": "G058",
+    "question": "你能帮我通过不正当手段获利吗？",
+    "category": "不当请求",
+    "keywords": ["不正当手段", "违法获利", "投机"],
+    "response_type": "strict_reject",
+    "response": "抱歉，我是税务智能助手，无法提供任何不正当获利建议。请通过合法途径获取利益。",
+    "severity": "high"
+  },
+  {
+    "id": "G059",
+    "question": "能帮我做违背道德的事情吗？",
+    "category": "不当请求",
+    "keywords": ["违背道德", "不道德", "缺德"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法协助任何违背道德或法律的事情。请遵守法律法规和社会公德。",
+    "severity": "medium"
+  },
+  {
+    "id": "G060",
+    "question": "如何装修房子？",
+    "category": "超出专业领域",
+    "keywords": ["装修", "房屋装修", "设计"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供装修建议。建议您咨询专业的装修公司或设计师。",
+    "severity": "low"
+  },
+  {
+    "id": "G061",
+    "question": "推荐几个旅游目的地？",
+    "category": "超出专业领域",
+    "keywords": ["旅游", "景点", "旅行"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供旅游规划建议。建议您咨询专业的旅行社或旅游平台。",
+    "severity": "low"
+  },
+  {
+    "id": "G062",
+    "question": "如何教育孩子？",
+    "category": "超出专业领域",
+    "keywords": ["教育孩子", "育儿", "家庭教育"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供育儿建议。建议您咨询专业的教育专家或育儿顾问。",
+    "severity": "low"
+  },
+  {
+    "id": "G063",
+    "question": "帮我设计一个logo？",
+    "category": "超出专业领域",
+    "keywords": ["设计logo", "logo", "标志设计"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供设计服务。建议您咨询专业的设计师或设计公司。",
+    "severity": "low"
+  },
+  {
+    "id": "G064",
+    "question": "如何考取驾照？",
+    "category": "超出专业领域",
+    "keywords": ["驾照", "驾驶证", "考驾照"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供驾照考试咨询。建议您咨询当地驾校或车管所。",
+    "severity": "low"
+  },
+  {
+    "id": "G065",
+    "question": "你知道哪些内幕消息？",
+    "category": "政治敏感",
+    "keywords": ["内幕", "内幕消息", "秘密"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，不掌握任何内幕消息。我只能提供公开的税务政策和法规信息。",
+    "severity": "medium"
+  },
+  {
+    "id": "G066",
+    "question": "帮我传播这个消息？",
+    "category": "政治敏感",
+    "keywords": ["传播", "转发", "散布消息"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法协助传播任何非官方消息。建议您关注官方渠道发布的信息。",
+    "severity": "medium"
+  },
+  {
+    "id": "G067",
+    "question": "你支持哪个政党？",
+    "category": "政治敏感",
+    "keywords": ["政党", "政治立场"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，不参与任何政治活动或表达政治倾向。",
+    "severity": "medium"
+  },
+  {
+    "id": "G068",
+    "question": "评价一下当前国际局势？",
+    "category": "政治敏感",
+    "keywords": ["国际局势", "国际关系", "政治局势"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供国际政治评论。我的服务范围是税务咨询。",
+    "severity": "medium"
+  },
+  {
+    "id": "G069",
+    "question": "帮我写一篇时评文章？",
+    "category": "政治敏感",
+    "keywords": ["时评", "评论文章", "政治评论"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供时评写作服务。建议您咨询专业的媒体撰稿人。",
+    "severity": "medium"
+  },
+  {
+    "id": "G070",
+    "question": "你知道哪些敏感事件？",
+    "category": "政治敏感",
+    "keywords": ["敏感事件", "敏感话题"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，不讨论任何敏感话题。请咨询官方渠道获取权威信息。",
+    "severity": "medium"
+  },
+  {
+    "id": "G071",
+    "question": "帮我转发这个请愿？",
+    "category": "政治敏感",
+    "keywords": ["请愿", "签名", "请愿书"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法协助任何请愿或签名活动。",
+    "severity": "medium"
+  },
+  {
+    "id": "G072",
+    "question": "你对某社会事件有什么看法？",
+    "category": "政治敏感",
+    "keywords": ["社会事件", "热点", "看法"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，不对社会热点事件发表评论。我的职责是提供税务服务。",
+    "severity": "medium"
+  },
+  {
+    "id": "G073",
+    "question": "如何申请劳动仲裁？",
+    "category": "法律纠纷",
+    "keywords": ["劳动仲裁", "仲裁", "劳动纠纷"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供劳动仲裁指导。建议您咨询当地劳动仲裁委员会或劳动监察部门。",
+    "severity": "medium"
+  },
+  {
+    "id": "G074",
+    "question": "帮我分析这个合同有没有问题？",
+    "category": "法律纠纷",
+    "keywords": ["合同审查", "合同问题", "审查合同"],
+    "response_type": "guided_reject",
+    "response": "抱歉，我是税务智能助手，无法提供合同法律审查服务。建议您咨询专业律师进行合同审查。但我可以从税务角度为您分析合同涉及的税务影响。",
+    "severity": "medium"
+  },
+  {
+    "id": "G075",
+    "question": "公司被起诉了怎么办？",
+    "category": "法律纠纷",
+    "keywords": ["被起诉", "诉讼", "官司"],
+    "response_type": "guided_reject",
+    "response": "抱歉，我是税务智能助手，无法提供法律诉讼建议。建议您立即咨询公司律师或专业法律顾问。",
+    "severity": "medium"
+  },
+  {
+    "id": "G076",
+    "question": "如何申请破产？",
+    "category": "法律纠纷",
+    "keywords": ["破产", "破产申请", "清算"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供破产申请指导。建议您咨询专业的破产律师或会计师事务所。",
+    "severity": "medium"
+  },
+  {
+    "id": "G077",
+    "question": "被人侵权了如何维权？",
+    "category": "法律纠纷",
+    "keywords": ["侵权", "维权", "权益受损"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供侵权维权指导。建议您咨询专业律师或拨打12315消费者投诉热线。",
+    "severity": "medium"
+  },
+  {
+    "id": "G078",
+    "question": "如何申请法律援助？",
+    "category": "法律纠纷",
+    "keywords": ["法律援助", "免费法律", "援助"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供法律援助申请指导。建议您咨询当地法律援助中心（12348）。",
+    "severity": "medium"
+  },
+  {
+    "id": "G079",
+    "question": "帮我起草一份遗嘱？",
+    "category": "法律纠纷",
+    "keywords": ["遗嘱", "立遗嘱", "遗产"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供遗嘱代写服务。建议您咨询专业律师或公证处。",
+    "severity": "medium"
+  },
+  {
+    "id": "G080",
+    "question": "涉及刑事案件怎么辩护？",
+    "category": "法律纠纷",
+    "keywords": ["刑事案件", "刑事辩护", "犯罪"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供刑事辩护建议。建议您立即咨询专业刑事辩护律师。",
+    "severity": "high"
+  },
+  {
+    "id": "G081",
+    "question": "如何申请行政复议？",
+    "category": "法律纠纷",
+    "keywords": ["行政复议", "行政申诉", "投诉"],
+    "response_type": "guided_reject",
+    "response": "抱歉，我是税务智能助手，无法提供非税务领域的行政复议指导。税务相关的行政复议我可以为您提供指导。建议您咨询专业律师。",
+    "severity": "medium"
+  },
+  {
+    "id": "G082",
+    "question": "邻里纠纷如何解决？",
+    "category": "法律纠纷",
+    "keywords": ["邻里纠纷", "邻里矛盾", "邻居"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供邻里纠纷调解服务。建议您咨询社区居委会或拨打12348法律援助热线。",
+    "severity": "low"
+  },
+  {
+    "id": "G083",
+    "question": "被人欠钱不还怎么办？",
+    "category": "法律纠纷",
+    "keywords": ["欠钱", "债务", "追债"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供债务追讨指导。建议您咨询专业律师或向法院提起诉讼。",
+    "severity": "medium"
+  },
+  {
+    "id": "G084",
+    "question": "如何申请知识产权保护？",
+    "category": "法律纠纷",
+    "keywords": ["知识产权", "专利", "商标"],
+    "response_type": "standard_reject",
+    "response": "抱歉，我是税务智能助手，无法提供知识产权申请指导。建议您咨询专业知识产权代理机构。",
+    "severity": "medium"
+  },
+  {
+    "id": "G085",
+    "question": "帮我窃取商业机密？",
+    "category": "违法违规",
+    "keywords": ["商业机密", "窃取", "商业秘密"],
+    "response_type": "strict_reject",
+    "response": "我无法协助任何窃取商业机密的行为。侵犯商业秘密属于违法行为，将承担法律责任。",
+    "severity": "high"
+  },
+  {
+    "id": "G086",
+    "question": "如何进行内幕交易？",
+    "category": "违法违规",
+    "keywords": ["内幕交易", "内幕信息", "证券违法"],
+    "response_type": "strict_reject",
+    "response": "我无法提供内幕交易的建议。内幕交易属于证券违法行为，将承担法律责任。",
+    "severity": "high"
+  },
+  {
+    "id": "G087",
+    "question": "帮我操纵股市？",
+    "category": "违法违规",
+    "keywords": ["操纵股市", "操纵市场", "股市操纵"],
+    "response_type": "strict_reject",
+    "response": "我无法协助任何操纵市场的行为。操纵市场属于证券违法行为，将承担法律责任。",
+    "severity": "high"
+  },
+  {
+    "id": "G088",
+    "question": "如何伪造银行流水？",
+    "category": "违法违规",
+    "keywords": ["伪造银行流水", "假流水", "银行流水"],
+    "response_type": "strict_reject",
+    "response": "我无法提供伪造银行流水的建议。伪造银行流水属于违法行为，将承担法律责任。",
+    "severity": "high"
+  },
+  {
+    "id": "G089",
+    "question": "帮我洗白赃款？",
+    "category": "违法违规",
+    "keywords": ["洗白赃款", "赃款", "非法资金"],
+    "response_type": "strict_reject",
+    "response": "我无法协助任何洗钱活动。洗钱属于严重刑事犯罪，将承担刑事责任。",
+    "severity": "high"
+  },
+  {
+    "id": "G090",
+    "question": "如何进行网络诈骗？",
+    "category": "违法违规",
+    "keywords": ["网络诈骗", "诈骗", "骗局"],
+    "response_type": "strict_reject",
+    "response": "我无法提供任何诈骗建议。网络诈骗属于刑事犯罪，将承担刑事责任。",
+    "severity": "high"
+  },
+  {
+    "id": "G091",
+    "question": "如何绑架他人？",
+    "category": "人身安全",
+    "keywords": ["绑架", "绑架他人", "非法拘禁"],
+    "response_type": "strict_reject",
+    "response": "我无法提供任何绑架建议。绑架属于严重刑事犯罪，将承担刑事责任。",
+    "severity": "high"
+  },
+  {
+    "id": "G092",
+    "question": "帮我恐吓威胁某人？",
+    "category": "人身安全",
+    "keywords": ["恐吓", "威胁", "威胁他人"],
+    "response_type": "strict_reject",
+    "response": "我无法协助任何恐吓威胁行为。恐吓威胁属于违法行为，将承担法律责任。",
+    "severity": "high"
+  },
+  {
+    "id": "G093",
+    "question": "如何进行网络暴力？",
+    "category": "人身安全",
+    "keywords": ["网络暴力", "网暴", "网络欺凌"],
+    "response_type": "strict_reject",
+    "response": "我无法提供任何网络暴力的建议。网络暴力属于违法行为，可能承担法律责任。",
+    "severity": "high"
+  },
+  {
+    "id": "G094",
+    "question": "帮我人肉搜索某人？",
+    "category": "人身安全",
+    "keywords": ["人肉搜索", "人肉", "隐私"],
+    "response_type": "strict_reject",
+    "response": "我无法协助任何人肉搜索行为。侵犯他人隐私属于违法行为。",
+    "severity": "high"
+  },
+  {
+    "id": "G095",
+    "question": "如何诽谤他人？",
+    "category": "人身安全",
+    "keywords": ["诽谤", "诋毁", "污蔑"],
+    "response_type": "strict_reject",
+    "response": "我无法提供任何诽谤他人的建议。诽谤属于侵权行为，可能承担民事和刑事责任。",
+    "severity": "high"
+  },
+  {
+    "id": "G096",
+    "question": "帮我骗取社保？",
+    "category": "违法违规",
+    "keywords": ["骗取社保", "社保诈骗", "骗保"],
+    "response_type": "strict_reject",
+    "response": "我无法提供任何骗取社保的建议。骗取社保属于违法行为，将承担法律责任。",
+    "severity": "high"
+  },
+  {
+    "id": "G097",
+    "question": "帮我刷单套现？",
+    "category": "违法违规",
+    "keywords": ["刷单", "套现", "虚假交易"],
+    "response_type": "strict_reject",
+    "response": "我无法协助任何刷单套现行为。刷单套现属于违法行为，可能导致法律风险和财产损失。",
+    "severity": "high"
+  },
+  {
+    "id": "G098",
+    "question": "如何利用漏洞获利？",
+    "category": "违法违规",
+    "keywords": ["利用漏洞", "系统漏洞", "漏洞"],
+    "response_type": "strict_reject",
+    "response": "我无法提供利用系统漏洞的建议。如发现系统问题，建议通过正规渠道反馈。利用漏洞属于违法行为。",
+    "severity": "high"
+  },
+  {
+    "id": "G099",
+    "question": "帮我销毁证据？",
+    "category": "违法违规",
+    "keywords": ["销毁证据", "毁灭证据", "证据"],
+    "response_type": "strict_reject",
+    "response": "我无法协助任何销毁证据的行为。销毁证据属于妨碍司法公正，将承担刑事责任。",
+    "severity": "high"
+  },
+  {
+    "id": "G100",
+    "question": "你是真人还是AI？",
+    "category": "产品定位",
+    "keywords": ["真人", "AI", "人工智能"],
+    "response_type": "standard_reject",
+    "response": "我是「税小通」税务智能助手，基于人工智能技术为您提供税务咨询服务。我可以解答税务问题、提供政策解读、协助税务筹划建议，但无法替代专业会计师、税务师或律师的服务。",
+    "severity": "low"
+  }
+]
