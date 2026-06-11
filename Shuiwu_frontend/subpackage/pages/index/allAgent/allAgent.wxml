@@ -1,0 +1,88 @@
+<!--pages/index/allAgent/allAgent.wxml-->
+<view class="container">
+  <view class="ai-notice">内容由AI生成，仅供参考</view>
+  <!-- 第一部分：触摸区域和中心图片 -->
+  <view class="image-wrapper" 
+        bindtouchstart="onTouchStart"
+        bindtouchmove="onTouchMove"
+        bindtouchend="onTouchEnd">
+    <image class="center-image" src="{{ossUrl}}/images/agent/ai_active.png" mode="aspectFit"></image>
+  </view>
+
+  <!-- 第二部分：四个旋转的板块 -->
+  <view class="agent-wrapper" bindtouchstart="onTouchStart" bindtouchmove="onTouchMove" bindtouchend="onTouchEnd">
+    <!-- 左侧板块 -->
+    <view class="agent-item-wrapper" style="transform: translate(-50%, -50%) translate({{positions.left.x}}rpx, {{positions.left.y}}rpx);" bindtap="onAgentTap" data-item="{{agentList[leftIndex]}}">
+      <image class="agent-icon" src="{{agentList[leftIndex].icon}}" mode="aspectFit" style="filter: blur({{effects.left.blur}}px); opacity: {{effects.left.opacity}};"></image>
+      <text class="agent-text" style="filter: blur({{effects.left.blur}}px); opacity: {{effects.left.opacity}};">{{agentList[leftIndex].text}}</text>
+    </view>
+    <!-- 前面板块 -->
+    <view class="agent-item-wrapper" style="transform: translate(-50%, -50%) translate({{positions.front.x}}rpx, {{positions.front.y}}rpx); z-index: 99;" bindtap="onAgentTap" data-item="{{agentList[frontIndex]}}">
+      <image class="agent-icon" src="{{agentList[frontIndex].icon}}" mode="aspectFit" style="filter: blur({{effects.front.blur}}px); opacity: {{effects.front.opacity}};"></image>
+      <text class="agent-text" style="filter: blur({{effects.front.blur}}px); opacity: {{effects.front.opacity}};">{{agentList[frontIndex].text}}</text>
+    </view>
+    <!-- 右侧板块 -->
+    <view class="agent-item-wrapper" style="transform: translate(-50%, -50%) translate({{positions.right.x}}rpx, {{positions.right.y}}rpx);" bindtap="onAgentTap" data-item="{{agentList[rightIndex]}}">
+      <image class="agent-icon" src="{{agentList[rightIndex].icon}}" mode="aspectFit" style="filter: blur({{effects.right.blur}}px); opacity: {{effects.right.opacity}};"></image>
+      <text class="agent-text" style="filter: blur({{effects.right.blur}}px); opacity: {{effects.right.opacity}};">{{agentList[rightIndex].text}}</text>
+    </view>
+    <!-- 后面板块 -->
+    <view class="agent-item-wrapper agent-back" style="transform: translate(-50%, -50%) translate({{positions.back.x}}rpx, {{positions.back.y}}rpx); z-index: 1;" bindtap="onAgentTap" data-item="{{agentList[backIndex]}}">
+      <image class="agent-icon" src="{{agentList[backIndex].icon}}" mode="aspectFit" style="filter: blur({{effects.back.blur}}px); opacity: {{effects.back.opacity}};"></image>
+      <text class="agent-text" style="filter: blur({{effects.back.blur}}px); opacity: {{effects.back.opacity}};">{{agentList[backIndex].text}}</text>
+    </view>
+  </view>
+
+  <!-- 第三部分：卡片列表 -->
+  <!-- <view class="card-list">
+    <view class="card-item" wx:for="{{agentList}}" wx:key="id" bindtap="onAgentTap" data-item="{{item}}">
+      <view class="card-border"></view>
+      <view class="card-inner">
+        <view class="card-text-wrapper">
+          <text class="card-text">{{item.mainText}}</text>
+          <view class="card-text-highlight-wrapper" wx:if="{{item.highlightText}}">
+            <text class="card-text-highlight-bracket">（</text>
+            <block wx:if="{{item.highlightChars.length > 0}}">
+              <text class="card-text-highlight-char char-{{charItem.index}}" wx:for="{{item.highlightChars}}" wx:key="index" wx:for-item="charItem" wx:for-index="index">{{charItem.char}}</text>
+            </block>
+            <text class="card-text-highlight-text" wx:else>{{item.highlightText}}</text>
+            <text class="card-text-highlight-bracket">）</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view> -->
+
+  <!-- 底部填充：线条 + 渐变 + 粒子（填满下方空白） -->
+  <view class="tech-bottom-fill">
+    <view class="tech-fill-line tech-fill-line--1"></view>
+    <view class="tech-fill-line tech-fill-line--2"></view>
+    <view class="tech-fill-line tech-fill-line--3"></view>
+    <view class="tech-fill-line tech-fill-line--4"></view>
+    <view class="tech-fill-line tech-fill-line--5"></view>
+    <view class="tech-fill-line tech-fill-line--6"></view>
+    <view class="tech-fill-line tech-fill-line--7"></view>
+    <view class="tech-fill-line tech-fill-line--8"></view>
+    <view class="tech-fill-line tech-fill-line--9"></view>
+    <view class="tech-fill-line tech-fill-line--10"></view>
+    <view class="tech-particle-scene">
+      <view class="tech-particle-core"></view>
+      <view class="tech-particle tech-particle--1"></view>
+      <view class="tech-particle tech-particle--2"></view>
+      <view class="tech-particle tech-particle--3"></view>
+      <view class="tech-particle tech-particle--4"></view>
+      <view class="tech-particle tech-particle--5"></view>
+      <view class="tech-particle tech-particle--6"></view>
+      <view class="tech-particle tech-particle--7"></view>
+      <view class="tech-particle tech-particle--8"></view>
+      <view class="tech-particle tech-particle--9"></view>
+      <view class="tech-particle tech-particle--10"></view>
+      <view class="tech-particle tech-particle--11"></view>
+      <view class="tech-particle tech-particle--12"></view>
+      <view class="tech-particle tech-particle--outer tech-particle--o1"></view>
+      <view class="tech-particle tech-particle--outer tech-particle--o2"></view>
+      <view class="tech-particle tech-particle--outer tech-particle--o3"></view>
+      <view class="tech-particle tech-particle--outer tech-particle--o4"></view>
+    </view>
+  </view>
+</view>

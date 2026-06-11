@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "file-list": "../fileList/fileList",
+    "category-selector": "../categorySelector/categorySelector"
+  }
+}

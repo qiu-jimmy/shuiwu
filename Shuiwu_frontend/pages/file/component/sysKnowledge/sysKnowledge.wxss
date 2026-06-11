@@ -1,0 +1,200 @@
+/* pages/file/component/sysKnowledge/sysKnowledge.wxss */
+
+.sys-knowledge-container {
+  width: 100%;
+}
+
+/* ==================== 筛选区域 ==================== */
+.filter-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20rpx 20rpx;
+  background-color: #fff;
+  border-radius: 12rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  margin-top: 30rpx;
+  gap: 30rpx;
+  box-sizing: border-box;
+}
+
+.filter-section {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.filter-label {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.filter-count-section {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.filter-count {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+/* ==================== 文件列表 ==================== */
+.file-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  margin-top: 30rpx;
+}
+
+.file-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 30rpx 0 30rpx 20rpx;
+  background-color: #fff;
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  gap: 20rpx;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+.file-icon {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 8rpx;
+  flex-shrink: 0;
+}
+
+.file-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  padding-right: 120rpx;
+  box-sizing: border-box;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.file-name {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #333;
+  line-height: 1.4;
+}
+
+.file-desc {
+  font-size: 24rpx;
+  color: #999;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.file-doc-count {
+  font-size: 24rpx;
+  color: #999;
+  line-height: 1.4;
+}
+
+/* ==================== 文档列表弹窗 ==================== */
+.doc-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+
+.doc-modal-content {
+  width: 100%;
+  max-width: 700rpx;
+  max-height: 80vh;
+  background-color: #fff;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 8rpx 40rpx rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.doc-modal-header {
+  width: 100%;
+  padding: 30rpx;
+  background-color: #E6F2FF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.doc-modal-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.doc-modal-close {
+  width: 50rpx;
+  height: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20rpx;
+  flex-shrink: 0;
+}
+
+.close-icon {
+  font-size: 48rpx;
+  color: #999;
+  line-height: 1;
+}
+
+.doc-modal-body {
+  width: 100%;
+  flex: 1;
+  padding: 30rpx;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.doc-count-info {
+  width: 100%;
+  margin-bottom: 20rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.doc-count-text {
+  font-size: 28rpx;
+  color: #666;
+  font-weight: 500;
+}

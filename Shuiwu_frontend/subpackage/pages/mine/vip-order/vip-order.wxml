@@ -1,0 +1,73 @@
+<!--pages/mine/vip-order/vip-order.wxml-->
+<view class="page">
+  <view class="hero">
+    <view class="hero-content">
+      <text class="hero-title">会员订单</text>
+    </view>
+  </view>
+
+  <view class="filter-card">
+    <t-tabs value="{{activeFilter}}" theme="line" bind:change="onFilterChange">
+      <t-tab-panel value="all" label="全部" />
+      <t-tab-panel value="paid" label="已支付" />
+      <t-tab-panel value="pending" label="待支付" />
+    </t-tabs>
+  </view>
+
+  <view class="hero-subtitle">共 {{total}} 笔订单记录</view>
+
+  <view class="list-card">
+    <view wx:if="{{loading && !orders.length}}" class="loading-block">
+      <t-loading size="40rpx" />
+      <text class="loading-text">加载订单中</text>
+    </view>
+
+    <view wx:elif="{{orders.length}}">
+      <block wx:for="{{orders}}" wx:key="order_id">
+        <view class="order-card">
+          <view class="order-header">
+            <view class="order-title">
+              <text class="order-name">{{item.package_name}}</text>
+              <t-tag size="small" variant="light" theme="{{item.paymentTheme}}">
+                {{item.paymentLabel}}
+              </t-tag>
+            </view>
+            <view class="order-amount">￥{{item.amountLabel}}</view>
+          </view>
+          <view class="order-meta">
+            <view class="meta-row">
+              <text class="meta-label">订单号</text>
+              <text class="meta-value">{{item.order_id}}</text>
+            </view>
+            <view class="meta-row">
+              <text class="meta-label">下单时间</text>
+              <text class="meta-value">{{item.createdLabel}}</text>
+            </view>
+            <view class="meta-row">
+              <text class="meta-label">支付时间</text>
+              <text class="meta-value">{{item.paidLabel}}</text>
+            </view>
+            <view class="meta-row">
+              <text class="meta-label">有效期</text>
+              <text class="meta-value">{{item.expireLabel}}</text>
+            </view>
+            <view class="meta-row">
+              <text class="meta-label">支付方式</text>
+              <text class="meta-value">{{item.payment_method || '—'}}</text>
+            </view>
+          </view>
+        </view>
+      </block>
+      <view wx:if="{{loading && orders.length}}" class="loading-more">
+        <t-loading size="32rpx" />
+        <text class="loading-text">加载更多</text>
+      </view>
+      <view wx:elif="{{!hasMore}}" class="no-more">没有更多订单了</view>
+    </view>
+
+    <view wx:else class="empty-block">
+      <t-empty description="暂无订单记录" />
+      <t-button theme="primary" size="small" bind:tap="onBuyTap">去购买会员</t-button>
+    </view>
+  </view>
+</view>

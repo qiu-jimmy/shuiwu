@@ -1,0 +1,45 @@
+<!--pages/index/compent/home_nav/home_nav.wxml-->
+<!-- 相对外容器定位的根节点 -->
+<view class="home-nav-root" style="{{dynamicStyles}}">
+<!-- 分类导航栏 -->
+<view class="nav-wrapper" style="top: {{navWrapperTop}};">
+  <view class="function-container">
+    <view class="function-item" bindtap="onIndividualTap" style="margin-left:360rpx;margin-top:50rpx">
+      <view class="function-icon-wrapper">
+        <image class="function-icon" src="{{ossUrl}}/images/home_function1.png" mode="aspectFit"></image>
+      </view>
+      <text class="function-text">工商引擎</text>
+    </view>
+    <view class="function-item" bindtap="onTaxMattersTap" style="margin-left:140rpx;margin-top:-40rpx">
+      <view class="function-icon-wrapper">
+        <image class="function-icon animated-icon {{animationClass}}" src="{{ossUrl}}/images/home_function2.png" mode="aspectFit"></image>
+        <!-- 文字动画通过数据驱动，方便扩展为 2 字 / 4 字等 -->
+        <block wx:for="{{animatedTexts}}" wx:key="key">
+          <text class="animated-text {{item.cls}} {{animationClass}}">{{item.text}}</text>
+        </block>
+      </view>
+      <text class="function-text">税事智聆通</text>
+    </view>
+    <view class="function-item" bindtap="onTaxDeclarationTap" style="margin-left:200rpx;margin-top:0rpx">
+      <view class="function-icon-wrapper">
+        <image class="function-icon" src="{{ossUrl}}/images/home_function3.png" mode="aspectFit"></image>
+      </view>
+      <text class="function-text">极速智报</text>
+    </view>
+  </view>
+</view>
+<!-- 导航网格 -->
+<view class="nav-grid-wrapper" style="top: {{navGridTop}};">
+  <view class="nav-grid-container" >
+    <view class="nav-grid-item" wx:for="{{navGridList}}" wx:key="name" bindtap="onNavGridTap" data-index="{{index}}">
+      <view class="nav-grid-icon-wrapper">
+        <image class="nav-grid-icon" src="{{ossUrl}}{{item.iconPath}}" mode="aspectFit"></image>
+      </view>
+      <text class="nav-grid-text">{{item.name}}</text>
+    </view>
+  </view>
+</view>
+<!-- 机器人形象 -->
+<image class="home-agent" src="https://tax-dragonai.oss-cn-heyuan.aliyuncs.com/user_files/user_2689ea75e1114ec4/2026/01/home-agent1_2cd3e3b4.png" mode="widthFix"></image>
+<image class="home-agent1" src="https://tax-dragonai.oss-cn-heyuan.aliyuncs.com/user_files/user_2689ea75e1114ec4/2026/01/home_agent2_2fecdee2.png"  mode="widthFix"></image>
+</view>

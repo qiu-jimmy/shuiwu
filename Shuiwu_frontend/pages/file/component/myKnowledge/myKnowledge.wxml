@@ -1,0 +1,145 @@
+<!--pages/file/component/myKnowledge/myKnowledge.wxml-->
+<view class="my-knowledge-container">
+  <!-- 筛选区域 -->
+  <view class="filter-container">
+    <!-- 分类选择 -->
+    <view class="filter-section">
+      <category-selector 
+        class="category-selector"
+        label="分类："
+        placeholder="请选择分类"
+        value="{{selectedCategory}}"
+        bind:change="onCategoryChange">
+      </category-selector>
+    </view>
+    
+    <!-- 知识库数量 -->
+    <view class="filter-count-section">
+      <text class="filter-label">知识库数：</text>
+      <text class="filter-count">{{categoryCount}}</text>
+    </view>
+  </view>
+
+  <!-- 未登录提示 -->
+  <view class="login-tip" wx:if="{{!isLoggedIn}}">
+    <text class="login-tip-text">暂未登录，请登录</text>
+  </view>
+  
+  <!-- 已登录但无数据 -->
+  <view class="empty-state" wx:elif="{{isLoggedIn && !hasData}}">
+    <image class="empty-icon" src="{{ossUrl}}/images/nothing.png" mode="aspectFit"></image>
+    <text class="empty-text">还没有创建知识库，快去创建吧</text>
+  </view>
+  
+  <!-- 我的知识库列表 -->
+  <view class="file-list" wx:elif="{{isLoggedIn && hasData}}">
+    <view class="file-item-wrapper" wx:for="{{fileList}}" wx:key="id">
+      <view class="file-card" 
+            style="transform: translateX({{item.translateX || 0}}rpx);"
+            bindtouchstart="onTouchStart"
+            bindtouchmove="onTouchMove"
+            bindtouchend="onTouchEnd"
+            bindtap="onKnowledgeCardTap"
+            data-index="{{index}}"
+            data-kb-name="{{item.kb_name}}">
+        <image class="file-icon" 
+               src="{{ossUrl}}/images/filetype/FileType.png" 
+               mode="aspectFit"></image>
+        <view class="file-info">
+          <!-- 第一层：知识库名 -->
+          <text class="file-name">{{item.kb_name}}</text>
+          <!-- 第二层：知识库解释  -->
+          <text class="file-desc">{{item.description}}</text>
+          <!-- 第三层：文档数和类型  -->
+          <view style="display:flex">
+            <text class="file-doc-count" style="margin-right:15rpx">类型：{{item.type_name || item.type_id}}</text>
+            <text class="file-doc-count">文档数：{{item.document_count}}</text>
+          </view>
+        </view>
+        <view class="add-btn" catchtap="onAddTap" data-kb-name="{{item.kb_name}}" data-index="{{index}}">添加</view>
+      </view>
+      <view class="delete-btn" bindtap="onDeleteKnowledge" data-kb-name="{{item.kb_name}}" data-index="{{index}}">删除</view>
+    </view>
+  </view>
+  
+  <!-- 添加文件弹窗 -->
+  <view class="modal-mask" wx:if="{{showAddFileModal}}" bindtap="onMaskTap">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="modal-header">
+        <text class="modal-title">添加文件到知识库</text>
+        <text class="modal-close" bindtap="onCloseAddFileModal">×</text>
+      </view>
+      
+      <view class="modal-body">
+        <!-- 知识库信息 -->
+        <view class="kb-info-section">
+          <view class="info-item">
+            <text class="info-label">知识库名称：</text>
+            <text class="info-value">{{currentKbInfo.kb_name || ''}}</text>
+          </view>
+          <view class="info-item">
+            <text class="info-label">知识库描述：</text>
+            <text class="info-value">{{currentKbInfo.description || ''}}</text>
+          </view>
+        </view>
+        
+        <!-- 文件列表 -->
+        <view class="file-list-section">
+          <view class="section-title-wrapper">
+            <view class="section-title">选择要上传的文件</view>
+            <view class="upload-new-file-btn" bindtap="onUploadNewFile">
+              <text class="upload-icon">+</text>
+              <text class="upload-text">上传新文件</text>
+            </view>
+          </view>
+          <view class="file-list-container" wx:if="{{fileListForSelect.length > 0}}">
+            <view class="file-item-select" wx:for="{{fileListForSelect}}" wx:key="id" bindtap="onToggleFileSelect" data-index="{{index}}">
+              <view class="file-item-content">
+                <image class="file-icon-select" 
+                       src="{{ossUrl}}/images/filetype/FileType{{item.type === 'DOCX' ? '1' : (item.type === 'PDF' ? '2' : '3')}}.png" 
+                       mode="aspectFit"></image>
+                <view class="file-info-select">
+                  <text class="file-name-select">{{item.name}}</text>
+                  <text class="file-meta-select">{{item.category}} · {{item.size}}</text>
+                </view>
+              </view>
+              <view class="checkbox-wrapper" catchtap="onToggleFileSelect" data-index="{{index}}">
+                <view class="checkbox {{item.selected ? 'checked' : ''}}">
+                  <text class="checkbox-icon" wx:if="{{item.selected}}">✓</text>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="empty-file-state" wx:else>
+            <text class="empty-file-text">暂无数据</text>
+          </view>
+        </view>
+      </view>
+      
+      <view class="modal-footer">
+        <button class="btn-cancel" bindtap="onCloseAddFileModal">取消</button>
+        <button class="btn-submit" bindtap="onSubmitAddFile" disabled="{{selectedFileCount === 0}}">
+          确定{{selectedFileCount > 0 ? '(' + selectedFileCount + ')' : ''}}
+        </button>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 文档列表弹窗 -->
+  <view class="doc-modal" wx:if="{{showDocModal}}" bindtap="onCloseDocModal">
+    <view class="doc-modal-content" catchtap="stopPropagation">
+      <view class="doc-modal-header">
+        <text class="doc-modal-title">{{currentKbName}}</text>
+        <view class="doc-modal-close" bindtap="onCloseDocModal">
+          <text class="close-icon">×</text>
+        </view>
+      </view>
+      <view class="doc-modal-body">
+        <view class="doc-count-info">
+          <text class="doc-count-text">共 {{totalDocuments}} 个文档</text>
+        </view>
+        <file-list fileList="{{documentList}}" allowSwipeDelete="{{false}}" bind:filetap="onDocumentTap" bind:listchange="onDocumentListChange"></file-list>
+      </view>
+    </view>
+  </view>
+</view>

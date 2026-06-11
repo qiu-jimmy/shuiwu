@@ -1,0 +1,112 @@
+.page {
+  min-height: 100vh;
+  padding-bottom: 48rpx;
+}
+
+.hero {
+  padding: 56rpx 32rpx 80rpx;
+  background: rgb(69, 69, 255);
+  color: #ffffff;
+}
+
+.hero-title {
+  font-size: 40rpx;
+  font-weight: 700;
+}
+
+.hero-subtitle {
+  margin-top: 16rpx;
+  font-size: 24rpx;
+  width: 100%;
+  color: #64748b;
+  text-align: center;
+}
+
+.filter-card {
+
+}
+
+.list-card {
+  margin: 24rpx;
+}
+
+.loading-block,
+.loading-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24rpx 0;
+}
+
+.loading-text {
+  margin-left: 12rpx;
+  font-size: 24rpx;
+  color: #64748b;
+}
+
+.order-card {
+  background: #ffffff;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.order-title {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.order-name {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.order-amount {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.order-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24rpx;
+  color: #475569;
+}
+
+.meta-label {
+  color: #94a3b8;
+}
+
+.meta-value {
+  color: #1f2937;
+}
+
+.no-more {
+  text-align: center;
+  padding: 16rpx 0;
+  font-size: 22rpx;
+  color: #94a3b8;
+}
+
+.empty-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20rpx;
+  padding: 40rpx 0;
+}

@@ -1,0 +1,67 @@
+/* taxAuthWebview.wxss */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+/* 顶部提示条 */
+.top-hint {
+  background: #fff9e6;
+  border-bottom: 1rpx solid #ffe58f;
+  padding: 14rpx 24rpx;
+  flex-shrink: 0;
+}
+
+.top-hint-text {
+  font-size: 24rpx;
+  color: #9a6a00;
+  text-align: center;
+  display: block;
+}
+
+/* web-view 占满剩余空间（web-view 本身会撑满，此处做占位） */
+web-view {
+  flex: 1;
+}
+
+/* 空状态 */
+.empty-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #8b93a5;
+  text-align: center;
+}
+
+/* 底部兜底按钮 */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20rpx 28rpx;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+  background: rgba(255, 255, 255, 0.95);
+  border-top: 1rpx solid #e8edf4;
+}
+
+.back-btn {
+  background: #165dff;
+  border-radius: 12rpx;
+  padding: 24rpx 0;
+  text-align: center;
+}
+
+.back-btn-text {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #ffffff;
+}

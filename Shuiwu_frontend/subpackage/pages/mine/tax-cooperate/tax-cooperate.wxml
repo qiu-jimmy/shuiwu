@@ -1,0 +1,40 @@
+<!--subpackage/pages/mine/tax-cooperate/tax-cooperate.wxml-->
+<view class="page">
+  <view class="card">
+    <view class="header">
+      <text class="title">{{view.title}}</text>
+      <text class="badge badge-{{view.badgeType}}">{{view.badgeText}}</text>
+    </view>
+
+    <view class="desc">
+      <text>{{view.description}}</text>
+    </view>
+
+    <view class="meta" wx:if="{{view.applicationId}}">
+      <view class="meta-row">
+        <text class="meta-label">申请ID</text>
+        <text class="meta-value">{{view.applicationId}}</text>
+      </view>
+      <view class="meta-row" wx:if="{{view.createdAt}}">
+        <text class="meta-label">提交时间</text>
+        <text class="meta-value">{{view.createdAt}}</text>
+      </view>
+    </view>
+
+    <view class="reject" wx:if="{{view.showRejectReason}}">
+      <text class="reject-title">拒绝原因</text>
+      <text class="reject-content">{{view.rejectReason}}</text>
+    </view>
+
+    <view class="error" wx:if="{{errorText}}">
+      <text class="error-text">{{errorText}}</text>
+    </view>
+
+    <view class="actions">
+      <button class="btn btn-primary" bindtap="onGoApply" wx:if="{{!application || !application.has_applied || application.status === 'rejected'}}">
+        去申请/重新提交
+      </button>
+      <button class="btn" bindtap="onRetry">刷新</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,232 @@
+/* pages/index/shuiwuInput/shuiwuInput.wxss */
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 30rpx;
+  padding-bottom: 140rpx;
+  box-sizing: border-box;
+}
+
+/* ==================== 表单区块 ==================== */
+.form-section {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-sizing: border-box;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.section-title .form-label-tip {
+  font-size: 24rpx;
+  color: #999;
+  font-weight: normal;
+  margin-left: 8rpx;
+}
+
+/* ==================== 表单项 ==================== */
+.form-item {
+  width: 100%;
+  margin-bottom: 30rpx;
+}
+
+.form-item:last-child {
+  margin-bottom: 0;
+}
+
+.form-label {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 16rpx;
+  display: flex;
+  align-items: flex-start;
+  line-height: 1.5;
+}
+
+.form-label-tip {
+  font-size: 24rpx;
+  color: #999;
+  font-weight: normal;
+  margin-left: 8rpx;
+}
+
+.form-label-small {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 12rpx;
+  display: block;
+}
+
+.required {
+  color: #ff4444;
+  margin-right: 4rpx;
+}
+
+/* ==================== 输入框 ==================== */
+.form-input {
+  width: 100%;
+  height: 80rpx;
+  padding: 0 24rpx;
+  background-color: #f8f8f8;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  color: #333;
+  box-sizing: border-box;
+  border: 2rpx solid transparent;
+}
+
+.form-input:focus {
+  background-color: #fff;
+  border-color: #3B55F3;
+}
+
+/* ==================== 文本域 ==================== */
+.form-textarea {
+  width: 100%;
+  min-height: 200rpx;
+  padding: 20rpx 24rpx;
+  background-color: #f8f8f8;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  color: #333;
+  box-sizing: border-box;
+  border: 2rpx solid transparent;
+  line-height: 1.6;
+}
+
+.form-textarea:focus {
+  background-color: #fff;
+  border-color: #3B55F3;
+}
+
+.char-count {
+  font-size: 24rpx;
+  color: #999;
+  text-align: right;
+  margin-top: 8rpx;
+}
+
+/* ==================== 选择器 ==================== */
+.picker-view {
+  width: 100%;
+  height: 80rpx;
+  padding: 0 24rpx;
+  background-color: #f8f8f8;
+  border-radius: 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  border: 2rpx solid transparent;
+}
+
+.picker-text {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 35rpx;
+}
+
+.picker-placeholder {
+  font-size: 28rpx;
+  color: #999;
+  
+}
+
+.picker-arrow {
+  font-size: 24rpx;
+  color: #999;
+  transform: rotate(90deg);
+  
+}
+
+/* ==================== 税期类型选择器 ==================== */
+.period-type-selector {
+  display: flex;
+  margin-bottom: 0;
+  border: 2rpx solid #e5e5e5;
+  border-radius: 12rpx;
+  overflow: hidden;
+  background-color: #f8f8f8;
+}
+
+.period-type-item {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0;
+  font-size: 28rpx;
+  color: #666;
+  background-color: #f8f8f8;
+  border-right: 2rpx solid #e5e5e5;
+  transition: all 0.3s;
+}
+
+.period-type-item:last-child {
+  border-right: none;
+}
+
+.period-type-item.active {
+  background-color: #3B55F3;
+  color: #ffffff;
+}
+
+/* ==================== 提交按钮 ==================== */
+.submit-wrapper {
+  width: 100%;
+  padding: 30rpx;
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #f5f5f5;
+  z-index: 100;
+  box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.submit-btn {
+  width: 100%;
+  height: 88rpx;
+  background: linear-gradient(135deg, #3B55F3 0%, #2B45E3 100%);
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: bold;
+  border-radius: 44rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  box-shadow: 0 4rpx 20rpx rgba(59, 85, 243, 0.3);
+}
+
+.submit-btn::after {
+  border: none;
+}
+
+.submit-btn:active {
+  opacity: 0.8;
+}
+
+.submit-btn-disabled {
+  background: #d0d0d0 !important;
+  color: #999 !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+}
+
+.submit-btn-disabled:active {
+  opacity: 1 !important;
+}

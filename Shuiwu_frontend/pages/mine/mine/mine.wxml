@@ -1,0 +1,161 @@
+<view class="page unlogin" wx:if="{{!islogin}}">
+  <view class="page-content">
+    <view class="page-shell">
+      <view class="unlogin-hero">
+        <view class="unlogin-glow"></view>
+        <view class="unlogin-body">
+          <view class="unlogin-card">
+            <view class="card-sheen"></view>
+            <view class="card-content">
+              <view class="unlogin-title-row">
+                <text class="unlogin-title">智税引擎</text>
+              </view>
+              <view class="unlogin-subtitle">税务智能体一站式服务，登录后同步权益与数据。</view>
+              <view class="unlogin-desc">
+                登录后可管理订阅与会员权益，完成企业认证，使用智能体对话与客服支持。
+              </view>
+
+              <t-divider content="登录后解锁更多功能" />
+
+              <t-cell-group class="unlogin-list">
+                <t-cell
+                  wx:for="{{loginBenefits}}"
+                  wx:key="title"
+                  title="{{item.title}}"
+                  description="{{item.description}}"
+                  left-icon="{{item.icon}}"
+                />
+              </t-cell-group>
+
+              <view class="unlogin-actions">
+                <t-button theme="primary" block bind:tap="onLoginTap">立即登录</t-button>
+                <view class="unlogin-tip">微信授权登录，信息仅用于账号识别</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<!--pages/mine/mine/mine.wxml-->
+<view class="page login" wx:else>
+  <view class="page-content">
+    <view class="page-shell">
+      <view class="hero">
+        <view class="hero-glow"></view>
+        <view class="hero-content">
+          <view class="profile-card">
+            <view class="card-sheen"></view>
+            <view class="card-content profile-card-content">
+              <view class="avatar-container {{user.isVip ? 'vip-avatar' : ''}}">
+                <image 
+                  class="profile-avatar" 
+                  wx:if="{{user.avatar_url}}"
+                  src="{{user.avatar_url}}" 
+                  mode="aspectFill"
+                />
+                <view class="profile-avatar-placeholder" wx:else>
+                  {{user.name[0]}}{{user.name[1]}}
+                </view>
+                <image 
+                  class="vip-icon" 
+                  wx:if="{{user.isVip}}"
+                  src="{{ossUrl}}/images/vip.png" 
+                  mode="aspectFit"
+                />
+              </view>
+              <view class="profile-main">
+                <view class="profile-title">
+                  <text class="profile-name">{{user.name}}</text>
+                  <t-tag class="profile-meta-tag" size="medium" theme="primary" variant="light">
+                    {{user.plan}}
+                  </t-tag>
+                </view>
+                <view class="profile-desc">{{user.desc}}</view>
+                <view class="profile-meta">
+                  <text class="profile-id">ID: {{user.id}}</text>
+                  <text class="profile-tax-accountant" wx:if="{{user.isTaxAccountant}}">税务师</text>
+                </view>
+              </view>
+            </view>
+          </view>
+
+          <view class="stats-card">
+            <view class="card-sheen"></view>
+            <view class="card-content stats-content">
+            <view
+              class="stat {{item.key === 'points' ? 'stat-clickable' : ''}}"
+              wx:for="{{stats}}"
+              wx:key="label"
+              data-key="{{item.key}}"
+              bind:tap="onStatTap"
+              hover-class="{{item.key === 'points' ? 'stat-hover' : ''}}"
+              hover-stay-time="120"
+            >
+              <view class="stat-value">{{item.value}}</view>
+              <view class="stat-label">{{item.label}}</view>
+            </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="section">
+        <view class="section-head">
+          <view class="section-title">快捷入口</view>
+        </view>
+        <view class="card">
+          <view class="card-sheen"></view>
+          <view class="card-content">
+            <t-grid column="4" class="quick-grid">
+              <t-grid-item
+                wx:for="{{quickActions}}"
+                wx:key="text"
+                text="{{item.text}}"
+                icon="{{item.icon}}"
+                data-item="{{item}}"
+                bind:click="onQuickActionClick"
+              />
+            </t-grid>
+          </view>
+        </view>
+      </view>
+
+      <view class="section">
+        <view class="group" wx:for="{{groups}}" wx:for-item="group" wx:key="title">
+          <view class="section-head">
+            <view class="section-title">{{group.title}}</view>
+          </view>
+          <t-cell-group class="card">
+            <t-cell
+              wx:for="{{group.items}}"
+              wx:for-item="entry"
+              wx:key="title"
+              title="{{entry.title}}"
+              description="{{entry.description}}"
+              left-icon="{{entry.icon}}"
+              arrow
+              data-entry="{{entry}}"
+              bind:click="onGroupItemClick"
+            />
+          </t-cell-group>
+        </view>
+      </view>
+
+      <view class="section footer">
+        <t-divider content="更多服务" />
+        <view class="footer-actions">
+          <view class="footer-action">
+            <t-button block bind:tap="onLogoutTap">退出登录</t-button>
+          </view>
+        </view>
+        <view class="legal-links">
+          <text class="legal-link" bindtap="onPrivacyTap">隐私政策</text>
+          <text class="legal-divider">|</text>
+          <text class="legal-link" bindtap="onAgreementTap">用户协议</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

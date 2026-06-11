@@ -1,0 +1,59 @@
+/* pages/file/component/categorySelector/categorySelector.wxss */
+
+.category-selector {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  flex-shrink: 0;
+  padding:10rpx 0rpx;
+  white-space: nowrap;
+}
+
+.selector-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.selector-label {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.selector-value {
+  font-size: 28rpx;
+  color: #333;
+  flex: 1;
+  line-height: 1;
+  margin-top: -25rpx;
+  display: inline-block;
+  padding:0;
+  vertical-align: middle;
+}
+
+.selector-value.placeholder {
+  color: #999;
+}
+
+.selector-arrow {
+  font-size: 20rpx;
+  color: #999;
+  margin-left: 8rpx;
+}
+
+.selector-arrow::after {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 6px solid currentColor; /* 倒三角的关键 */
+  margin-left: 6px;
+  vertical-align: middle;
+}

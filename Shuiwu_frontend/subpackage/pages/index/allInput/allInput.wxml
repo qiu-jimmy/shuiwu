@@ -1,0 +1,39 @@
+<!--pages/index/allInput/allInput.wxml-->
+<view class="container">
+  <!-- 第一层：热门内容 -->
+  <view class="section-wrapper">
+    <view class="section-title">热门内容</view>
+    <view class="cards-grid">
+      <view class="card-item" bindtap="onShuiwuInputTap">
+        <view class="card-icon-wrapper">
+          <image class="card-icon" src="{{ossUrl}}/images/input/input2.png" mode="aspectFit"></image>
+        </view>
+        <text class="card-text">智能税务申报</text>
+      </view>
+      <view class="card-item-empty"></view>
+      <view class="card-item-empty"></view>
+    </view>
+  </view>
+
+  <!-- 第二层：全部智能工具 -->
+  <view class="section-wrapper">
+    <view class="section-title">全部智能工具</view>
+    <view class="cards-grid">
+      <view class="card-item" bindtap="onShuiwuInputTap">
+        <view class="card-icon-wrapper">
+          <image class="card-icon" src="{{ossUrl}}/images/input/input2.png" mode="aspectFit"></image>
+        </view>
+        <text class="card-text">智能税务申报</text>
+      </view>
+      <!-- 智能发票申报功能暂时隐藏，待后端接口完善后再开放 -->
+      <!-- <view class="card-item" bindtap="onFapiaoInputTap">
+        <view class="card-icon-wrapper">
+          <image class="card-icon" src="{{ossUrl}}/images/input/input1.png" mode="aspectFit"></image>
+        </view>
+        <text class="card-text">智能发票申报</text>
+      </view> -->
+      <view class="card-item-empty"></view>
+      <view class="card-item-empty"></view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,38 @@
+<!--pages/index/index/index.wxml-->
+<view class="container">
+  <!-- 背景图片 -->
+  <view class="home-bg-container">
+    <view class="slogan-container">
+      <text class="slogan-text">智税引擎</text>
+      <text class="slogan-text">最懂您的AI税务专家</text>
+    </view>
+    <image class="home-bg" src="https://tax-dragonai.oss-cn-heyuan.aliyuncs.com/user_files/user_2689ea75e1114ec4/2026/01/home-bg_3fa2e721.jpg" mode="widthFix"></image>
+    
+  </view>
+  <!-- 内容区域 -->
+  <view class="content-wrapper" style="height: {{contentWrapperHeight+80}}rpx;">
+    <!-- 通知栏 -->
+    <view class="notice-bar" bindtap="onNoticeTap">
+      <image class="notice-icon" src="{{ossUrl}}/images/notice.png" mode="aspectFit"></image>
+      <view class="notice-text-wrapper">
+        <text class="notice-text" style="{{noticeTextStyle}}">{{noticeText}}</text>
+      </view>
+    </view>
+    <!-- 分类导航、导航网格、机器人形象（相对于 content-wrapper 定位） -->
+    <home-nav container-height="{{contentWrapperHeight}}" system-info="{{systemInfo}}" />
+  </view>
+  <!-- 通知详情弹窗 -->
+  <view class="notice-modal" wx:if="{{showNoticeModal}}" bindtap="onCloseNoticeModal">
+    <view class="notice-modal-content" catchtap="stopPropagation">
+      <view class="notice-modal-header">
+        <text class="notice-modal-title">【通知】</text>
+        <view class="notice-modal-close" bindtap="onCloseNoticeModal">
+          <text class="close-icon">×</text>
+        </view>
+      </view>
+      <view class="notice-modal-body">
+        <text class="notice-modal-text">{{fullNoticeText}}</text>
+      </view>
+    </view>
+  </view>
+</view>

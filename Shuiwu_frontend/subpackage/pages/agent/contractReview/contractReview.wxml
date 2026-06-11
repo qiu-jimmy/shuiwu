@@ -1,0 +1,21 @@
+<!--pages/agent/contractReview/contractReview.wxml-->
+<view class="ai-notice">内容由AI生成，仅供参考</view>
+
+<view class="page">
+  <view class="card">
+    <t-button theme="primary" size="large" block bindtap="onSelectFile" disabled="{{loading}}">
+      {{fileName ? '重新选择文件' : '选择合同文件'}}
+    </t-button>
+    <text class="file-name" wx:if="{{fileName}}">已选择：{{fileName}}</text>
+  </view>
+
+  <view class="card output-card">
+    <view class="output-head">
+      <view class="output-title">审查结果</view>
+      <text class="copy-action" bindtap="onCopyOutput">复制</text>
+    </view>
+    <scroll-view class="output-box" scroll-y="true">
+      <text class="output-text">{{output || (loading ? '正在审查，请稍候...' : '请先选择合同文件')}}</text>
+    </scroll-view>
+  </view>
+</view>

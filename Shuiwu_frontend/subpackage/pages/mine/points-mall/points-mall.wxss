@@ -1,0 +1,207 @@
+/* 积分商城页面样式 */
+.page {
+  width: 100%;
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding: 24rpx 22rpx 40rpx;
+  box-sizing: border-box;
+}
+
+/* 积分余额卡片 */
+.points-balance-card {
+  position: relative;
+  overflow: hidden;
+  margin: 0 0 24rpx 0;
+  border-radius: 20rpx;
+  padding: 28rpx 24rpx;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1rpx solid rgba(148, 163, 184, 0.24);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+}
+
+.points-balance-card::before {
+  content: '';
+  position: absolute;
+  top: -60rpx;
+  left: -40rpx;
+  width: 220rpx;
+  height: 220rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.balance-info {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 8rpx;
+}
+
+.balance-label {
+  font-size: 26rpx;
+  color: #64748b;
+  margin-right: 12rpx;
+}
+
+.balance-value {
+  font-size: 48rpx;
+  font-weight: 600;
+  color: #4f46e5;
+}
+
+.points-detail-btn {
+  position: absolute;
+  top: 26rpx;
+  right: 24rpx;
+  z-index: 1;
+  font-size: 22rpx;
+  color: #2f6fff;
+  padding: 8rpx 16rpx;
+  border-radius: 999rpx;
+  border: 1rpx solid rgba(47, 111, 255, 0.35);
+  background: rgba(47, 111, 255, 0.08);
+  line-height: 1.2;
+}
+
+.balance-tip {
+  position: relative;
+  z-index: 1;
+  font-size: 22rpx;
+  color: #94a3b8;
+}
+
+/* 商品容器 */
+.products-container {
+  padding: 0;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 14rpx;
+  row-gap: 20rpx;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* 商品卡片 */
+.product-card {
+  background: #ffffff;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.product-card:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.08);
+}
+
+/* 商品图片 */
+.product-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 280rpx;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+  overflow: hidden;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-badge {
+  position: absolute;
+  top: 16rpx;
+  left: 16rpx;
+  padding: 6rpx 16rpx;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+  color: #ffffff;
+  font-size: 20rpx;
+  border-radius: 20rpx;
+  font-weight: 500;
+  box-shadow: 0 2rpx 8rpx rgba(255, 107, 107, 0.3);
+}
+
+/* 商品信息 */
+.product-info {
+  padding: 20rpx;
+}
+
+.product-name {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #333333;
+  line-height: 1.4;
+  margin-bottom: 16rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-points {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+}
+
+.points-icon {
+  font-size: 28rpx;
+}
+
+.points-value {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #ff9800;
+}
+
+.exchange-btn {
+  padding: 10rpx 26rpx;
+  background: #4f46e5;
+  color: #ffffff;
+  font-size: 24rpx;
+  border-radius: 8rpx;
+  font-weight: 500;
+}
+
+/* 库存信息 */
+.product-stock {
+  display: flex;
+  align-items: center;
+  margin-top: 12rpx;
+  padding-top: 12rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.stock-label {
+  font-size: 22rpx;
+  color: #999999;
+}
+
+.stock-value {
+  font-size: 22rpx;
+  color: #52c41a;
+  font-weight: 500;
+}
+
+.stock-value.stock-empty {
+  color: #ff4d4f;
+}

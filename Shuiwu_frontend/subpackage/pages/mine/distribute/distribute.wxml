@@ -1,0 +1,349 @@
+<!-- pages/mine/distribute/distribute.wxml -->
+<view class="page">
+  <view wx:if="{{!isDistributor}}" class="join-card">
+    <view class="join-header">
+      <text class="join-title">开启合作</text>
+      <text class="join-subtitle">获取邀请码，邀请好友共同使用</text>
+    </view>
+    <view class="join-benefits">
+      <view class="benefit-item">
+        <text class="benefit-title">服务奖励</text>
+        <text class="benefit-desc">好友开通会员可获得奖励</text>
+      </view>
+      <view class="benefit-item">
+        <text class="benefit-title">邀请统计</text>
+        <text class="benefit-desc">实时查看邀请与转化数据</text>
+      </view>
+      <view class="benefit-item">
+        <text class="benefit-title">专属邀请码</text>
+        <text class="benefit-desc">一键分享，便捷邀请</text>
+      </view>
+    </view>
+    <t-button theme="primary" block loading="{{loading}}" bind:tap="onJoinTap">开启合作</t-button>
+  </view>
+
+  <view wx:else class="distributor-board">
+    <!-- <view class="code-card">
+      <view class="code-info">
+        <text class="code-label">我的推广码：</text>
+        <text class="code-value">{{distributorCode || '-'}}</text>
+      </view>
+      <t-icon class="icon" size="16" name="copy" bind:tap="onCopyCode" />
+    </view> -->
+
+    <view class="invite-card">
+      <!-- <view class="invite-info">
+        <text class="invite-label">已绑定推广码：</text>
+        <text class="invite-value">{{inviterCode || '未绑定'}}</text>
+      </view>
+      <view class="invite-action" wx:if="{{!inviterCode}}">
+        <t-button size="small" variant="outline" bind:tap="onInviteBindOpen">绑定</t-button>
+      </view>
+    </view>
+    <view wx:if="{{inviterNickname}}" class="invite-note">
+      邀请人：{{inviterNickname}} -->
+      <view class="invite-info">
+        <text class="invite-label">点击右侧生成邀请海报</text>
+      </view>
+      <view class="invite-action">
+        <t-button size="small" variant="light" bind:tap="getPoster">生成邀请海报</t-button>
+      </view>
+    </view>
+
+    <view class="stats-card">
+      <view class="stats-header">
+        <text class="stats-title">合作数据</text>
+        <text class="stats-amount">¥{{statsDisplay.availableCommission}}</text>
+        <text class="stats-amount-label">可用余额</text>
+      </view>
+      <view class="stats-grid">
+        <view class="stat-item">
+          <text class="stat-value">{{statsDisplay.totalChildren}}</text>
+          <text class="stat-label">累计邀请</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-value">{{statsDisplay.totalOrders}}</text>
+          <text class="stat-label">成交订单</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-value">¥{{statsDisplay.totalCommission}}</text>
+          <text class="stat-label">累计奖励</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-value">¥{{statsDisplay.frozenCommission}}</text>
+          <text class="stat-label">冻结余额</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-value">¥{{statsDisplay.totalWithdrawn}}</text>
+          <text class="stat-label">已提现</text>
+        </view>
+      </view>
+      <t-button class="withdraw-btn" theme="primary" block bind:tap="onWithdrawOpen">
+        余额提现
+      </t-button>
+    </view>
+
+    <view class="records-card">
+      <t-tabs value="{{activeTab}}" theme="line" bind:change="onTabChange">
+        <t-tab-panel value="records" label="邀请记录" />
+        <t-tab-panel value="withdrawals" label="提现记录" />
+      </t-tabs>
+
+      <view wx:if="{{activeTab === 'records'}}" class="records-section">
+        <view wx:if="{{recordsLoading && !records.length}}" class="loading-block">
+          <t-loading size="36rpx" />
+          <text class="loading-text">加载记录中...</text>
+        </view>
+        <view wx:elif="{{records.length}}">
+          <block wx:for="{{records}}" wx:key="record_id">
+            <view class="record-card">
+              <view class="record-header">
+                <text class="record-name">{{item.new_user_nickname || '新用户'}}</text>
+                <t-tag size="small" variant="light" theme="{{item.statusTheme}}">
+                  {{item.statusLabel}}
+                </t-tag>
+              </view>
+              <view class="record-row">
+                <text class="record-label">奖励</text>
+                <text class="record-value">¥{{item.commissionLabel}}</text>
+              </view>
+              <view class="record-row">
+                <text class="record-label">订单金额</text>
+                <text class="record-value">¥{{item.orderAmountLabel}}</text>
+              </view>
+              <view class="record-row">
+                <text class="record-label">类型</text>
+                <text class="record-value">{{item.typeLabel}}</text>
+              </view>
+              <view class="record-row">
+                <text class="record-label">创建时间</text>
+                <text class="record-value">{{item.createdLabel}}</text>
+              </view>
+              <view class="record-row">
+                <text class="record-label">过期时间</text>
+                <text class="record-value">{{item.expireLabel}}</text>
+              </view>
+            </view>
+          </block>
+          <view wx:if="{{recordsLoading && records.length}}" class="loading-more">
+            <t-loading size="32rpx" />
+            <text class="loading-text">加载更多</text>
+          </view>
+          <view wx:elif="{{!recordHasMore}}" class="no-more">没有更多记录了</view>
+        </view>
+        <view wx:else class="empty-block">
+          <t-empty description="暂无邀请记录" />
+        </view>
+      </view>
+
+      <view wx:if="{{activeTab === 'withdrawals'}}" class="records-section">
+        <view wx:if="{{withdrawalsLoading && !withdrawals.length}}" class="loading-block">
+          <t-loading size="36rpx" />
+          <text class="loading-text">加载提现记录中...</text>
+        </view>
+        <view wx:elif="{{withdrawals.length}}">
+          <block wx:for="{{withdrawals}}" wx:key="withdrawal_id">
+            <view class="record-card">
+              <view class="record-header">
+                <text class="record-name">¥{{item.amountLabel}}</text>
+                <t-tag size="small" variant="light" theme="{{item.statusTheme}}">
+                  {{item.statusLabel}}
+                </t-tag>
+              </view>
+              <view class="record-row">
+                <text class="record-label">提现方式</text>
+                <text class="record-value">{{item.methodLabel || '-'}}</text>
+              </view>
+              <view class="record-row">
+                <text class="record-label">账户</text>
+                <text class="record-value">{{item.account_number || '-'}}</text>
+              </view>
+              <view class="record-row">
+                <text class="record-label">申请时间</text>
+                <text class="record-value">{{item.createdLabel}}</text>
+              </view>
+              <view class="record-row">
+                <text class="record-label">处理时间</text>
+                <text class="record-value">{{item.processedLabel}}</text>
+              </view>
+              <view wx:if="{{item.reject_reason}}" class="record-row record-reason">
+                <text class="record-label">拒绝原因</text>
+                <text class="record-value">{{item.reject_reason}}</text>
+              </view>
+            </view>
+          </block>
+          <view wx:if="{{withdrawalsLoading && withdrawals.length}}" class="loading-more">
+            <t-loading size="32rpx" />
+            <text class="loading-text">加载更多</text>
+          </view>
+          <view wx:elif="{{!withdrawalHasMore}}" class="no-more">没有更多记录了</view>
+        </view>
+        <view wx:else class="empty-block">
+          <t-empty description="暂无提现记录" />
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<t-popup visible="{{inviteBindVisible}}" placement="center" bind:close="onInviteBindClose">
+  <view class="invite-form">
+    <view class="invite-header">
+      <text class="invite-title">绑定邀请码</text>
+    </view>
+    <view class="invite-field">
+      <text class="invite-label">邀请码</text>
+      <t-input
+        value="{{inviteCodeInput}}"
+        placeholder="请输入邀请码"
+        clearable
+        bind:change="onInviteCodeChange"
+      />
+    </view>
+    <view class="invite-actions">
+      <t-button variant="outline" block bind:tap="onInviteBindClose">取消</t-button>
+      <t-button theme="primary" block loading="{{bindSubmitting}}" bind:tap="onInviteBindSubmit">
+        绑定
+      </t-button>
+    </view>
+  </view>
+</t-popup>
+
+<t-popup visible="{{withdrawVisible}}" placement="center" bind:close="onWithdrawClose">
+  <view class="withdraw-form">
+    <view class="withdraw-header">
+      <text class="withdraw-title">提现申请</text>
+    </view>
+    <view class="withdraw-field">
+      <text class="withdraw-label">提现金额</text>
+      <t-input
+        value="{{withdrawAmount}}"
+        type="number"
+        placeholder="可提现{{statsDisplay.availableCommission}}"
+        clearable
+        bind:change="onWithdrawAmountChange"
+      />
+    </view>
+    <view class="withdraw-field">
+      <text class="withdraw-label">提现方式</text>
+      <view class="withdraw-picker" bind:tap="onWithdrawPickerOpen">
+        <text class="withdraw-picker-text">{{withdrawMethods[withdrawMethodIndex].label}}</text>
+      </view>
+    </view>
+    <view class="withdraw-field">
+      <text class="withdraw-label">账户姓名</text>
+      <t-input
+        value="{{withdrawAccountName}}"
+        placeholder="请输入账户姓名"
+        clearable
+        data-field="withdrawAccountName"
+        bind:change="onWithdrawFieldChange"
+      />
+    </view>
+    <view class="withdraw-field">
+      <text class="withdraw-label">账户号码</text>
+      <t-input
+        value="{{withdrawAccountNumber}}"
+        placeholder="请输入账户号码"
+        clearable
+        data-field="withdrawAccountNumber"
+        bind:change="onWithdrawFieldChange"
+      />
+    </view>
+    <view wx:if="{{withdrawMethod === 'bank'}}" class="withdraw-field">
+      <text class="withdraw-label">银行名称</text>
+      <t-input
+        value="{{withdrawBankName}}"
+        placeholder="请输入银行名称"
+        clearable
+        data-field="withdrawBankName"
+        bind:change="onWithdrawFieldChange"
+      />
+    </view>
+    <view wx:if="{{withdrawMethod === 'bank'}}" class="withdraw-field">
+      <text class="withdraw-label">支行名称</text>
+      <t-input
+        value="{{withdrawBankBranch}}"
+        placeholder="请输入支行名称"
+        clearable
+        data-field="withdrawBankBranch"
+        bind:change="onWithdrawFieldChange"
+      />
+    </view>
+    <view class="withdraw-actions">
+      <t-button variant="outline" block bind:tap="onWithdrawClose">取消</t-button>
+      <t-button theme="primary" block loading="{{withdrawSubmitting}}" bind:tap="onWithdrawSubmit">
+        提交申请
+      </t-button>
+    </view>
+  </view>
+</t-popup>
+
+<t-picker
+  visible="{{withdrawPickerVisible}}"
+  value="{{withdrawPickerValue}}"
+  title="选择提现方式"
+  confirm-btn="确定"
+  cancel-btn="取消"
+  bind:confirm="onWithdrawPickerConfirm"
+  bind:cancel="onWithdrawPickerCancel"
+  bind:close="onWithdrawPickerClose"
+>
+  <t-picker-item options="{{withdrawMethods}}" />
+</t-picker>
+
+<t-popup
+  visible="{{posterTemplateVisible}}"
+  placement="center"
+  close-on-overlay-click="{{true}}"
+  bind:close="onPosterTemplateClose"
+>
+  <view class="poster-template-card">
+    <view class="poster-template-header">
+      <text class="poster-template-title">选择模板</text>
+      <text class="poster-template-subtitle">点击图片生成邀请海报</text>
+    </view>
+    <view class="poster-template-grid">
+      <block wx:for="{{posterTemplates}}" wx:key="id">
+        <view
+          class="poster-template-item {{selectedPosterTemplate === item.id ? 'is-active' : ''}}"
+          data-id="{{item.id}}"
+          bind:tap="onPosterTemplateSelect"
+        >
+          <image class="poster-template-image" src="{{item.url}}" mode="aspectFill" />
+          <view class="poster-template-badge">{{item.id}}</view>
+        </view>
+      </block>
+    </view>
+    <view class="poster-template-actions">
+      <t-button variant="outline" block bind:tap="onPosterTemplateClose">取消</t-button>
+    </view>
+  </view>
+</t-popup>
+
+<t-popup
+  visible="{{posterVisible}}"
+  placement="center"
+  close-on-overlay-click="{{true}}"
+  bind:visible-change="onPosterVisibleChange"
+  bind:close="onPosterClose"
+>
+  <view class="poster-card">
+    <image
+      class="poster-image"
+      src="{{posterImage}}"
+      mode="widthFix"
+      bind:tap="onPosterPreview"
+    />
+    <view class="poster-actions">
+      <t-button
+        theme="primary"
+        block
+        loading="{{posterSaving}}"
+        bind:tap="onPosterSave"
+      >
+        保存图片
+      </t-button>
+    </view>
+  </view>
+</t-popup>

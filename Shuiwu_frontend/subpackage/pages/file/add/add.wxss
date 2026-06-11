@@ -1,0 +1,207 @@
+/* pages/file/add/add.wxss */
+
+/* ==================== 容器样式 ==================== */
+.container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+
+/* ==================== 表单区域 ==================== */
+.form-section {
+  width: 100%;
+  margin-bottom: 40rpx;
+}
+
+.form-label {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 20rpx;
+}
+
+/* ==================== 选择器样式 ==================== */
+.picker-wrapper {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 12rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.picker-content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+
+.picker-text {
+  font-size: 28rpx;
+  color: #333;
+  flex: 1;
+}
+
+.picker-placeholder {
+  color: #999;
+}
+
+.picker-arrow {
+  font-size: 20rpx;
+  color: #999;
+  margin-left: 20rpx;
+}
+
+/* ==================== 上传区域 ==================== */
+.upload-container {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 12rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+
+.file-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  margin-bottom: 30rpx;
+}
+
+.file-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx;
+  background-color: #F5F7FB;
+  border-radius: 12rpx;
+  box-sizing: border-box;
+}
+
+.file-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.file-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 8rpx;
+  flex-shrink: 0;
+}
+
+.file-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.file-name {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  line-height: 1.4;
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-size {
+  font-size: 24rpx;
+  color: #999;
+  line-height: 1.4;
+}
+
+.file-delete {
+  width: 50rpx;
+  height: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FF4444;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-left: 20rpx;
+}
+
+.delete-icon {
+  font-size: 32rpx;
+  color: #fff;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.upload-area {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60rpx 30rpx;
+  border: 2rpx dashed #D9D9D9;
+  border-radius: 12rpx;
+  box-sizing: border-box;
+  background-color: #FAFAFA;
+}
+
+.upload-area:active {
+  background-color: #F0F0F0;
+}
+
+.upload-icon {
+  width: 80rpx;
+  height: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.upload-text {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 10rpx;
+}
+
+.upload-hint {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* ==================== 提交按钮 ==================== */
+.submit-section {
+  width: 100%;
+  margin-top: 60rpx;
+  padding-bottom: 40rpx;
+}
+
+.submit-btn {
+  width: 100%;
+  height: 88rpx;
+  background-color: #3B55F3;
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 500;
+  border-radius: 12rpx;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.submit-btn::after {
+  border: none;
+}
+
+.submit-btn[disabled] {
+  background-color: #D9D9D9;
+  color: #999;
+}

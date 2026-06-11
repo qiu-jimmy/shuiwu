@@ -1,0 +1,90 @@
+/* pages/index/allInput/allInput.wxss */
+.container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+
+/* ==================== 区块容器 ==================== */
+.section-wrapper {
+  width: 90%;
+  margin-bottom: 40rpx;
+  background-color: #fff;
+  padding: 30rpx 30rpx;
+  border-radius: 16rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: center;
+}
+
+.section-title::before {
+  content: '';
+  width: 6rpx;
+  height: 25rpx;
+  border-radius: 26rpx;
+  margin-right: 10rpx;
+  background-color: #3B55F3;
+}
+
+/* ==================== 卡片网格 ==================== */
+.cards-grid {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+  box-sizing: border-box;
+}
+
+.card-item {
+  width: calc((100% - 40rpx) / 3);
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.card-item:active {
+  transform: scale(0.95);
+}
+
+.card-item-empty {
+  width: calc((100% - 40rpx) / 3);
+}
+
+/* ==================== 图标区域 ==================== */
+.card-icon-wrapper {
+  width: 100rpx;
+  height: 100rpx;
+  background-color: #E6F2FF;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16rpx;
+  box-sizing: border-box;
+}
+
+.card-icon {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+/* ==================== 文字 ==================== */
+.card-text {
+  font-size: 26rpx;
+  color: #333;
+  text-align: center;
+  line-height: 1.4;
+}

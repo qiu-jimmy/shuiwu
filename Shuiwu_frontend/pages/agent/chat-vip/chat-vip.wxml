@@ -1,0 +1,161 @@
+<view class="header">内容由AI生成，仅供参考</view>
+
+<!-- AI万事通高级模式提示（底部） -->
+<view class="premium-toast-bottom {{premiumToastVisible ? 'show' : ''}}" wx:if="{{premiumToastVisible}}">
+  <text class="premium-toast-icon">✓</text>
+  <text class="premium-toast-text">当前使用AI万事通高级模式，回答更精准</text>
+</view>
+
+<!-- 欢迎界面：当消息列表为空且未获取焦点时显示 -->
+<view class="welcome-container" wx:if="{{showWelcome && chatList.length === 0}}" wx:key="welcome-{{gifKey}}">
+  <view class="welcome-image-wrapper">
+    <!-- 静态图片层：始终在底层 -->
+    <image 
+      class="welcome-static {{staticFadeIn ? 'fade-in' : ''}}" 
+      src="{{staticImageSrc}}" 
+      mode="aspectFit" 
+      lazy-load="false"
+    ></image>
+    <!-- GIF图片层：在上层，播放完成后淡出 -->
+    <image 
+      wx:if="{{!gifPlayedOnce}}"
+      class="welcome-gif {{gifFadeOut ? 'fade-out' : ''}}" 
+      src="{{gifSrc}}" 
+      mode="aspectFit" 
+      lazy-load="false"
+      binderror="onGifError"
+      bindload="onGifLoad"
+    ></image>
+  </view>
+  <view class="welcome-card">
+    <text class="welcome-text">您好，我是税小通，请问今天有什么可以帮您？</text>
+  </view>
+  
+  <!-- 快捷问题 -->
+  <view class="quick-questions-container" wx:if="{{quickQuestionList.length > 0}}">
+    <view 
+      class="quick-question-item" 
+      wx:for="{{quickQuestionList}}" 
+      wx:key="index"
+      bindtap="onQuickQuestionTap"
+      data-question="{{item}}">
+      <text class="quick-question-text">{{item}}</text>
+    </view>
+  </view>
+</view>
+
+<view class="chat-box" style="height: {{contentHeight}};">
+  <t-chat>
+    <block wx:for="{{chatList}}" wx:key="index" wx:for-index="chatIndex">
+      <t-chat-message
+        class="{{item.message.role}}"
+        avatar="{{item.avatar || ''}}"
+        role="{{item.message.role || 'assistant'}}"
+        placement="{{item.message.role === 'user' ? 'right' : 'left'}}"
+        content="{{item.message.content}}"
+      >
+        <view slot="actionbar" class="message-actions">
+          <t-chat-loading wx:if="{{item.message.status === 'streaming'}}" slot="content" animation="gradient" text="生成中..." />
+          <t-button
+            wx:if="{{item.message.status == 'complete'}}"
+            class="copy-btn"
+            size="extra-small"
+            bind:tap="onCopyMessage"
+            data-index="{{chatIndex}}"
+            icon="copy"
+          >
+          </t-button>
+        </view>
+      </t-chat-message>
+    </block>
+    <view slot="footer" >
+      <t-chat-sender
+        value="{{value}}"
+        loading="{{loading}}"
+        disabled="{{disabled}}"
+        placeholder="{{placeholder}}"
+        textareaProps="{{textareaProps}}"
+        fileList="{{fileList}}"
+        attachmentsProps="{{attachmentsProps}}"
+        renderPresets="{{renderPresets}}"
+        visible="{{visible}}"
+        bind:send="onSend"
+        bind:stop="onStop"
+        bind:focus="onFocus"
+        bind:blur="onBlur"
+        bind:change="onChange"
+        bind:uploadClick="onUploadClick"
+        bind:fileClick="onFileClick"
+        bind:fileDelete="onFileDelete"
+        bind:fileChange="onFileChange"
+        bind:fileAdd="onFileAdd"
+        bind:fileSelect="onFileSelect"
+        bind:updateVisible="onUpdateVisible"
+        bind:keyboardheightchange="onKeyboardHeightChange"
+        auto-rise-with-keyboard="true"
+      >
+        <view slot="footer-prefix" class="footer-prefix">
+          <view class="deep-think-block {{deepThinkActive ? 'active' : ''}}" bind:tap="onDeepThinkTap">
+            <t-icon name="book" size="40rpx" />
+            <text class="deep-think-text">{{knowledge_base || '选择知识库'}}</text>
+          </view>
+          <view class="deep-think-block {{deepThink1Active ? 'active' : ''}}" bind:tap="onDeepThinkTap1">
+            <t-icon name="system-sum" size="40rpx" />
+            <text class="deep-think-text">深度思考</text>
+          </view>
+          <view class="net-search-block {{ netSearchActive ? 'active' : '' }}" bind:tap="onNetSearchTap">
+            <t-icon name="internet" size="40rpx" />
+          </view>
+        </view>
+      </t-chat-sender>
+    </view>
+  </t-chat>
+</view>
+
+<t-popup visible="{{knowledgeBaseVisible}}" placement="bottom" bind:close="onKnowledgeBaseClose">
+  <view class="kb-card">
+    <view class="kb-card__header">
+      <text class="kb-card__title">选择知识库</text>
+      <t-button style="margin: 0;" size="small" variant="text" bind:tap="onKnowledgeBaseClose">关闭</t-button>
+    </view>
+    <view class="kb-tabs">
+      <view
+        class="kb-tab {{knowledgeBaseTab === 'system' ? 'kb-tab--active' : ''}}"
+        bind:tap="onKnowledgeBaseTabTap"
+        data-tab="system"
+      >
+        系统知识库
+      </view>
+      <view
+        class="kb-tab {{knowledgeBaseTab === 'user' ? 'kb-tab--active' : ''}}"
+        bind:tap="onKnowledgeBaseTabTap"
+        data-tab="user"
+      >
+        个人知识库
+      </view>
+    </view>
+    <view wx:if="{{knowledgeBaseLoading}}" class="kb-card__loading">
+      <t-loading size="36rpx" />
+      <text class="kb-card__loading-text">加载中</text>
+    </view>
+    <scroll-view wx:else scroll-y class="kb-card__list">
+      <block wx:if="{{knowledgeBaseList.length}}">
+        <block wx:for="{{knowledgeBaseList}}" wx:key="id">
+          <view
+            class="kb-item {{knowledge_base === item.kb_name ? 'kb-item--active' : ''}}"
+            bind:tap="onKnowledgeBaseSelect"
+            data-name="{{item.kb_name}}"
+          >
+            <view class="kb-item__title">{{item.kb_name}}</view>
+            <view class="kb-item__desc">{{item.description || '暂无描述'}}</view>
+          </view>
+        </block>
+      </block>
+      <view wx:else class="kb-card__empty">
+        {{knowledgeBaseTab === 'system' ? '暂无系统知识库' : '暂无个人知识库'}}
+      </view>
+    </scroll-view>
+  </view>
+</t-popup>
+
+<t-toast id="t-toast" />

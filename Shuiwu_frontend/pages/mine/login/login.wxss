@@ -1,0 +1,110 @@
+.page {
+  padding: 20rpx;
+}
+
+.card {
+  padding: 28rpx 26rpx 30rpx;
+  border-radius: 16rpx;
+  background: #ffffff;
+  box-shadow: 0 18rpx 40rpx rgba(15, 23, 42, 0.08);
+}
+
+.card-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.card-desc {
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  color: #64748b;
+}
+
+.form {
+  margin-top: 22rpx;
+}
+
+.form-item {
+  margin-top: 16rpx;
+}
+
+.form-item:first-child {
+  margin-top: 0;
+}
+
+.actions {
+  margin-top: 24rpx;
+}
+
+.actions t-button {
+  margin-top: 16rpx;
+}
+
+.actions t-button:first-child {
+  margin-top: 0;
+}
+
+.wechat-login {
+  margin-top: 24rpx;
+}
+
+.agreement-wrapper {
+  margin: 32rpx 0;
+  display: flex;
+  justify-content: center;
+  padding: 0 32rpx;
+}
+
+.agreement-label {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  color: #666666;
+}
+
+.agreement-text {
+  margin-left: 8rpx;
+}
+
+.agreement-link {
+  color: #3B55F3;
+  margin: 0 4rpx;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 24rpx 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1rpx;
+  background: #e5e7eb;
+}
+
+.divider-text {
+  padding: 0 16rpx;
+  font-size: 22rpx;
+  color: #9ca3af;
+}
+
+.helper {
+  margin-top: 22rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22rpx;
+  color: #64748b;
+}
+
+.helper-text {
+  margin-right: 8rpx;
+}

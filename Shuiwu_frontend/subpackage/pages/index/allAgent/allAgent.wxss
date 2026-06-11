@@ -1,0 +1,509 @@
+/* pages/index/allAgent/allAgent.wxss */
+.ai-notice {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 20rpx;
+  color: #666;
+  padding: 12rpx 0;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 999;
+}
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #ffffff 0%, #bbdefb 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.agent-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+.center-image {
+  max-width: 80%;
+  max-height: 80%;
+  margin-top: -550rpx;
+  animation: floatAnimation 4s ease-in-out infinite;
+}
+
+@keyframes floatAnimation {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-100rpx);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.agent-item-wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center center;
+  /* 位置由JS动态控制，通过style属性设置transform */
+}
+
+.agent-icon {
+  width: 120rpx;
+  height: 120rpx;
+  margin-bottom: 16rpx;
+  animation: agentFloatAnimation 4s ease-in-out infinite;
+}
+
+.agent-text {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #3B55F3;
+  text-align: center;
+  animation: agentFloatAnimation 4s ease-in-out infinite;
+}
+
+@keyframes agentFloatAnimation {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20rpx);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* 卡片列表样式 */
+.card-list {
+  position: absolute;
+  bottom: 100rpx;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+}
+
+.card-item {
+  width: calc(50% - 20rpx);
+  margin-bottom: 30rpx;
+  position: relative;
+  overflow: hidden;
+  border-radius: 16rpx;
+  min-height: 120rpx;
+}
+
+.card-border {
+  display: none;
+}
+
+.card-inner {
+  position: relative;
+  z-index: 1;
+  margin: 4rpx;
+  border-radius: 14rpx;
+  background: linear-gradient(135deg, rgba(100, 181, 246, 0.4) 0%, rgba(66, 165, 245, 0.5) 100%);
+  border: 2rpx solid rgba(255, 255, 255, 0.7);
+  padding: 40rpx 30rpx;
+  box-shadow: 
+    0 12rpx 40rpx rgba(66, 165, 245, 0.3),
+    0 0 0 2rpx rgba(255, 255, 255, 0.6) inset,
+    0 4rpx 12rpx rgba(0, 0, 0, 0.15) inset,
+    0 -2rpx 8rpx rgba(255, 255, 255, 0.2) inset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  backdrop-filter: blur(30rpx);
+  -webkit-backdrop-filter: blur(30rpx);
+}
+
+.card-inner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+  border-radius: 16rpx 16rpx 0 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card-inner::after {
+  content: '';
+  position: absolute;
+  top: -80%;
+  right: -80%;
+  width: 300%;
+  height: 300%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card-text-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.card-text {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #0d47a1;
+  text-align: center;
+  letter-spacing: 1rpx;
+  text-shadow: 
+    0 2rpx 4rpx rgba(255, 255, 255, 0.9),
+    0 1rpx 2rpx rgba(0, 0, 0, 0.1);
+}
+
+.card-text-highlight-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8rpx;
+  letter-spacing: 1rpx;
+}
+
+.card-text-highlight-bracket {
+  font-size: 20rpx;
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 
+    0 2rpx 4rpx rgba(255, 255, 255, 0.5),
+    0 1rpx 2rpx rgba(0, 0, 0, 0.2);
+}
+
+.card-text-highlight-text {
+  font-size: 20rpx;
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 
+    0 2rpx 4rpx rgba(255, 255, 255, 0.5),
+    0 1rpx 2rpx rgba(0, 0, 0, 0.2);
+}
+
+.card-text-highlight-char {
+  font-size: 20rpx;
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 
+    0 2rpx 4rpx rgba(255, 255, 255, 0.5),
+    0 1rpx 2rpx rgba(0, 0, 0, 0.2);
+  animation: charColorCycle 2.4s linear infinite;
+}
+
+/* 逐字变色动画 - 4个字，每个字0.3秒变色，总共2.4秒循环 */
+/* 时序：会(0-0.3s) -> 员(0.3-0.6s) -> 专(0.6-0.9s) -> 享(0.9-1.2s) -> 会变白(1.2-1.5s) -> 员变白(1.5-1.8s) -> 专变白(1.8-2.1s) -> 享变白(2.1-2.4s) */
+
+/* 第1个字"会" - 0-12.5%变金色，50-62.5%变白色 */
+.char-0 {
+  animation: charColorCycle0 2.4s linear infinite;
+}
+
+@keyframes charColorCycle0 {
+  0% {
+    color: #ffffff;
+    text-shadow: 
+      0 2rpx 4rpx rgba(255, 255, 255, 0.5),
+      0 1rpx 2rpx rgba(0, 0, 0, 0.2);
+  }
+  12.5% {
+    color: #FFD700;
+    text-shadow: 
+      0 2rpx 4rpx rgba(255, 215, 0, 0.8),
+      0 1rpx 2rpx rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    color: #FFD700;
+    text-shadow: 
+      0 2rpx 4rpx rgba(255, 215, 0, 0.8),
+      0 1rpx 2rpx rgba(0, 0, 0, 0.2);
+  }
+  62.5% {
+    color: #ffffff;
+    text-shadow: 
+      0 2rpx 4rpx rgba(255, 255, 255, 0.5),
+      0 1rpx 2rpx rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    color: #ffffff;
+    text-shadow: 
+      0 2rpx 4rpx rgba(255, 255, 255, 0.5),
+      0 1rpx 2rpx rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* 第2个字"员" - 12.5-25%变金色，62.5-75%变白色 */
+.char-1 {
+  animation: charColorCycle1 2.4s linear infinite;
+}
+
+@keyframes charColorCycle1 {
+  0%, 12.5% {
+    color: #ffffff;
+    text-shadow: 
+      0 2rpx 4rpx rgba(255, 255, 255, 0.5),
+      0 1rpx 2rpx rgba(0, 0, 0, 0.2);
+  }
+  25% {
+    color: #FFD700;
+    text-shadow: 
+      0 2rpx 4rpx rgba(255, 215, 0, 0.8),
+      0 1rpx 2rpx rgba(0, 0, 0, 0.2);
+  }
+  62.5% {
+    color: #FFD700;
+    text-shadow: 
+      0 2rpx 4rpx rgba(255, 215, 0, 0.8),
+      0 1rpx 2rpx rgba(0, 0, 0, 0.2);
+  }
+  75% {
+    color: #ffffff;
+    text-shadow: 
+      0 2rpx 4rpx rgba(255, 255, 255, 0.5),
+      0 1rpx 2rpx rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    color: #ffffff;
+    text-shadow: 
+      0 2rpx 4rpx rgba(255, 255, 255, 0.5),
+      0 1rpx 2rpx rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* 第3个字"专" - 25-37.5%变金色，75-87.5%变白色 */
+.char-2 {
+  animation: charColorCycle2 2.4s linear infinite;
+}
+
+@keyframes charColorCycle2 {
+  0%, 25% {
+    color: #ffffff;
+    text-shadow: 
+      0 2rpx 4rpx rgba(255, 255, 255, 0.5),
+      0 1rpx 2rpx rgba(0, 0, 0, 0.2);
+  }
+  37.5% {
+    color: #FFD700;
+    text-shadow: 
+      0 2rpx 4rpx rgba(255, 215, 0, 0.8),
+      0 1rpx 2rpx rgba(0, 0, 0, 0.2);
+  }
+  75% {
+    color: #FFD700;
+    text-shadow: 
+      0 2rpx 4rpx rgba(255, 215, 0, 0.8),
+      0 1rpx 2rpx rgba(0, 0, 0, 0.2);
+  }
+  87.5% {
+    color: #ffffff;
+    text-shadow: 
+      0 2rpx 4rpx rgba(255, 255, 255, 0.5),
+      0 1rpx 2rpx rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    color: #ffffff;
+    text-shadow: 
+      0 2rpx 4rpx rgba(255, 255, 255, 0.5),
+      0 1rpx 2rpx rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* 第4个字"享" - 37.5-50%变金色，87.5-100%变白色 */
+.char-3 {
+  animation: charColorCycle3 2.4s linear infinite;
+}
+
+@keyframes charColorCycle3 {
+  0%, 37.5% {
+    color: #ffffff;
+    text-shadow: 
+      0 2rpx 4rpx rgba(255, 255, 255, 0.5),
+      0 1rpx 2rpx rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    color: #FFD700;
+    text-shadow: 
+      0 2rpx 4rpx rgba(255, 215, 0, 0.8),
+      0 1rpx 2rpx rgba(0, 0, 0, 0.2);
+  }
+  87.5% {
+    color: #FFD700;
+    text-shadow: 
+      0 2rpx 4rpx rgba(255, 215, 0, 0.8),
+      0 1rpx 2rpx rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    color: #ffffff;
+    text-shadow: 
+      0 2rpx 4rpx rgba(255, 255, 255, 0.5),
+      0 1rpx 2rpx rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* ========== 底部填充：线条 + 渐变 + 粒子（填满下方空白） ========== */
+.tech-bottom-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 420rpx;
+  pointer-events: none;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(187, 222, 251, 0.25) 30%,
+    rgba(144, 202, 249, 0.4) 70%,
+    rgba(100, 181, 246, 0.35) 100%
+  );
+}
+
+/* 填充横线：均匀铺满底部 */
+.tech-fill-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2rpx;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(59, 85, 243, 0.12) 20%,
+    rgba(100, 181, 246, 0.2) 50%,
+    rgba(59, 85, 243, 0.12) 80%,
+    transparent 100%
+  );
+}
+.tech-fill-line--1 { bottom: 28rpx; opacity: 0.9; }
+.tech-fill-line--2 { bottom: 68rpx; opacity: 0.75; }
+.tech-fill-line--3 { bottom: 108rpx; opacity: 0.65; }
+.tech-fill-line--4 { bottom: 148rpx; opacity: 0.55; }
+.tech-fill-line--5 { bottom: 188rpx; opacity: 0.45; }
+.tech-fill-line--6 { bottom: 228rpx; opacity: 0.35; }
+.tech-fill-line--7 { bottom: 268rpx; opacity: 0.28; }
+.tech-fill-line--8 { bottom: 308rpx; opacity: 0.2; }
+.tech-fill-line--9 { bottom: 348rpx; opacity: 0.15; }
+.tech-fill-line--10 { bottom: 388rpx; opacity: 0.1; }
+
+.tech-particle-scene {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 260rpx;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 1;
+}
+
+/* 中心：企业核心（稍大、柔和光晕） */
+.tech-particle-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 28rpx;
+  height: 28rpx;
+  margin-left: -14rpx;
+  margin-top: -14rpx;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.95),
+    rgba(100, 181, 246, 0.9) 40%,
+    rgba(59, 85, 243, 0.85)
+  );
+  box-shadow:
+    0 0 24rpx rgba(59, 85, 243, 0.7),
+    0 0 48rpx rgba(100, 181, 246, 0.35);
+  animation: particleCorePulse 2.5s ease-in-out infinite;
+}
+
+@keyframes particleCorePulse {
+  0%, 100% { opacity: 0.9; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+
+/* 周围：智能体粒子（一圈 + 错开呼吸） */
+.tech-particle {
+  position: absolute;
+  width: 14rpx;
+  height: 14rpx;
+  margin-left: -7rpx;
+  margin-top: -7rpx;
+  border-radius: 50%;
+  background: rgba(100, 181, 246, 0.95);
+  box-shadow: 0 0 16rpx rgba(59, 85, 243, 0.6);
+  animation: particleFloat 3s ease-in-out infinite;
+}
+.tech-particle--outer {
+  width: 10rpx;
+  height: 10rpx;
+  margin-left: -5rpx;
+  margin-top: -5rpx;
+  background: rgba(59, 85, 243, 0.7);
+  box-shadow: 0 0 12rpx rgba(59, 85, 243, 0.4);
+  animation-duration: 3.5s;
+}
+
+/* 内圈 12 粒：围绕中心成圆 */
+.tech-particle--1 { left: 68%; top: 50%; animation-delay: 0s; }
+.tech-particle--2 { left: 64%; top: 62%; animation-delay: 0.25s; }
+.tech-particle--3 { left: 50%; top: 68%; animation-delay: 0.5s; }
+.tech-particle--4 { left: 36%; top: 62%; animation-delay: 0.75s; }
+.tech-particle--5 { left: 32%; top: 50%; animation-delay: 1s; }
+.tech-particle--6 { left: 36%; top: 38%; animation-delay: 1.25s; }
+.tech-particle--7 { left: 50%; top: 32%; animation-delay: 1.5s; }
+.tech-particle--8 { left: 64%; top: 38%; animation-delay: 1.75s; }
+.tech-particle--9 { left: 76%; top: 44%; animation-delay: 0.15s; }
+.tech-particle--10 { left: 76%; top: 56%; animation-delay: 0.4s; }
+.tech-particle--11 { left: 24%; top: 56%; animation-delay: 0.65s; }
+.tech-particle--12 { left: 24%; top: 44%; animation-delay: 0.9s; }
+
+/* 外圈 4 粒：更远、更淡 */
+.tech-particle--o1 { left: 82%; top: 50%; animation-delay: 0.2s; }
+.tech-particle--o2 { left: 50%; top: 78%; animation-delay: 0.6s; }
+.tech-particle--o3 { left: 18%; top: 50%; animation-delay: 1s; }
+.tech-particle--o4 { left: 50%; top: 22%; animation-delay: 1.4s; }
+
+@keyframes particleFloat {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(0.92) translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1) translateY(-6rpx);
+  }
+}

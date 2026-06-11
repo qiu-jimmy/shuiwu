@@ -1,0 +1,97 @@
+<!--pages/file/component/addKnowledge/addKnowledge.wxml-->
+<view class="modal-mask" wx:if="{{show}}" bindtap="onMaskTap">
+  <view class="modal-content" catchtap="stopPropagation">
+    <view class="modal-header">
+      <text class="modal-title">创建知识库</text>
+      <text class="modal-close" bindtap="onClose">×</text>
+    </view>
+    
+    <view class="modal-body">
+      <!-- 知识库名字 -->
+      <view class="form-item">
+        <view class="form-label">知识库名字</view>
+        <input class="form-input" 
+               type="text" 
+               placeholder="请输入知识库名字" 
+               value="{{formData.name}}"
+               maxlength="8"
+               bindinput="onNameInput"/>
+      </view>
+      
+      <!-- 知识库描述 -->
+      <view class="form-item">
+        <view class="form-label">知识库描述</view>
+        <textarea class="form-textarea" 
+                  placeholder="请输入知识库描述（不超过18个字）" 
+                  value="{{formData.description}}"
+                  bindinput="onDescriptionInput"
+                  maxlength="18"/>
+      </view>
+      
+      <!-- 知识库分类 -->
+      <view class="form-item">
+        <view class="form-label">知识库分类</view>
+        <view class="picker-content">
+          <category-selector
+            label=""
+            placeholder="请选择知识库分类"
+            value="{{selectedCategory}}"
+            excludeAll="{{true}}"
+            bind:change="onCategorySelectorChange">
+          </category-selector>
+        </view>
+      </view>
+      
+      <!-- 切分规则 -->
+      <view class="form-item">
+        <view class="form-label">拆分模式</view>
+        <view class="picker-content" bindtap="onChunkRuleTriggerTap">
+          <text class="picker-text {{!selectedChunkingRule ? 'picker-placeholder' : ''}}">
+            {{selectedChunkingRule || '请选择拆分模式'}}
+          </text>
+          <text class="picker-arrow"></text>
+        </view>
+      </view>
+      
+      <!-- 分片长度 -->
+      <view class="form-item">
+        <view class="form-label">分段长度</view>
+        <view class="picker-content" bindtap="onChunkSizeTriggerTap">
+          <text class="picker-text {{!selectedChunkSize ? 'picker-placeholder' : ''}}">
+            {{selectedChunkSize || '请选择分段长度'}}
+          </text>
+          <text class="picker-arrow"></text>
+        </view>
+      </view>
+      
+      <!-- 分片重叠 -->
+      <view class="form-item">
+        <view class="form-label">分片重叠</view>
+        <view class="form-value">50</view>
+      </view>
+    </view>
+
+    <!-- 切分规则自定义弹出框，复用 category-picker -->
+    <category-picker
+      show="{{showChunkRulePicker}}"
+      options="{{chunkRuleOptions}}"
+      selectedValue="{{selectedChunkingRule}}"
+      bind:close="onChunkRulePickerClose"
+      bind:select="onChunkRulePickerSelect">
+    </category-picker>
+    
+    <!-- 分片长度自定义弹出框，复用 category-picker -->
+    <category-picker
+      show="{{showChunkSizePicker}}"
+      options="{{chunkSizeOptions}}"
+      selectedValue="{{selectedChunkSize}}"
+      bind:close="onChunkSizePickerClose"
+      bind:select="onChunkSizePickerSelect">
+    </category-picker>
+    
+    <view class="modal-footer">
+      <button class="btn-cancel" bindtap="onClose">取消</button>
+      <button class="btn-submit" bindtap="onSubmit" disabled="{{!canSubmit}}">创建</button>
+    </view>
+  </view>
+</view>

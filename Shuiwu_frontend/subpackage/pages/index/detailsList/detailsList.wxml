@@ -1,0 +1,14 @@
+<!--pages/index/detailsList/detailsList.wxml-->
+<view class="container">
+  <view class="case-list">
+    <view class="case-card" wx:for="{{list}}" wx:key="docId" bindtap="onItemTap" data-index="{{index}}">
+      <view class="case-header">
+        <text class="case-type">{{item.type}}</text>
+      </view>
+      <view class="case-body">
+        <text class="case-title">{{item.title}}</text>
+        <text class="case-summary">{{item.summary}}</text>
+      </view>
+    </view>
+  </view>
+</view>

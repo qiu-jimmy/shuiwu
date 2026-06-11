@@ -1,0 +1,57 @@
+<view class="header">内容由AI生成，仅供参考</view>
+
+<!-- 普通模式提示（底部） -->
+<view class="basic-mode-toast {{basicModeVisible ? 'show' : ''}}" wx:if="{{basicModeVisible}}">
+  <text class="basic-toast-text">当前为普通回复模式，建议使用AI万事通获取知识库增强的更精准回答</text>
+</view>
+
+<!-- 配额不足弹窗 -->
+<t-dialog
+  visible="{{quotaModalVisible}}"
+  title="聊天次数不足"
+  content="{{quotaMessage}}"
+  confirm-btn="开通会员"
+  cancel-btn="稍后再说"
+  bind:confirm="onGoToVip"
+  bind:cancel="onQuotaModalClose"
+/>
+
+<view class="chat-box" style="height: {{contentHeight}};">
+  <t-chat>
+    <block wx:for="{{chatList}}" wx:key="index" wx:for-index="chatIndex">
+      <t-chat-message
+        class="{{item.message.role}}"
+        avatar="{{item.avatar || ''}}"
+        role="{{item.message.role || 'assistant'}}"
+        placement="{{item.message.role === 'user' ? 'right' : 'left'}}"
+        content="{{item.message.content}}"
+      >
+        <view slot="actionbar" class="message-actions">
+          <t-chat-loading wx:if="{{item.message.status == 'streaming'}}" slot="content" animation="gradient" text="生成中..." />
+          <text wx:if="{{item.message.status == 'error'}}" style="color: #e34d59; font-size: 24rpx;">发送失败</text>
+          <t-button
+            wx:if="{{item.message.status == 'complete'}}"
+            class="copy-btn"
+            size="extra-small"
+            bind:tap="onCopyMessage"
+            data-index="{{chatIndex}}"
+            icon="copy"
+          >
+          </t-button>
+        </view>
+      </t-chat-message>
+    </block>
+    <view slot="footer">
+      <t-chat-sender
+        value="{{value}}"
+        loading="{{loading}}"
+        disabled="{{disabled}}"
+        autoRiseWithKeyboard="{{true}}"
+        renderPresets="{{renderPresets}}"
+        bind:send="onSend"
+        bind:stop="onStop"
+        bind:focus="onFocus"
+      />
+    </view>
+  </t-chat>
+</view>

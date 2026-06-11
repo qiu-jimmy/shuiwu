@@ -1,0 +1,170 @@
+<!--pages/mine/tax-query/tax-query.wxml-->
+<view class="container">
+  <!-- 列表 -->
+  <view class="declaration-list" wx:if="{{!isEmpty}}">
+    <view class="declaration-item" wx:for="{{declarations}}" wx:key="id" bindtap="onDeclarationTap" data-index="{{index}}">
+      <view class="item-header">
+        <view class="item-title-row">
+          <text class="declaration-no">申报编号：{{item.declaration_no}}</text>
+          <text class="status-tag {{item.statusClass}}">{{item.statusText}}</text>
+        </view>
+        <text class="declaration-date">{{item.formattedDate}}</text>
+      </view>
+      
+      <view class="item-body">
+        <view class="info-row">
+          <text class="info-label">纳税人：</text>
+          <text class="info-value">{{item.taxpayer_name}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">税种类型：</text>
+          <text class="info-value">{{item.taxTypeText}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">税期：</text>
+          <text class="info-value">{{item.tax_period}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{isEmpty && !loading}}">
+    <image class="empty-icon" src="{{ossUrl}}/images/nothing.png" mode="aspectFit"></image>
+    <text class="empty-text">暂无申报记录</text>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading-state" wx:if="{{loading && declarations.length === 0}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <!-- 加载更多提示 -->
+  <view class="load-more" wx:if="{{!hasMore && declarations.length > 0}}">
+    <text class="load-more-text">没有更多数据了</text>
+  </view>
+
+  <!-- 详情弹窗 -->
+  <view class="detail-modal" wx:if="{{showDetailModal}}" bindtap="closeDetailModal">
+    <view class="detail-modal-content" catchtap="stopPropagation">
+      <view class="detail-modal-header">
+        <text class="detail-modal-title">申报详情</text>
+        <view class="detail-modal-close" bindtap="closeDetailModal">
+          <text class="close-icon">×</text>
+        </view>
+      </view>
+      
+      <scroll-view class="detail-modal-body" scroll-y="true" wx:if="{{!detailLoading && declarationDetail}}">
+        <!-- 基本信息 -->
+        <view class="detail-section">
+          <view class="detail-section-title">基本信息</view>
+          <view class="detail-info-item">
+            <text class="detail-info-label">申报编号：</text>
+            <text class="detail-info-value">{{declarationDetail.declaration_no}}</text>
+          </view>
+          <view class="detail-info-item">
+            <text class="detail-info-label">纳税人：</text>
+            <text class="detail-info-value">{{declarationDetail.taxpayer_name}}</text>
+          </view>
+          <view class="detail-info-item">
+            <text class="detail-info-label">身份证号：</text>
+            <text class="detail-info-value">{{declarationDetail.taxpayer_id_card}}</text>
+          </view>
+          <view class="detail-info-item">
+            <text class="detail-info-label">手机号：</text>
+            <text class="detail-info-value">{{declarationDetail.taxpayer_phone}}</text>
+          </view>
+          <view class="detail-info-item">
+            <text class="detail-info-label">税种类型：</text>
+            <text class="detail-info-value">{{declarationDetail.taxTypeText}}</text>
+          </view>
+          <view class="detail-info-item">
+            <text class="detail-info-label">税期：</text>
+            <text class="detail-info-value">{{declarationDetail.tax_period}}</text>
+          </view>
+        </view>
+
+        <!-- 收入信息 -->
+        <view class="detail-section" wx:if="{{declarationDetail.incomeInfoList && declarationDetail.incomeInfoList.length > 0}}">
+          <view class="detail-section-title">收入信息</view>
+          <view class="detail-info-item" wx:for="{{declarationDetail.incomeInfoList}}" wx:key="label">
+            <text class="detail-info-label">{{item.label}}：</text>
+            <text class="detail-info-value amount">¥{{item.value}}</text>
+          </view>
+        </view>
+
+        <!-- 扣除信息 -->
+        <view class="detail-section" wx:if="{{declarationDetail.deductionInfoList && declarationDetail.deductionInfoList.length > 0}}">
+          <view class="detail-section-title">扣除信息</view>
+          <view class="detail-info-item" wx:for="{{declarationDetail.deductionInfoList}}" wx:key="label">
+            <text class="detail-info-label">{{item.label}}：</text>
+            <text class="detail-info-value amount">¥{{item.value}}</text>
+          </view>
+        </view>
+
+        <!-- 计算结果 -->
+        <view class="detail-section">
+          <view class="detail-section-title">计算结果</view>
+          <view class="detail-info-item">
+            <text class="detail-info-label">总收入：</text>
+            <text class="detail-info-value amount">¥{{declarationDetail.formattedTotalIncome}}</text>
+          </view>
+          <view class="detail-info-item">
+            <text class="detail-info-label">总扣除：</text>
+            <text class="detail-info-value amount">¥{{declarationDetail.formattedTotalDeduction}}</text>
+          </view>
+          <view class="detail-info-item">
+            <text class="detail-info-label">应纳税所得额：</text>
+            <text class="detail-info-value amount">¥{{declarationDetail.formattedTaxableIncome}}</text>
+          </view>
+          <view class="detail-info-item">
+            <text class="detail-info-label">税额：</text>
+            <text class="detail-info-value amount tax">¥{{declarationDetail.formattedTaxAmount}}</text>
+          </view>
+        </view>
+
+        <!-- 处理信息 -->
+        <view class="detail-section">
+          <view class="detail-section-title">处理信息</view>
+          <view class="detail-info-item">
+            <text class="detail-info-label">状态：</text>
+            <text class="status-tag {{declarationDetail.statusClass}}">{{declarationDetail.statusText}}</text>
+          </view>
+          <view class="detail-info-item" wx:if="{{declarationDetail.process_result}}">
+            <text class="detail-info-label">处理结果：</text>
+            <text class="detail-info-value">{{declarationDetail.process_result}}</text>
+          </view>
+          <view class="detail-info-item" wx:if="{{declarationDetail.declaration_serial_no}}">
+            <text class="detail-info-label">申报流水号：</text>
+            <text class="detail-info-value">{{declarationDetail.declaration_serial_no}}</text>
+          </view>
+          <view class="detail-info-item" wx:if="{{declarationDetail.declaration_date}}">
+            <text class="detail-info-label">申报日期：</text>
+            <text class="detail-info-value">{{declarationDetail.formattedDeclarationDate}}</text>
+          </view>
+          <view class="detail-info-item" wx:if="{{declarationDetail.processed_at}}">
+            <text class="detail-info-label">处理时间：</text>
+            <text class="detail-info-value">{{declarationDetail.formattedProcessedAt}}</text>
+          </view>
+          <view class="detail-info-item" wx:if="{{declarationDetail.process_notes}}">
+            <text class="detail-info-label">处理备注：</text>
+            <text class="detail-info-value">{{declarationDetail.process_notes}}</text>
+          </view>
+        </view>
+
+        <!-- 用户备注 -->
+        <view class="detail-section" wx:if="{{declarationDetail.user_remarks}}">
+          <view class="detail-section-title">用户备注</view>
+          <view class="detail-info-item">
+            <text class="detail-info-value">{{declarationDetail.user_remarks}}</text>
+          </view>
+        </view>
+      </scroll-view>
+
+      <!-- 加载中 -->
+      <view class="detail-loading" wx:if="{{detailLoading}}">
+        <text class="loading-text">加载中...</text>
+      </view>
+    </view>
+  </view>
+</view>

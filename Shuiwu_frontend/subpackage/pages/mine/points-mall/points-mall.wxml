@@ -1,0 +1,44 @@
+<!-- 积分商城页面 -->
+<view class="page">
+  <!-- 用户积分余额 -->
+  <view class="points-balance-card">
+    <view class="balance-info">
+      <text class="balance-label">当前积分</text>
+      <text class="balance-value">{{userPoints}}</text>
+    </view>
+    <view class="points-detail-btn" bindtap="onPointsDetailTap">积分明细</view>
+    <view class="balance-tip">快去兑换心仪的商品吧～</view>
+  </view>
+
+  <!-- 商品列表 -->
+  <view class="products-container">
+    <view class="products-grid">
+      <view
+        class="product-card"
+        wx:for="{{products}}"
+        wx:key="id"
+        bindtap="onProductClick"
+        data-product="{{item}}"
+      >
+        <view class="product-image-wrapper">
+          <image class="product-image" src="{{item.image}}" mode="aspectFill"></image>
+          <view class="product-badge" wx:if="{{item.badge}}">{{item.badge}}</view>
+        </view>
+        <view class="product-info">
+          <text class="product-name">{{item.name}}</text>
+          <view class="product-footer">
+            <view class="product-points">
+              <text class="points-icon">🪙</text>
+              <text class="points-value">{{item.points}}</text>
+            </view>
+            <text class="exchange-btn">兑换</text>
+          </view>
+          <view class="product-stock">
+            <text class="stock-label">库存：</text>
+            <text class="stock-value {{item.stock <= 0 ? 'stock-empty' : ''}}">{{item.stock}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

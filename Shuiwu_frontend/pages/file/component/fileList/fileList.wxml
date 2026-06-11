@@ -1,0 +1,29 @@
+<!--pages/file/component/fileList/fileList.wxml-->
+<view class="file-list">
+  <!-- 有文件列表 -->
+  <view wx:if="{{filteredFileList && filteredFileList.length > 0}}">
+    <view class="file-item-wrapper" wx:for="{{filteredFileList}}" wx:key="id">
+      <view class="file-card" 
+            style="transform: translateX({{item.translateX || 0}}rpx);"
+            bindtouchstart="onTouchStart"
+            bindtouchmove="onTouchMove"
+            bindtouchend="onTouchEnd"
+            bindtap="onFileTap"
+            data-index="{{index}}"
+            data-id="{{item.id}}">
+        <image class="file-icon" 
+               src="{{ossUrl}}/images/filetype/FileType{{item.type === 'DOCX' ? '1' : (item.type === 'PDF' ? '2' : '3')}}.png" 
+               mode="aspectFit"></image>
+        <view class="file-info">
+          <text class="file-name">{{item.name}}</text>
+          <view class="file-meta">
+            <text class="file-size">{{item.size}}</text>
+          </view>
+          <text class="file-time">{{item.time}}</text>
+        </view>
+        <text class="file-type file-type-{{item.type === 'PDF' ? 'pdf' : (item.type === 'DOCX' ? 'docx' : 'other')}}">{{item.type}}</text>
+      </view>
+      <view class="delete-btn" wx:if="{{allowSwipeDelete}}" bindtap="onDeleteFile" data-id="{{item.id}}">删除</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,141 @@
+<!-- corporateHealth.wxml — 企业全景报告页面模板
+     功能：展示报告生成表单，用户只需输入企业名称
+     税号查询由后端自动完成，前端无需展示税号输入框
+-->
+<view class="page">
+  <view class="ai-notice">内容由AI生成，仅供参考</view>
+
+  <view class="card">
+    <view class="section-title">生成全景报告</view>
+
+    <view class="form-row">
+      <text class="form-label">企业名称 <text class="form-label-optional">(必填)</text></text>
+      <t-input
+        class="form-input"
+        placeholder="请输入企业名称"
+        value="{{taxpayerName}}"
+        bindchange="onTaxpayerNameInput"
+        clearable
+      />
+    </view>
+
+    <view class="info-tip" style="font-size: 24rpx; color: #999; margin-bottom: 24rpx;">
+      系统将自动查询税号，请确保企业名称准确
+    </view>
+
+    <t-button
+      size="large"
+      theme="primary"
+      block
+      loading="{{generating}}"
+      disabled="{{generating || !taxpayerName}}"
+      bindtap="onGenerateReport"
+    >
+      生成全景报告
+    </t-button>
+
+    <view class="status-line">
+      <text class="status-label">当前状态：</text>
+      <text class="status-pill status-pill--{{currentStatus || 'idle'}}">{{currentStatusText}}</text>
+      <text class="link-btn {{currentRecordId ? '' : 'link-btn--disabled'}}" bindtap="onRefreshStatus">刷新状态</text>
+    </view>
+  </view>
+
+  <view class="card" wx:if="{{currentStatusInfo}}">
+    <view class="section-head">
+      <text class="section-title">当前报告</text>
+      <text class="section-subtitle">{{currentStatusInfo.taxpayer_name || taxpayerName || '--'}}</text>
+    </view>
+
+    <view class="kv-grid" wx:if="{{currentStatusInfo}}">
+      <view class="kv-item">
+        <text class="kv-label">记录ID</text>
+        <text class="kv-value">{{currentStatusInfo.id || '--'}}</text>
+      </view>
+      <view class="kv-item">
+        <text class="kv-label">报告ID</text>
+        <text class="kv-value">{{currentStatusInfo.report_id || currentReportId || '--'}}</text>
+      </view>
+      <view class="kv-item">
+        <text class="kv-label">状态</text>
+        <text class="kv-value">{{currentStatusText}}</text>
+      </view>
+      <view class="kv-item">
+        <text class="kv-label">创建时间</text>
+        <text class="kv-value">{{currentStatusInfo.created_at || '--'}}</text>
+      </view>
+      <view class="kv-item">
+        <text class="kv-label">完成时间</text>
+        <text class="kv-value">{{currentStatusInfo.completed_at || '--'}}</text>
+      </view>
+      <view class="kv-item">
+        <text class="kv-label">是否有数据</text>
+        <text class="kv-value">{{currentStatusInfo.has_data ? '是' : '否'}}</text>
+      </view>
+    </view>
+
+    <view class="action-row">
+      <t-button size="small" theme="default" variant="outline" bindtap="onOpenReportUrl" disabled="{{!reportUrl}}">
+        预览报告
+      </t-button>
+      <t-button size="small" theme="default" variant="outline" bindtap="onCopyReportUrl" disabled="{{!reportUrl}}">
+        复制链接
+      </t-button>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-head">
+      <text class="section-title">历史报告</text>
+      <text class="link-btn" bindtap="onRefreshList">刷新列表</text>
+    </view>
+
+    <view class="filter-row">
+      <view
+        wx:for="{{statusTabs}}"
+        wx:key="value"
+        class="filter-chip {{statusFilter === item.value ? 'filter-chip--active' : ''}}"
+        data-status="{{item.value}}"
+        bindtap="onStatusFilterTap"
+      >
+        {{item.label}}
+      </view>
+    </view>
+
+    <view class="loading-tip" wx:if="{{listLoading}}">列表加载中...</view>
+
+    <view class="list-wrap" wx:if="{{!listLoading && reports.length}}">
+      <view
+        class="report-item"
+        wx:for="{{reports}}"
+        wx:key="id"
+        data-record-id="{{item.id}}"
+        data-report-id="{{item.report_id}}"
+        data-status="{{item.status}}"
+        bindtap="onSelectReport"
+      >
+        <view class="item-head">
+          <text class="item-name">{{item.taxpayer_name || '--'}}</text>
+          <text class="item-status item-status--{{item.statusClass}}">{{item.statusText}}</text>
+        </view>
+        <text class="item-line">税号：{{item.taxpayer_no || '--'}}</text>
+        <text class="item-line">报告ID：{{item.report_id || '--'}}</text>
+        <text class="item-line">创建时间：{{item.created_at || '--'}}</text>
+      </view>
+    </view>
+
+    <view class="empty-tip" wx:if="{{!listLoading && !reports.length}}">暂无报告记录</view>
+
+    <t-button
+      wx:if="{{hasMore && !listLoading}}"
+      size="small"
+      theme="primary"
+      variant="outline"
+      block
+      loading="{{loadingMore}}"
+      bindtap="onLoadMore"
+    >
+      加载更多
+    </t-button>
+  </view>
+</view>
